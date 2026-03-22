@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    /* Streamlit 대시보드 테마: Inter 폰트, #FFF9F7 배경, 860px 컨테이너 */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #FFF9F7;
+    width: 780px;
+    padding: 16px 20px 20px;
+    color: #484848;
+  }
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* 헤더 — Streamlit 원본과 동일 */
+  .result-header {
+    text-align: center;
+    padding: 28px 0 8px;
+  }
+  .result-header .icon { font-size: 30px; margin-bottom: 10px; }
+  .result-header h2 {
+    color: #FF5A5F;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    margin: 0 0 6px;
+  }
+  .result-header .sub {
+    font-size: 13px;
+    color: #9CA3AF;
+    font-weight: 400;
+  }
+
+  /* 탭 바 */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #EBEBEB;
+    margin: 16px 0 20px;
+    gap: 0;
+  }
+  .tab {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #9CA3AF;
+    position: relative;
+    cursor: pointer;
+  }
+  .tab.active {
+    color: #222;
+    font-weight: 600;
+  }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #FF5A5F;
+  }
+
+  /* 구분선 — Streamlit 원본과 동일 */
+  hr.divider {
+    border: none;
+    border-top: 1px solid #EBEBEB;
+    margin: 20px 0;
+  }
+
+  /* 사분면 + 헬스 스코어 2열 */
+  .quad-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .quad-chart {
+    flex: 1.1;
+  }
+  .quad-chart-inner {
+    background: #FAFAFA;
+    border-radius: 12px;
+    padding: 12px;
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .q-zone {
+    position: absolute;
+    width: 46%;
+    height: 46%;
+  }
+  .q-zone.tl { top: 4%; left: 4%; background: rgba(255,180,0,0.06); border-radius: 8px; }
+  .q-zone.tr { top: 4%; right: 4%; background: rgba(46,125,50,0.06); border-radius: 8px; }
+  .q-zone.bl { bottom: 4%; left: 4%; background: rgba(198,40,40,0.06); border-radius: 8px; }
+  .q-zone.br { bottom: 4%; right: 4%; background: rgba(255,140,0,0.06); border-radius: 8px; }
+  .q-cross-h {
+    position: absolute; top: 50%; left: 8%; right: 8%;
+    height: 1px; background: #CCC; border: none;
+  }
+  .q-cross-v {
+    position: absolute; left: 50%; top: 8%; bottom: 8%;
+    width: 1px; background: #CCC;
+  }
+  .q-label { position: absolute; font-size: 9px; color: #AAA; }
+  .q-label.tl-l { top: 22%; left: 14%; }
+  .q-label.tr-l { top: 22%; right: 10%; }
+  .q-label.bl-l { bottom: 22%; left: 16%; }
+  .q-label.br-l { bottom: 22%; right: 10%; }
+  .q-dots {
+    position: absolute; top: 55%; left: 55%;
+    width: 50px; height: 40px;
+  }
+  .q-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #D1D5DB;
+    opacity: 0.4;
+  }
+  .q-star {
+    position: absolute;
+    top: 25%; right: 30%;
+    font-size: 22px;
+    color: #FF5A5F;
+    filter: drop-shadow(0 1px 3px rgba(255,90,95,0.4));
+  }
+  .q-star-label {
+    position: absolute;
+    top: 18%; right: 12%;
+    font-size: 9px; font-weight: bold; color: #FF5A5F;
+  }
+  .q-axis-label {
+    position: absolute;
+    font-size: 9px;
+    color: #AAA;
+  }
+  .q-axis-x { bottom: 2%; left: 50%; transform: translateX(-50%); }
+  .q-axis-y { top: 50%; left: 1%; transform: rotate(-90deg) translateX(-50%); transform-origin: left; }
+
+  .quad-info { flex: 0.9; }
+  .quad-position {
+    background: rgba(46,125,50,0.06);
+    border: 2px solid #2E7D32;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .quad-position h4 {
+    font-size: 22px; font-weight: 800; color: #2E7D32;
+  }
+  .quad-position .desc {
+    font-size: 12px; color: #484848; margin-top: 6px;
+  }
+  .health-card {
+    background: rgba(46,125,50,0.06);
+    border: 2px solid #2E7D32;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .health-card .label { font-size: 13px; color: #767676; margin-bottom: 4px; }
+  .health-card .score { font-size: 42px; font-weight: 800; color: #2E7D32; }
+  .health-card .grade { font-size: 12px; color: #767676; }
+
+  /* KPI 카드 — Streamlit 원본 동일 */
+  .kpi-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kpi-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .kpi-card.accent { border: 2px solid #FF5A5F; }
+  .kpi-card .label { font-size: 12px; color: #888; margin-bottom: 6px; }
+  .kpi-card .value { font-size: 24px; font-weight: 800; color: #FF5A5F; }
+  .kpi-card .sub { font-size: 12px; margin-top: 4px; }
+  .kpi-card .sub.up { color: #2E7D32; }
+  .kpi-card .sub.down { color: #C62828; }
+
+  /* ML 진단 — Streamlit 원본 동일 */
+  .ml-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #484848;
+    margin-bottom: 12px;
+  }
+  .ml-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .ml-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .ml-card .label { font-size: 12px; color: #888; }
+  .ml-card .value { font-size: 22px; font-weight: 700; color: #484848; margin: 4px 0 2px; }
+  .ml-card .gap { font-size: 11px; }
+  .ml-card .gap.up { color: #C62828; }
+  .ml-card .gap.down { color: #2E7D32; }
+  .ml-card .gap.neutral { color: #767676; }
+
+  .insight-banner {
+    background: #FFF8E1;
+    border-left: 4px solid #FFB400;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 10px;
+  }
+  .insight-banner .text { font-size: 13px; color: #484848; }
+  .insight-banner .model-info { font-size: 11px; color: #AAAAAA; margin-top: 6px; }
+
+  /* 체크리스트 — Streamlit 원본 동일 */
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+  .section-label.warn { color: #C62828; }
+  .section-label.ok { color: #2E7D32; margin-top: 12px; }
+
+  .check-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .check-card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 4px solid;
+    margin-bottom: 0;
+  }
+  .check-card.todo { background: #FFF0EF; border-color: #FF5A5F; }
+  .check-card.quick { background: #FFFCF0; border-color: #FFB400; }
+  .check-card.done { background: #F0FAF4; border-color: #66BB6A; }
+  .check-card .c-title { font-size: 14px; font-weight: 700; }
+  .check-card.todo .c-title { color: #C62828; }
+  .check-card.quick .c-title { color: #B45309; }
+  .check-card.done .c-title { color: #2E7D32; }
+  .check-card .c-desc { font-size: 12px; color: #555; margin-top: 5px; line-height: 1.55; }
+  .check-card .c-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .check-card.todo .c-badge { background: #FFEBEE; color: #C62828; }
+  .check-card.quick .c-badge { background: #FFF8E1; color: #B45309; }
+  .check-card.done .c-badge { background: #E8F5E9; color: #2E7D32; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 헤더 -->
+  <div class="result-header">
+    <div class="icon">🏠</div>
+    <h2>분석 결과</h2>
+    <p class="sub">마포구 · entire home · 실운영 숙소 1,919개 기준</p>
+  </div>
+
+  <!-- 탭 바 -->
+  <div class="tabs">
+    <div class="tab active">📊 핵심 요약</div>
+    <div class="tab">🎯 지금 당장</div>
+    <div class="tab">📈 상세 분석</div>
+  </div>
+
+  <!-- 사분면 차트 + 헬스 스코어 -->
+  <div class="quad-row">
+    <div class="quad-chart">
+      <div class="quad-chart-inner">
+        <div class="q-zone tl"></div>
+        <div class="q-zone tr"></div>
+        <div class="q-zone bl"></div>
+        <div class="q-zone br"></div>
+        <div class="q-cross-h"></div>
+        <div class="q-cross-v"></div>
+        <div class="q-label tl-l">물량형</div>
+        <div class="q-label tr-l">고수익형</div>
+        <div class="q-label bl-l">침체형</div>
+        <div class="q-label br-l">고가위험형</div>
+        <!-- 산점도 시뮬레이션 -->
+        <div class="q-dot" style="top:60%;left:30%"></div>
+        <div class="q-dot" style="top:45%;left:55%"></div>
+        <div class="q-dot" style="top:70%;left:65%"></div>
+        <div class="q-dot" style="top:35%;left:40%"></div>
+        <div class="q-dot" style="top:55%;left:70%"></div>
+        <div class="q-dot" style="top:40%;left:25%"></div>
+        <div class="q-dot" style="top:65%;left:45%"></div>
+        <div class="q-dot" style="top:30%;left:60%"></div>
+        <div class="q-dot" style="top:50%;left:35%"></div>
+        <div class="q-dot" style="top:75%;left:50%"></div>
+        <div class="q-star">★</div>
+        <div class="q-star-label">내 숙소</div>
+        <div class="q-axis-label q-axis-x">ADR 분위 (%)</div>
+      </div>
+    </div>
+    <div class="quad-info">
+      <div class="quad-position">
+        <h4>고수익형</h4>
+        <div class="desc">ADR·예약률 모두 상위 — 현재 전략 유지</div>
+      </div>
+      <div class="health-card">
+        <div class="label">헬스 스코어</div>
+        <div class="score">78</div>
+        <div class="grade">/ 100 &nbsp; 등급 <b style="color:#2E7D32">B</b></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- KPI 3개 카드 -->
+  <div class="kpi-row">
+    <div class="kpi-card accent">
+      <div class="label">내 하루 평균 실수익</div>
+      <div class="value">₩84,910</div>
+      <div class="sub up">▲ 지역 평균 대비 +₩12,060</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">월 예상 순이익</div>
+      <div class="value" style="color:#2E7D32">₩1,930,886</div>
+      <div class="sub up">흑자 ✅</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">본전 요금</div>
+      <div class="value" style="color:#484848">₩30,927</div>
+      <div class="sub up">현재 요금 위 ✅</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ML 시장 진단 -->
+  <div class="ml-title">🤖 ML 시장 진단</div>
+  <div class="ml-row">
+    <div class="ml-card">
+      <div class="label">시장 적정 ADR</div>
+      <div class="value">₩141,517</div>
+      <div class="gap down">▼ 시장 적정보다 ₩6,517 낮음</div>
+    </div>
+    <div class="ml-card">
+      <div class="label">ML 예측 예약률</div>
+      <div class="value">60%</div>
+      <div class="gap up">▲ 적정보다 5% 낮음</div>
+    </div>
+    <div class="ml-card">
+      <div class="label">ML 예측 RevPAR</div>
+      <div class="value">₩84,910</div>
+      <div class="gap neutral">─ 시장 적정 수준</div>
+    </div>
+  </div>
+  <div class="insight-banner">
+    <div class="text">💡 현재 요금이 시장 적정 구간 안에 있습니다.</div>
+    <div class="model-info">Model A (LightGBM ADR) · Model B (LightGBM Occ) · Isotonic RevPAR 보정</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 운영 체크리스트 미리보기 -->
+  <div class="section-label warn">📌 개선이 필요한 항목</div>
+  <div class="check-row">
+    <div class="check-card todo">
+      <div class="c-title">🔴 슈퍼호스트 미달성</div>
+      <div class="c-desc">달성 시 하루 수익 ₩84,910 → ₩155,560 잠재</div>
+      <div class="c-badge">⚠ 개선 필요</div>
+    </div>
+    <div class="check-card quick">
+      <div class="c-title">🟡 즉시예약 꺼짐</div>
+      <div class="c-desc">설정 1분, 비용 없음 → 예약률 +5~10% 기대</div>
+      <div class="c-badge">💡 빠른 수정</div>
+    </div>
+  </div>
+  <div class="section-label ok">✅ 이미 잘 하고 있는 것들</div>
+  <div class="check-row">
+    <div class="check-card done">
+      <div class="c-title">✅ 사진 25장 (최적)</div>
+      <div class="c-desc">최적 20~35장 구간 유지 중</div>
+      <div class="c-badge">✓ 최적</div>
+    </div>
+    <div class="check-card done">
+      <div class="c-title">✅ 평점 4.8</div>
+      <div class="c-desc">슈퍼호스트 기준 충족 + 검색 상위 노출</div>
+      <div class="c-badge">✓ 최적</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

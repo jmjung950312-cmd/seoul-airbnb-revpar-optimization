@@ -6,15 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 서울 에어비앤비 RevPAR 최적화 분석 프로젝트. 32,061개 리스팅, 42개 컬럼, 데이터 기간 2024-10-01 ~ 2025-09-30 (TTM 12개월).
 
-**분석 목적**: 두 관점에서 RevPAR 최적화 포인트 탐색
+**분석 목적**: 호스트 관점에서 RevPAR 최적화 포인트 탐색
 - **호스트 관점**: 물건 단위에서 호스트가 통제 가능한 변수 → RevPAR 영향 분석
-- **플랫폼 관점**: 자치구 단위 RevPAR 패턴, 군집 분류 기반 시장 포지셔닝
+- **자치구 보조 분석**: 자치구 단위 RevPAR 패턴, 군집 분류 기반 시장 포지셔닝 (호스트 분석 보완)
 
 ## Quick Start
 
 ```bash
 jupyter lab          # 분석 노트북 실행
-streamlit run app.py # RevPAR 대시보드 실행
+streamlit run dashboard/app.py # RevPAR 대시보드 실행
 ```
 
 ## Data Files
@@ -41,9 +41,9 @@ data/processed/
 | 01 | `notebooks/01_host_eda.ipynb` | 호스트 관점 EDA — H1~H5 가설 검증 |
 | 02 | `notebooks/02_host_preprocessing.ipynb` | Active+Operating 서브셋 전처리 및 train/test 분할 |
 | 03 | `notebooks/03_host_modeling.ipynb` | LightGBM + RF + Ridge 5-Fold CV, SHAP 분석 *(스킵)* |
-| 04 | `notebooks/04_platform_eda.ipynb` | 플랫폼 관점 EDA |
-| 05 | `notebooks/05_platform_clustering.ipynb` | 자치구 K-Means(k=4) 군집 분류 |
-| 06 | `notebooks/06_platform_insights.ipynb` | 플랫폼 인사이트 도출 |
+| 04 | `notebooks/04_platform_eda.ipynb` | 자치구별 RevPAR EDA |
+| 05 | `notebooks/05_platform_clustering.ipynb` | 자치구 K-Means(k=4) 군집 모델링 |
+| 06 | `notebooks/06_platform_insights.ipynb` | 자치구 전략 인사이트 도출 |
 
 `pre_notebook/` 폴더의 `_final.ipynb`에서 전처리가 이미 완료되었음 — 재실행 불필요.
 
@@ -89,13 +89,14 @@ y_pred_original = np.expm1(y_pred_log)
 |------|----------|------|
 | `revpar_vs_district_median` | CRITICAL | ttm_revpar 직접 파생 |
 | `revpar_trend` | HIGH | ttm_revpar 구성요소 포함 |
+| `review_rate` | HIGH | num_reviews / review_rate ≈ ttm_occupancy × 365 (R²=1.0) |
 | `price_efficiency` | MEDIUM | ttm_avg_rate / ttm_occupancy |
 | `ttm_occupancy`, `ttm_avg_rate`, `ttm_revenue` | 제외 | RevPAR 직접 구성요소 |
 | `l90d_revpar`, `l90d_occupancy`, `l90d_avg_rate`, `l90d_revenue` | 제외 | 타겟 관련 기간별 파생 |
 | `revpar_percentile`, `log_ttm_revpar` | 제외 | 타겟 직접 변환 |
 
-**모델 입력 피처 (호스트 관점)**:
-`room_type`, `superhost`, `instant_book`, `bedrooms_group`, `baths_group`, `guests_group`, `min_nights`, `extra_guest_fee_policy`, `rating_overall`, `photos_count`, `num_reviews`, `nearest_poi_dist_km`, `nearest_poi_type_name`, `photos_tier`, `review_rate`, `poi_dist_category`
+**모델 입력 피처**:
+`room_type`, `superhost`, `instant_book`, `bedrooms_group`, `baths_group`, `guests_group`, `min_nights`, `extra_guest_fee_policy`, `rating_overall`, `photos_count`, `num_reviews`, `nearest_poi_dist_km`, `nearest_poi_type_name`, `photos_tier`, `poi_dist_category`
 
 ### Modeling Standards
 
@@ -105,7 +106,7 @@ RANDOM_SEED = 42
 train_test_split(..., test_size=0.2, random_state=42)
 KFold(n_splits=5, shuffle=True, random_state=42)
 
-# 모델 구성 (호스트 관점)
+# 모델 구성
 models = [LightGBM, RandomForest, Ridge, DummyRegressor(strategy='median')]
 
 # 평가 지표
@@ -115,7 +116,7 @@ secondary = [MAE, RMSE, MAPE]
 # 예측값 범위 검증
 assert (y_pred >= 0).all() and (y_pred <= 2_000_000).all()
 
-# 플랫폼 관점 (자치구 단위, n=25 소표본)
+# 자치구 단위 모델링 (n=25 소표본)
 Ridge + LeaveOneOut CV
 ```
 

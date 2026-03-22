@@ -1,0 +1,748 @@
+{
+  "meta": {
+    "total_slides": 30,
+    "duration_min": 27,
+    "design_system": "design_system.json",
+    "terminology": {
+      "RevPAR": "객실당 수익",
+      "ADR": "1박 평균 요금",
+      "Occupancy Rate": "점유율",
+      "SHAP": "AI 영향력 분석",
+      "K-Means": "자동 그룹 분류",
+      "Dual Model": "이중 예측 모델",
+      "Isotonic Regression": "보정 단계",
+      "STL 잔차": "계절 패턴 이탈",
+      "LightGBM": "머신러닝 모델",
+      "Random Forest": "랜덤 포레스트",
+      "Ridge": "선형 모델",
+      "Dormant": "비활성 숙소",
+      "Superhost": "슈퍼호스트"
+    }
+  },
+
+  "slides": [
+    {
+      "id": 1,
+      "type": "cover",
+      "bg": "dark",
+      "title": "서울 에어비앤비\n객실당 수익 최적화",
+      "subtitle": "AI 기반 호스트 수익 극대화 전략",
+      "footer": "4조 · 2026.03 · 데이터분석 부트캠프",
+      "elements": [
+        {"type": "text", "content": "서울 에어비앤비\n객실당 수익 최적화", "style": "cover_title", "position": "center", "y_inch": 2.5},
+        {"type": "text", "content": "AI 기반 호스트 수익 극대화 전략", "style": "cover_subtitle", "position": "center", "y_inch": 3.8},
+        {"type": "text", "content": "4조 · 2026.03 · 데이터분석 부트캠프", "style": "caption", "position": "center_bottom", "y_inch": 6.2, "color": "#767676"},
+        {"type": "shape", "shape": "accent_bar", "position": "bottom"}
+      ],
+      "speaker_notes": "안녕하세요, 서울 에어비앤비 객실당 수익 최적화 프로젝트를 발표하겠습니다. 에어비앤비 호스트의 수익을 데이터로 설계하는 방법을 보여드리겠습니다.",
+      "duration_min": 0.5
+    },
+
+    {
+      "id": 2,
+      "type": "content",
+      "bg": "light",
+      "title": "목차",
+      "elements": [
+        {"type": "step_cards", "count": 6, "layout": "horizontal",
+         "items": [
+           {"number": "01", "label": "문제정의", "highlight": false},
+           {"number": "02", "label": "데이터·전처리", "highlight": false},
+           {"number": "03", "label": "탐색적 분석", "highlight": false},
+           {"number": "04", "label": "통계검증", "highlight": false},
+           {"number": "05", "label": "모델링", "highlight": false},
+           {"number": "06", "label": "대시보드·자동화", "highlight": true, "tag": "★ 핵심 차별점"}
+         ]
+        }
+      ],
+      "speaker_notes": "전체 6개 파트로 구성되어 있습니다. 특히 마지막 '대시보드·자동화' 파트가 이 프로젝트의 핵심 차별점입니다.",
+      "duration_min": 0.5
+    },
+
+    {
+      "id": 3,
+      "type": "divider",
+      "bg": "dark",
+      "section_number": "01",
+      "title": "문제정의",
+      "subtitle": "Why · What · How · Result",
+      "speaker_notes": "",
+      "duration_min": 0
+    },
+
+    {
+      "id": 4,
+      "type": "content",
+      "bg": "light",
+      "title": "WHY — 서울 에어비앤비 시장 현황",
+      "elements": [
+        {"type": "kpi_cards", "layout": "horizontal_3",
+         "items": [
+           {"number": "32,061", "unit": "개", "label": "전체 숙소 수\n서울 25개 자치구", "color": "accent"},
+           {"number": "54.3", "unit": "%", "label": "비활성 숙소 비율\n시장의 절반이 멈춰 있다", "color": "danger"},
+           {"number": "₩8,868", "unit": "", "label": "객실당 월 수익 중위값\n월 1만원도 안 되는 수익", "color": "accent"}
+         ]
+        },
+        {"type": "accent_box", "content": "호스트는 가격을 낮추면 수익이 줄고, 올리면 예약이 줄어드는 딜레마에 빠져 있다", "position": "bottom"}
+      ],
+      "speaker_notes": "서울에 등록된 에어비앤비 숙소는 3만 2천개입니다. 그런데 절반 이상인 54%가 사실상 운영을 포기한 상태입니다. 운영 중인 숙소도 월 수익 중위값이 9천원도 안 됩니다. 호스트들은 가격을 내리면 수익이 줄고, 올리면 예약이 안 잡히는 딜레마에 빠져 있습니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 5,
+      "type": "content",
+      "bg": "light",
+      "title": "WHAT — 수익의 두 가지 레버",
+      "elements": [
+        {"type": "formula_diagram",
+         "formula": "객실당 수익(RevPAR) = 1박 평균 요금 × 점유율",
+         "colors": {"revpar": "#FF5A5F", "adr": "#767676", "occupancy": "#00A699"},
+         "position": "top"
+        },
+        {"type": "lever_cards",
+         "items": [
+           {"label": "객실 요금 (ADR)", "desc": "호스트가 직접 설정하는 가격", "question": "가격을 낮추면 예약이 늘까?", "color": "#767676"},
+           {"label": "예약률 (Occupancy)", "desc": "리뷰, 사진, 즉시예약 등 운영 변수가 결정", "question": "예약률을 올리려면 무엇을 바꿔야 하나?", "color": "#00A699"}
+         ]
+        },
+        {"type": "bottom_message", "content": "이 프로젝트는 두 레버의 균형점을 찾아, 호스트가 직접 바꿀 수 있는 변수로 RevPAR을 최적화하는 방법을 데이터로 검증합니다"}
+      ],
+      "speaker_notes": "RevPAR은 객실 요금과 점유율, 두 가지 레버의 곱입니다. 요금은 호스트가 직접 설정하지만, 점유율은 리뷰·사진·정책 같은 운영 변수가 결정합니다. 이 프로젝트는 두 레버 중 어디에 집중해야 하는지를 데이터로 검증합니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 6,
+      "type": "content",
+      "bg": "light",
+      "title": "HOW — 분석 프레임워크 6단계",
+      "elements": [
+        {"type": "flow_horizontal", "steps": [
+          {"number": "1", "label": "데이터\n수집", "icon": "database"},
+          {"number": "2", "label": "전처리", "icon": "filter"},
+          {"number": "3", "label": "탐색적\n분석", "icon": "chart"},
+          {"number": "4", "label": "모델링", "icon": "model"},
+          {"number": "5", "label": "대시보드", "icon": "dashboard"},
+          {"number": "6", "label": "자동화", "icon": "automation"}
+        ]},
+        {"type": "accent_box", "content": "3~4단계는 AI가 자동 수행 (18개 AI 에이전트, 표준 절차 기반) → 분석 재현성 100%", "position": "bottom"}
+      ],
+      "speaker_notes": "전체 파이프라인은 6단계입니다. 특히 탐색적 분석부터 모델링까지는 18개 AI 에이전트가 자동으로 수행했습니다. 이 부분은 뒤에서 자세히 설명드리겠습니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 7,
+      "type": "content",
+      "bg": "light",
+      "title": "RESULT — 문제 정의 & 기대 결과물",
+      "elements": [
+        {"type": "accent_box",
+         "content": "호스트가 직접 바꿀 수 있는 변수만으로\n객실당 수익을 극대화하는 데이터 기반 의사결정 체계를 구축한다",
+         "style": "large", "position": "top"
+        },
+        {"type": "result_cards", "layout": "horizontal_4",
+         "items": [
+           {"icon": "📊", "title": "분석 리포트", "desc": "9개 가설 검증\nAI 영향력 분석"},
+           {"icon": "🖥️", "title": "대시보드", "desc": "수익 예측 +\n최적화 가이드"},
+           {"icon": "📧", "title": "자동 알림", "desc": "이메일 알림 +\n위험 감지"},
+           {"icon": "🤖", "title": "AI 시스템", "desc": "AI 에이전트\n분석 자동화"}
+         ]
+        }
+      ],
+      "speaker_notes": "우리의 목표는 분석에서 끝나지 않고, 대시보드와 자동화까지 이어지는 엔드투엔드 시스템입니다. 호스트가 직접 바꿀 수 있는 변수만으로 수익을 높이는 방법을 찾겠습니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 8,
+      "type": "divider",
+      "bg": "dark",
+      "section_number": "02",
+      "title": "데이터·전처리",
+      "subtitle": "",
+      "speaker_notes": "",
+      "duration_min": 0
+    },
+
+    {
+      "id": 9,
+      "type": "content",
+      "bg": "light",
+      "title": "데이터 소개 & 품질 이슈 대응",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "table",
+           "title": "데이터 개요",
+           "rows": [
+             ["항목", "값"],
+             ["원본 데이터", "32,061개 숙소 × 42개 항목"],
+             ["분석 기간", "2024.10 ~ 2025.09 (12개월)"],
+             ["운영 중 숙소", "14,399개 (Active+Operating)"],
+             ["외부 데이터", "관광지(POI), 환율, 인구 병합"]
+           ]
+         },
+         "right": {
+           "type": "issue_cards",
+           "title": "품질 문제 → 해결",
+           "items": [
+             {"icon": "🔧", "issue": "자치구 정보 누락", "solution": "좌표 기반 자동 매칭으로 보정"},
+             {"icon": "🔧", "issue": "비현실적 이상값", "solution": "최소숙박 730일↑, 요금 200만↑ 제거"},
+             {"icon": "🔧", "issue": "변하지 않는 항목", "solution": "환율 등 상수 컬럼 제외"}
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "원본 데이터는 3만 2천개 숙소의 42개 항목입니다. 자치구 정보가 빠진 숙소는 좌표를 이용해 자동으로 채웠고, 최소숙박 2년 이상 같은 비현실적 데이터는 제거했습니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 10,
+      "type": "content",
+      "bg": "light",
+      "title": "변수 설계 — 호스트가 바꿀 수 있는 것에 집중",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "feature_list",
+           "title": "핵심 파생 변수 6개",
+           "items": [
+             {"name": "수익 추세", "desc": "최근 90일 vs 연평균 비교 → 숙소가 성장 중인지 하락 중인지"},
+             {"name": "수익 정규화", "desc": "극단값 영향 줄이기 (편향도 3.76 → 정규분포화)"},
+             {"name": "사진 등급", "desc": "사진 수를 구간 분류 → 21~35장이 최적"},
+             {"name": "리뷰 전환율", "desc": "숙박 대비 리뷰 작성 비율"},
+             {"name": "관광지 거리", "desc": "가까운 관광지까지 거리 카테고리"},
+             {"name": "추가요금 여부", "desc": "추가 인원 요금 있음/없음 이진화"}
+           ]
+         },
+         "right": {
+           "type": "callout_list",
+           "title": "왜 이 변수를 만들었나?",
+           "items": [
+             "모든 변수는 '호스트가 직접 바꿀 수 있는가?'를 기준으로 설계",
+             "예: 사진 수를 구간으로 나눈 이유 → 21~35장에서 효과가 꺾이는 것을 발견",
+             "총 14개 파생 변수 생성"
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "14개 파생 변수를 만들었는데, 모두 '호스트가 직접 바꿀 수 있는가?'를 기준으로 설계했습니다. 예를 들어 사진 수를 구간으로 나눈 이유는, 사진이 21~35장일 때 수익이 가장 높고 그 이상은 효과가 줄어드는 걸 발견했기 때문입니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 11,
+      "type": "divider",
+      "bg": "dark",
+      "section_number": "03",
+      "title": "탐색적 분석",
+      "subtitle": "호스트 관점 가설 검증",
+      "speaker_notes": "",
+      "duration_min": 0
+    },
+
+    {
+      "id": 12,
+      "type": "content",
+      "bg": "light",
+      "title": "핵심 발견 Top 5",
+      "elements": [
+        {"type": "finding_cards", "layout": "grid_2x3",
+         "items": [
+           {"tag": "H1", "title": "슈퍼호스트 프리미엄", "finding": "검증 ✅", "number": "+83.1%", "desc": "슈퍼호스트는 일반 호스트보다 수익이 83% 더 높다"},
+           {"tag": "H3", "title": "사진의 힘", "finding": "검증 ✅", "number": "21~35장", "desc": "사진 21~35장이 수익 최적 구간"},
+           {"tag": "H4", "title": "최소숙박 최적점", "finding": "검증 ✅", "number": "2~3박", "desc": "최소 2~3박 설정 시 수익 최대"},
+           {"tag": "H5", "title": "추가요금 역효과", "finding": "검증 ✅", "number": "-55.9%", "desc": "7인 이상 추가요금 → 수익 55% 감소"},
+           {"tag": "+", "title": "완벽주의의 역설", "finding": "추가 발견", "number": "4.85~4.95", "desc": "만점(5.0)보다 4.85~4.95가 점유율 최고"}
+         ]
+        }
+      ],
+      "speaker_notes": "9개 가설 중 7개를 검증했고, 호스트가 당장 바꿀 수 있는 5가지를 핵심으로 뽑았습니다. 특히 놀라운 건, 평점 만점 5점보다 4.85~4.95점이 오히려 예약이 더 많다는 겁니다. 완벽한 평점이 오히려 '조작 의심'을 유발할 수 있다는 해석입니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 13,
+      "type": "chart",
+      "bg": "light",
+      "title": "차트로 보는 핵심 증거",
+      "elements": [
+        {"type": "image_grid", "layout": "2x2",
+         "images": [
+           {"path": "figures/ppt_S13_quadrant.png", "caption": "요금-점유율 4분면: 가격 인하 ≠ 예약 증가", "source": "reports/01/fig_01b_A_adr_occ_quadrant.png"},
+           {"path": "figures/ppt_S13_superhost.png", "caption": "슈퍼호스트 수익 비교: +83.1%", "source": "reports/01/fig_01_superhost_revpar.png"},
+           {"path": "figures/ppt_S13_photos.png", "caption": "사진 수별 수익: 21~35장이 최적", "source": "reports/01/fig_01_photos_tier_revpar.png"},
+           {"path": "figures/ppt_S13_rating.png", "caption": "평점의 역설: 만점이 최고가 아니다", "source": "reports/01/fig_01c_6_rating_nonlinear.png"}
+         ]
+        }
+      ],
+      "speaker_notes": "차트로 보시면 패턴이 명확합니다. 좌상단을 보면 가격과 점유율은 거의 관계가 없습니다. 우상단은 슈퍼호스트 프리미엄이 83%라는 걸 보여줍니다. 좌하단은 사진 21~35장이 최적이고, 우하단은 만점 평점이 오히려 점유율이 낮다는 의외의 발견입니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 14,
+      "type": "content",
+      "bg": "light",
+      "title": "통계검증 — 가설 검증 결과 요약",
+      "section_banner": {"text": "04 통계검증", "bg": "#2B2B2B", "color": "#FFFFFF"},
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "table",
+           "title": "",
+           "headers": ["가설", "내용", "검증 방법", "결과"],
+           "rows": [
+             ["H1", "슈퍼호스트 → 수익↑", "그룹 비교 검정", "✅ +83.1%"],
+             ["H2", "숙소 유형 → 수익 구조 차이", "그룹 비교 검정", "✅ 전체숙소 2.7배"],
+             ["H3", "사진 → 수익 (비선형)", "구간 분석", "✅ 21~35장"],
+             ["H4", "최소숙박 → 수익", "구간별 비교", "✅ 2~3박"],
+             ["H6", "공급 집중 → 수익 하락", "상관 + 그룹 분류", "✅ 마포구 리스크"],
+             ["H7", "관광지 유형 → 수익", "그룹 비교 검정", "✅ 여행코스 최고"]
+           ]
+         },
+         "right": {
+           "type": "callout_list",
+           "items": [
+             {"style": "bold", "text": "9개 가설 중 7개 채택, 2개 부분 채택"},
+             "수익 분포가 극단적으로 치우쳐 있어 비모수 검정 사용",
+             "모든 결과 p-value < 0.001 (통계적으로 매우 유의미)"
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "가설 검증 결과를 요약하면, 9개 중 7개가 채택되었습니다. 비모수 검정을 사용한 이유는 수익 분포가 극단적으로 한쪽으로 치우쳐 있기 때문입니다. 모든 검증이 통계적으로 매우 유의미한 결과를 보였습니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 15,
+      "type": "divider",
+      "bg": "dark",
+      "section_number": "05",
+      "title": "모델링",
+      "subtitle": "A. 수익 예측  ·  B. 숙소 건강점수  ·  C. 지역 그룹 분류",
+      "speaker_notes": "",
+      "duration_min": 0
+    },
+
+    {
+      "id": 16,
+      "type": "content",
+      "bg": "light",
+      "title": "[A] 이중 예측 모델 — 요금과 점유율을 따로 예측한다",
+      "elements": [
+        {"type": "flow_horizontal",
+         "steps": [
+           {"label": "모델 A\n시장 적정 요금 예측", "desc": "위치·규모·관광지\n→ 이 숙소의 적정 가격은?", "color": "#FF5A5F"},
+           {"label": "가격 차이 계산", "desc": "현재 요금 - 적정 요금\n= 비싼지? 싼지?", "color": "#767676"},
+           {"label": "모델 B\n점유율 예측", "desc": "리뷰·평점·사진 + 가격차이\n→ 예상 점유율은?", "color": "#00A699"},
+           {"label": "최종 보정", "desc": "예측값 신뢰도\n보정 단계", "color": "#767676"}
+         ]
+        },
+        {"type": "accent_box", "content": "요금과 점유율은 서로 다른 요인이 결정 → 분리해야 호스트가 각각 조절 가능", "position": "bottom"}
+      ],
+      "speaker_notes": "핵심 아이디어는 요금과 점유율을 따로 예측하는 것입니다. 모델A가 '이 숙소의 시장 적정 가격'을 알려주고, 모델B가 '예상 점유율'을 예측합니다. 왜 따로 예측하냐면, 요금은 위치와 규모가 결정하고, 점유율은 리뷰와 평점이 결정하기 때문입니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 17,
+      "type": "content",
+      "bg": "light",
+      "title": "[A] 모델 선택 이유 & 데이터 누수 방지",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "card_list",
+           "title": "왜 이 모델을 선택했나?",
+           "items": [
+             {"title": "LightGBM (주력)", "desc": "복잡한 패턴 포착 + '왜 이런 결과인지' 설명 가능"},
+             {"title": "Random Forest (비교군)", "desc": "다른 머신러닝 모델과 성능 비교"},
+             {"title": "Ridge (기준선)", "desc": "단순한 선형 모델로 최소 성능 확인"},
+             {"title": "Dummy (하한선)", "desc": "아무것도 안 하고 중위값만 찍는 모델"}
+           ],
+           "highlight": "핵심: 성능만이 아닌, 호스트에게 설명 가능한 모델 선택"
+         },
+         "right": {
+           "type": "card_list",
+           "title": "데이터 누수 방지",
+           "desc": "정답을 미리 알려주는 꼴이 되는 변수를 철저히 제거",
+           "items": [
+             {"tag": "위험", "text": "수익 대비 지역 중위값 → 수익에서 직접 파생", "color": "danger"},
+             {"tag": "주의", "text": "수익 추세 → 수익 구성요소 포함", "color": "warning"},
+             {"tag": "주의", "text": "요금 효율성 → 요금/점유율 비율", "color": "warning"},
+             {"tag": "제거", "text": "점유율·요금·매출 등 6개 변수 전체 제외", "color": "supporting"}
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "LightGBM을 선택한 핵심 이유는 '왜 이런 예측인지' 설명할 수 있기 때문입니다. 그리고 데이터 누수 방지가 중요한데, 이건 시험 문제를 미리 알려주는 것과 같습니다. 수익에서 직접 만들어진 변수들을 모두 제거했습니다.",
+      "duration_min": 0.75
+    },
+
+    {
+      "id": 18,
+      "type": "content",
+      "bg": "light",
+      "title": "[A] 모델 성능 비교",
+      "elements": [
+        {"type": "table",
+         "headers": ["모델", "검증 정확도 (R²)", "테스트 정확도", "평균 오차", "오차율"],
+         "rows": [
+           ["LightGBM ★", "0.847", "0.85", "₩19,554", "32.6%"],
+           ["Random Forest", "0.744", "0.75", "₩24,470", "45.6%"],
+           ["Ridge (선형)", "0.579", "0.57", "₩27,595", "70.4%"],
+           ["Dummy (기준선)", "-0.025", "-", "-", "-"]
+         ],
+         "highlight_row": 0
+        },
+        {"type": "insight_cards", "layout": "horizontal_3",
+         "items": [
+           {"number": "85%", "label": "호스트 변수만으로\n수익의 85% 설명"},
+           {"number": "+0.875", "label": "아무것도 안 한 모델 대비\nR² 개선폭"},
+           {"number": "₩19,554", "label": "평균 예측 오차\n실무 활용 가능 수준"}
+         ]
+        }
+      ],
+      "speaker_notes": "R²가 0.85라는 것은 호스트가 바꿀 수 있는 변수들로 수익의 85%를 설명할 수 있다는 뜻입니다. 아무것도 안 한 기준선 모델 대비 0.875만큼 개선되었고, 평균 예측 오차는 약 2만원 수준입니다.",
+      "duration_min": 0.75
+    },
+
+    {
+      "id": 19,
+      "type": "content",
+      "bg": "light",
+      "title": "[A] AI가 찾은 핵심 변수 → 호스트 액션",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "image",
+           "path": "figures/ppt_S19_shap.png",
+           "source": "reports/07/fig_07_revpar_shap_bar_c0.png",
+           "caption": "AI 영향력 분석 Top 10"
+         },
+         "right": {
+           "type": "action_table",
+           "title": "분석 결과 → 당장 할 수 있는 행동",
+           "headers": ["핵심 변수", "호스트가 할 일", "우선순위"],
+           "rows": [
+             ["리뷰 수 (영향력 0.51)", "리뷰 요청 자동화", "🥇"],
+             ["리뷰 전환율 (0.33)", "체크아웃 후 리마인더 발송", "🥈"],
+             ["평점 (0.12)", "4.85~4.95 유지 전략", "🥉"],
+             ["최소숙박 (0.08)", "2~3박으로 설정", "4"],
+             ["사진 수 (0.07)", "21~35장 업로드", "5"],
+             ["추가요금 정책", "7인 이상 추가요금 제거", "6"],
+             ["전체숙소 전환", "가능하면 Entire Home", "7"]
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "AI가 찾은 1순위는 리뷰입니다. 리뷰가 많을수록 수익에 가장 큰 영향을 줍니다. 이 분석 결과가 곧 대시보드에서 호스트에게 첫 번째로 추천하는 행동이 됩니다. 중요한 건, 이 7가지 모두 호스트가 직접 바꿀 수 있다는 겁니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 20,
+      "type": "content",
+      "bg": "light",
+      "title": "[B] 숙소 건강점수 — 내 숙소의 종합 진단표",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "tree_diagram",
+           "title": "5가지 평가 항목",
+           "root": "건강점수 (0~100점)",
+           "branches": [
+             {"label": "리뷰 신호 (20%)", "desc": "리뷰 수 + 평점 종합"},
+             {"label": "사진 품질 (20%)", "desc": "23~35장이면 만점, 벗어나면 감점"},
+             {"label": "예약 정책 (20%)", "desc": "즉시예약 + 최소숙박 + 추가요금"},
+             {"label": "위치 (20%)", "desc": "가까운 관광지까지 거리"},
+             {"label": "숙소 구성 (20%)", "desc": "침실·욕실 수"}
+           ]
+         },
+         "right": {
+           "type": "grade_table",
+           "title": "등급 체계",
+           "rows": [
+             ["A", "80점 이상", "상위 20% — 현재 전략 유지"],
+             ["B", "60점 이상", "양호 — 1~2가지만 고치면 A"],
+             ["C", "40점 이상", "보통 — 즉각 개선 필요"],
+             ["D", "20점 이상", "취약 — 여러 개선 필수"],
+             ["F", "20점 미만", "위험 — 전면 재점검 필요"]
+           ],
+           "example": "예시: 마포구 원룸, 리뷰 12건, 평점 4.6 → C등급 (52점) — 사진·예약정책이 약점"
+         }
+        }
+      ],
+      "speaker_notes": "건강점수는 호스트가 '내 숙소는 어디가 부족한가'를 한눈에 파악하는 종합 진단표입니다. 5가지 항목을 각각 20점씩, 총 100점 만점으로 평가합니다. 같은 지역, 같은 유형의 숙소 대비 상대 평가이므로 공정합니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 21,
+      "type": "content",
+      "bg": "light",
+      "title": "[C] 자치구 자동 그룹 분류 — 서울을 4개 시장으로 나누다",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "card_list",
+           "title": "왜 자동 그룹 분류인가?",
+           "items": [
+             {"text": "서울 25개 자치구는 데이터가 적어 개별 예측이 어려움"},
+             {"text": "비슷한 특성의 자치구끼리 자동으로 묶어 시장 유형 분류"},
+             {"text": "호스트 개별 예측 모델과 상호 보완"}
+           ]
+         },
+         "right": {
+           "type": "image",
+           "path": "figures/ppt_S21_elbow.png",
+           "source": "reports/05/fig_05_elbow_silhouette.png",
+           "caption": "4개 그룹이 최적인 근거"
+         }
+        }
+      ],
+      "speaker_notes": "개별 호스트 예측은 머신러닝, 시장 유형 분류는 자동 그룹 분류. 두 모델이 서로 다른 의사결정을 지원합니다. 서울 25개 자치구를 분석해보니, 4개 그룹으로 나누는 것이 가장 적절했습니다.",
+      "duration_min": 0.75
+    },
+
+    {
+      "id": 22,
+      "type": "content",
+      "bg": "light",
+      "title": "[C] 4개 시장 유형 — 같은 서울, 다른 전략",
+      "elements": [
+        {"type": "cluster_cards", "layout": "grid_2x2",
+         "items": [
+           {"cluster": "C1", "name": "핫플 수익형", "districts": "마포구", "revpar": "₩63,366", "strategy": "품질 경쟁 심화, 차별화 필수", "color": "#FF5A5F"},
+           {"cluster": "C2", "name": "프리미엄 비즈니스", "districts": "강남·종로·용산", "revpar": "₩53,052", "strategy": "슈퍼호스트 전환이 핵심", "color": "#00A699"},
+           {"cluster": "C3", "name": "주거 밀착형", "districts": "13개 자치구", "revpar": "₩35,881", "strategy": "사진·평점 기본기 강화", "color": "#767676"},
+           {"cluster": "C4", "name": "가성비 신흥형", "districts": "동대문·관악 등", "revpar": "₩26,413", "strategy": "비활성 63% — 시장 정리 필요", "color": "#484848"}
+         ]
+        },
+        {"type": "callout", "content": "이 그룹 분류 결과가 대시보드의 '우리 동네 벤치마킹' 기능으로 이어집니다", "position": "bottom"}
+      ],
+      "speaker_notes": "같은 서울이라도 그룹에 따라 전략이 완전히 다릅니다. 마포구는 수익이 높지만 경쟁이 치열해서 차별화가 필수이고, 강남·종로는 슈퍼호스트 전환이 핵심입니다. 대시보드에서 호스트가 자기 동네의 시장 유형을 바로 확인할 수 있습니다.",
+      "duration_min": 0.75
+    },
+
+    {
+      "id": 23,
+      "type": "divider",
+      "bg": "dark",
+      "section_number": "06",
+      "title": "대시보드·자동화",
+      "subtitle": "★ 분석이 끝나는 곳에서, 비즈니스가 시작된다",
+      "speaker_notes": "",
+      "duration_min": 0
+    },
+
+    {
+      "id": 24,
+      "type": "content",
+      "bg": "light",
+      "title": "비즈니스 모델 — 무료에서 시작, 단계별 확장",
+      "elements": [
+        {"type": "bm_flow", "layout": "horizontal_4",
+         "items": [
+           {"tier": "Free", "price": "무료", "features": ["숙소 사전 진단", "위험 신호 알림", "이메일 리포트"], "highlight": false},
+           {"tier": "Basic", "price": "₩9,900/월", "features": ["수익 예측", "기본 최적화 가이드", "행동 추천"], "highlight": false},
+           {"tier": "Pro", "price": "₩29,900/월", "features": ["동네 벤치마킹", "실시간 모니터링", "위험 감지 알림"], "highlight": false},
+           {"tier": "Enterprise", "price": "문의", "features": ["AI 에이전트 자동분석", "맞춤 가설 검증", "자동 리포팅"], "highlight": true}
+         ]
+        }
+      ],
+      "speaker_notes": "비즈니스 모델은 무료 이메일로 호스트를 유입시키고, 대시보드 유료화로 전환하는 구조입니다. 무료 버전에서도 충분한 가치를 제공하되, 상세 분석은 유료로 제공합니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 25,
+      "type": "content",
+      "bg": "light",
+      "title": "무료: 위험 감지 엔진 + 이메일 알림",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "stacked",
+           "items": [
+             {"type": "flow_vertical",
+              "title": "자동 감지 흐름",
+              "steps": ["숙소 데이터 변경 감지", "5가지 위험 규칙 검사", "이상값 통계 보조 검사", "위험도 산출", "이메일 알림 자동 발송"]
+             },
+             {"type": "rule_cards",
+              "title": "5가지 위험 감지 규칙",
+              "items": [
+                {"code": "R1", "name": "유령 수익", "desc": "리뷰 0건인데 수익 1천만↑", "level": "높음"},
+                {"code": "R2", "name": "점유-수익 불일치", "desc": "점유율 0%인데 수익 발생", "level": "높음"},
+                {"code": "R3", "name": "요금 이상값", "desc": "동네 평균의 3배↑ & 리뷰 5건↓", "level": "보통"},
+                {"code": "R4", "name": "유령 운영", "desc": "운영중 표시인데 수익 극저", "level": "보통"},
+                {"code": "R5", "name": "평점 없는 고수익", "desc": "수익 높은데 평점 없고 점유율 높음", "level": "높음"}
+              ]
+             }
+           ]
+         },
+         "right": {
+           "type": "image",
+           "path": "figures/ppt_S25_email.png",
+           "source": "host_preview/email_screenshot.png",
+           "fallback": "이메일 리포트 목업 (도형으로 구성)",
+           "caption": "이메일 리포트 예시 — 위험 신호 진단 + 시장 포지션"
+         }
+        }
+      ],
+      "speaker_notes": "무료 버전의 핵심은 위험 감지 엔진입니다. 5가지 규칙이 24시간 감시합니다. 예를 들어 R1은 리뷰가 하나도 없는데 수익이 1천만 이상인 의심스러운 숙소를 즉시 탐지합니다. 감지 결과는 자동으로 이메일로 발송됩니다.",
+      "duration_min": 1.5
+    },
+
+    {
+      "id": 26,
+      "type": "content",
+      "bg": "light",
+      "title": "유료: 핵심요약 대시보드",
+      "elements": [
+        {"type": "screenshot_with_callouts",
+         "image_path": "figures/ppt_S26_dashboard.png",
+         "source": "example/스크린샷 2026-03-07 오전 1.03.49.png",
+         "callouts": [
+           {"number": 1, "label": "시장 위치 4분면", "desc": "내 숙소가 시장에서 어디에 있는지 한눈에"},
+           {"number": 2, "label": "건강점수 게이지", "desc": "0~100점 + A~F 등급 즉시 확인"},
+           {"number": 3, "label": "수익 예측 KPI", "desc": "예측 수익 / 시장 대비 위치 / 개선 잠재력"},
+           {"number": 4, "label": "AI 시장 진단", "desc": "적정 요금 vs 현재 요금 비교"}
+         ]
+        }
+      ],
+      "speaker_notes": "유료 대시보드의 핵심요약 탭입니다. 호스트가 정보를 입력하면 시장 내 위치, 건강점수, 예측 수익을 한 화면에서 즉시 확인합니다. 앞에서 설명한 이중 예측 모델, 건강점수, 지역 그룹 분류가 이 한 화면에 통합된 것입니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 27,
+      "type": "content",
+      "bg": "light",
+      "title": "유료: 요금 시뮬레이션 & 월 손익 계산",
+      "elements": [
+        {"type": "two_column",
+         "left": {
+           "type": "simulator_mockup",
+           "title": "요금 변경 시뮬레이터",
+           "slider": {"label": "요금 변경", "range": "-30% ~ +50%"},
+           "elasticity_table": {
+             "title": "시장 유형별 가격 민감도",
+             "rows": [
+               ["핫플 수익형", "-0.7", "가격 변화에 덜 민감"],
+               ["프리미엄", "-0.8", "비즈니스 수요 안정적"],
+               ["주거 밀착형", "-0.9", "가격에 민감"],
+               ["가성비형", "-1.1", "매우 가격 민감"]
+             ]
+           },
+           "result": "실시간: 예상 점유율 / 예상 수익 / 월 순이익"
+         },
+         "right": {
+           "type": "stacked",
+           "items": [
+             {"type": "pnl_mockup",
+              "title": "월 손익 계산서",
+              "lines": [
+                {"label": "월 매출", "formula": "1박 요금 × 점유율 × 30일"},
+                {"label": "- 플랫폼 수수료", "value": "3%"},
+                {"label": "- 월 운영비", "value": "호스트 입력"},
+                {"label": "= 월 순이익", "style": "bold"}
+              ]
+             },
+             {"type": "pricing_guide",
+              "title": "호스트 레벨별 적정 요금",
+              "rows": [
+                ["신규 (리뷰 10건↓)", "시장 하위 25%", "리뷰 확보 우선"],
+                ["안정 (리뷰 10~50)", "시장 평균", "균형 전략"],
+                ["프리미엄 (50건↑)", "시장 상위 25%", "프리미엄 포지션"]
+              ]
+             }
+           ]
+         }
+        }
+      ],
+      "speaker_notes": "호스트가 '가격을 10% 올리면 수익이 어떻게 될까?'라는 질문에 즉답합니다. 핵심은 가격 민감도가 시장 유형마다 다르다는 것입니다. 강남은 가격을 올려도 예약이 크게 줄지 않지만, 관악구는 가격에 매우 민감합니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 28,
+      "type": "content",
+      "bg": "light",
+      "title": "자동화 시스템 + AI 에이전트 아키텍처",
+      "elements": [
+        {"type": "stacked",
+         "items": [
+           {"type": "flow_horizontal",
+            "title": "① 위험 감지 자동화",
+            "steps": [
+              {"label": "데이터 변경 감지", "sub": "hooks.py"},
+              {"label": "5규칙 검사", "sub": "detector.py"},
+              {"label": "통계 보조 검사", "sub": "scorer.py"},
+              {"label": "위험도 산출", "sub": "중복 7일 필터"},
+              {"label": "이메일 발송", "sub": "email_alert.py"}
+            ]
+           },
+           {"type": "agent_cards",
+            "title": "② AI 에이전트 구성 (Enterprise)",
+            "items": [
+              {"name": "도메인 연구", "output": "도메인 지식"},
+              {"name": "가설 생성", "output": "H1~H9 자동 생성"},
+              {"name": "탐색적 분석 ×3", "output": "38개 차트 + 검증"},
+              {"name": "변수 설계", "output": "14개 파생변수"},
+              {"name": "모델링", "output": "머신러닝 + AI 분석"},
+              {"name": "모델 검수", "output": "누수 검출 + 품질 평가"}
+            ],
+            "orchestrator": "오케스트레이터가 순차 호출 → 모든 결과 JSON 저장",
+            "results": "9개 가설 검증 / 14개 변수 / 정확도 R²=0.85"
+           }
+         ]
+        }
+      ],
+      "speaker_notes": "두 시스템 모두 자동화되어 사람의 개입 없이 동작합니다. 위험 감지는 데이터가 바뀔 때마다 자동 실행되고, AI 에이전트는 6개가 역할을 나눠서 분석 전체를 자동으로 수행합니다. 이것이 Enterprise 상품의 핵심입니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 29,
+      "type": "content",
+      "bg": "light",
+      "title": "프로젝트 임팩트 요약",
+      "elements": [
+        {"type": "kpi_cards", "layout": "horizontal_4",
+         "items": [
+           {"number": "85%", "label": "이중 예측 모델로\n수익의 85% 설명", "color": "accent"},
+           {"number": "A~F", "label": "건강점수로\n숙소 상태 종합 진단", "color": "accent_secondary"},
+           {"number": "24/7", "label": "5가지 규칙으로\n쉬지 않고 위험 감시", "color": "accent"},
+           {"number": "E2E", "label": "분석 → 대시보드\n→ 자동화 → AI", "color": "accent_secondary"}
+         ]
+        },
+        {"type": "slogan", "content": "데이터로 호스트의 수익을 설계하다", "style": "large_accent", "position": "bottom"}
+      ],
+      "speaker_notes": "이 프로젝트는 분석에서 끝나지 않습니다. 이중 예측 모델이 수익의 85%를 설명하고, 건강점수가 약점을 진단하고, 위험 감지가 24시간 감시하고, 이 모든 것이 대시보드와 자동화로 실제 호스트의 행동을 바꿉니다.",
+      "duration_min": 1.0
+    },
+
+    {
+      "id": 30,
+      "type": "cover",
+      "bg": "dark",
+      "title": "감사합니다",
+      "subtitle": "Q&A",
+      "footer": "4조 · 데이터분석 부트캠프",
+      "elements": [
+        {"type": "text", "content": "감사합니다", "style": "cover_title", "position": "center", "y_inch": 2.8},
+        {"type": "text", "content": "Q&A", "style": "cover_subtitle", "position": "center", "y_inch": 4.0},
+        {"type": "text", "content": "4조 · 데이터분석 부트캠프", "style": "caption", "position": "center_bottom", "y_inch": 6.2, "color": "#767676"},
+        {"type": "shape", "shape": "accent_bar", "position": "bottom"}
+      ],
+      "speaker_notes": "이상으로 발표를 마칩니다. 질문 있으시면 말씀해 주세요. 감사합니다.",
+      "duration_min": 1.0
+    }
+  ]
+}

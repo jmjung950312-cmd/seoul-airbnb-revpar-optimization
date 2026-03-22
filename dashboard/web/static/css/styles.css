@@ -1,0 +1,269 @@
+/* ===== Body & Background ===== */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* ===== Filter Buttons ===== */
+.filter-btn {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+}
+
+.filter-btn:hover {
+    background-color: rgba(255, 255, 255, 0.28);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.filter-btn.active {
+    background-color: white;
+    color: #667eea;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-color: white;
+}
+
+/* ===== Bucket Items ===== */
+.bucket-item {
+    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 16px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bucket-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(102, 126, 234, 0.2);
+}
+
+/* 완료된 항목: 왼쪽 테두리 색상 변경 */
+.bucket-item:has(.bg-green-500) {
+    border-left-color: #10b981;
+}
+
+.bucket-item .line-through {
+    text-decoration: line-through;
+    opacity: 0.55;
+}
+
+/* ===== 체크박스 버튼 ===== */
+.bucket-item button:first-child {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+}
+
+.bucket-item button:first-child:hover {
+    transform: scale(1.2) rotate(8deg);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== Add Button (gradient primary) ===== */
+.btn-add {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.45);
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(102, 126, 234, 0.65);
+    filter: brightness(1.06);
+}
+
+.btn-add:active {
+    transform: scale(0.97) translateY(0);
+}
+
+/* ===== Edit / Delete Buttons ===== */
+.btn-edit {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.btn-delete {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== Input Fields ===== */
+input:focus {
+    outline: none;
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ===== Stat Items ===== */
+.stat-item {
+    padding: 10px 18px;
+    border-radius: 14px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    cursor: default;
+}
+
+.stat-item:hover {
+    transform: translateY(-3px);
+    background: rgba(249, 250, 251, 0.75);
+}
+
+#totalCount, #completedCount, #progressCount, #completionRate {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.35);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.65);
+}
+
+/* ===== Empty State ===== */
+#emptyState {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* ===== Button base click ===== */
+button:active {
+    transform: scale(0.97);
+}
+
+/* ===== Modal ===== */
+#editModal {
+    animation: fadeIn 0.2s ease-in;
+}
+
+#editModal > div {
+    animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 20px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Animations ===== */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-16px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 640px) {
+    .bucket-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bucket-item > div:last-child {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .filter-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* ===== Dark Mode ===== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+    }
+
+    .bg-white {
+        background-color: rgba(30, 27, 75, 0.92) !important;
+    }
+
+    .text-gray-800 {
+        color: #e0e7ff !important;
+    }
+
+    .text-gray-600 {
+        color: #a5b4fc !important;
+    }
+
+    .text-gray-500 {
+        color: #818cf8 !important;
+    }
+
+    .text-gray-400 {
+        color: #6366f1 !important;
+    }
+
+    .border-gray-300, .border-gray-200 {
+        border-color: #3730a3 !important;
+    }
+
+    .bucket-item {
+        background-color: rgba(30, 27, 75, 0.92) !important;
+    }
+
+    input {
+        background-color: rgba(30, 27, 75, 0.8);
+        color: #e0e7ff;
+    }
+
+    .filter-btn {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: rgba(199, 210, 254, 0.85);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .filter-btn:hover {
+        background-color: rgba(255, 255, 255, 0.18);
+        color: white;
+    }
+}

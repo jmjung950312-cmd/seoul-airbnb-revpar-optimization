@@ -5,7 +5,7 @@
   "time_investment": "심도있게 (하루)",
   "analysis_perspectives": [
     "Host Perspective: Exploring RevPAR Optimization Points at the Property Level",
-    "Platform Perspective: Exploring RevPAR Optimization Points at the District Level"
+    "District Analysis: Exploring RevPAR Optimization Points at the District Level"
   ],
   "data_filter": "전체 데이터 (32,061 records — Dormant 포함)",
   "preprocessing_note": "전처리 완료 (_final.ipynb) — 추가 전처리 불필요. EDA/분석부터 시작",

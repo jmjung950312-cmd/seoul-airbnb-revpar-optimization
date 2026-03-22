@@ -1,0 +1,171 @@
+<!DOCTYPE html><html><head><style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1920px; height: 1080px;
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 색상 시스템 */
+:root {
+  --coral: #FF5A5F;
+  --coral-light: #FF787C;
+  --coral-dark: #E04347;
+  --teal: #00A699;
+  --teal-light: #00C9B7;
+  --charcoal: #484848;
+  --dark-bg: #1A1A2E;
+  --dark-bg-2: #16213E;
+  --light-bg: #F7F7F7;
+  --white: #FFFFFF;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-300: #DBDBDB;
+  --gray-400: #B0B0B0;
+  --gray-500: #767676;
+  --gray-600: #484848;
+}
+
+.slide {
+  width: 1920px; height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 다크 슬라이드 */
+.slide-dark {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  color: white;
+}
+
+/* 라이트 슬라이드 */
+.slide-light {
+  background: #F7F7F7;
+  color: var(--charcoal);
+}
+
+/* 카드 컴포넌트 */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 32px;
+  transition: transform 0.2s;
+}
+.card-coral {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+  color: white;
+}
+.card-teal {
+  background: linear-gradient(135deg, var(--teal) 0%, #008C82 100%);
+  color: white;
+}
+.card-dark {
+  background: linear-gradient(135deg, #2B2B3D 0%, #1A1A2E 100%);
+  color: white;
+}
+
+/* 태그 */
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.tag-coral { background: rgba(255,90,95,0.15); color: var(--coral); }
+.tag-teal { background: rgba(0,166,153,0.15); color: var(--teal); }
+
+/* 큰 숫자 */
+.big-number {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--coral);
+}
+.big-number-white {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: white;
+}
+
+/* 페이지 번호 */
+.page-num {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+.page-num-light {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 장식 요소 */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+.deco-line {
+  width: 60px;
+  height: 4px;
+  background: var(--coral);
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+  .wrap { padding: 70px 80px; height: 100%; display: flex; flex-direction: column; }
+  .top-label { font-size: 14px; color: var(--coral); font-weight: 700; letter-spacing: 2px; }
+  .top-title { font-size: 32px; font-weight: 900; margin: 8px 0 36px; }
+  .flow-section { background: white; border-radius: 16px; padding: 28px 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 24px; }
+  .flow-label { font-size: 14px; font-weight: 700; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .flow-steps { display: flex; align-items: center; gap: 12px; }
+  .flow-step { background: var(--gray-100); border-radius: 12px; padding: 16px 20px; text-align: center; flex: 1; }
+  .flow-step-title { font-size: 14px; font-weight: 700; }
+  .flow-step-sub { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+  .flow-arrow { font-size: 20px; color: var(--gray-300); }
+  .bottom-box { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: white; border-radius: 16px; padding: 24px 36px; text-align: center; margin-top: auto; }
+  </style></head><body>
+  <div class="slide slide-light">
+    <div class="wrap">
+      <div class="top-label">자동화</div>
+      <div class="top-title">자동화 시스템 — 전체 플로우</div>
+      <div class="flow-section">
+        <div class="flow-label"><span style="color: var(--coral);">●</span> 위험 감지 (risk_detection/)</div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-step-title">데이터 변경</div><div class="flow-step-sub">hooks.py</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">R1~R5 규칙</div><div class="flow-step-sub">detector.py</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">IQR/Z-score</div><div class="flow-step-sub">scorer.py</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">리스크 레벨</div><div class="flow-step-sub">중복필터 7일</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="background: rgba(255,90,95,0.1);"><div class="flow-step-title" style="color: var(--coral);">이메일 알림</div><div class="flow-step-sub">email_alert.py</div></div>
+        </div>
+      </div>
+      <div class="flow-section">
+        <div class="flow-label"><span style="color: var(--teal);">●</span> 호스트 사전 분석 (host_preview/)</div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-step-title">URL 입력</div><div class="flow-step-sub">hooks.py</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">이상신호 3종</div><div class="flow-step-sub">analyzer.py</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">시장 포지셔닝</div><div class="flow-step-sub">4사분면</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="flow-step-title">건강점수 (blur)</div><div class="flow-step-sub">유료 전환 유도</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="background: rgba(0,166,153,0.1);"><div class="flow-step-title" style="color: var(--teal);">이메일 발송</div><div class="flow-step-sub">email_builder.py</div></div>
+        </div>
+      </div>
+      <div class="bottom-box">
+        <div style="font-size: 20px; font-weight: 700;">Claude Code Hooks로 자동화 — 호스트 개입 없이 24/7 동작</div>
+      </div>
+    </div>
+    <div class="page-num">30</div>
+  </div></body></html>

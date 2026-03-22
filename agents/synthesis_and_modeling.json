@@ -51,7 +51,7 @@
         "hypothesis_link": []
       }
     ],
-    "platform_perspective_insights": [
+    "district_analysis_insights": [
       {
         "rank": 1,
         "insight": "자치구별 RevPAR 격차 극심 — 상위 vs 하위 무한대 차이",
@@ -104,7 +104,7 @@
       {
         "conflict": "RevPAR 트렌드 92.3% 상승 vs Dormant 54.3% 비율 공존",
         "resolution": "Dormant 숙소는 RevPAR=0으로 트렌드 계산에서 분모 역할. Active+Operating 서브셋은 성장 국면, 전체 시장은 공급 비효율 공존. 분석 스코프 분리가 핵심.",
-        "recommendation": "호스트 관점은 Active+Operating 14,399건 기준 분석. 플랫폼 관점은 전체 32,061건 Dormant 패턴 분석 병행."
+        "recommendation": "호스트 관점은 Active+Operating 14,399건 기준 분석. 자치구 단위 보조 분석은 전체 32,061건 Dormant 패턴 분석 병행."
       },
       {
         "conflict": "POI 거리 음의 상관(rho=-0.070) — 가까울수록 RevPAR 낮다?",
@@ -337,7 +337,7 @@
         "note": "adr_occupancy_ratio = ttm_avg_rate / (ttm_occupancy + 1e-6). price_efficiency와 동일 개념. features 목록의 price_efficiency로 포함됨."
       }
     },
-    "platform_perspective": {
+    "district_modeling": {
       "problem_type": "clustering + regression",
       "analysis_unit": "district_25",
       "analysis_stages": [
@@ -345,7 +345,7 @@
         "Stage 2: K-Means 클러스터링 (k=4) + Silhouette Score 검증",
         "Stage 3: 클러스터별 프로파일링 및 명명",
         "Stage 4: 클러스터별 RevPAR 예측 회귀 모델",
-        "Stage 5: 클러스터 기반 플랫폼 전략 인사이트"
+        "Stage 5: 클러스터 기반 자치구 전략 인사이트"
       ],
       "cluster_k": 4,
       "cluster_k_rationale": "Elbow Method + Silhouette Score 기반. 비즈니스 해석 용이성 고려 (프리미엄관광/성장주거/중가균형/가격민감 4분류)",
@@ -486,7 +486,7 @@
       {
         "order": 4,
         "filename": "04_platform_eda.ipynb",
-        "perspective": "platform",
+        "perspective": "district",
         "description": "자치구별 RevPAR 비교 및 트렌드 분석. 가설 H6~H9 사전 탐색. 전체 32,061건 + Active+Operating 비교.",
         "key_analyses": [
           "자치구별 RevPAR 수평 막대 (전체 기준선 vs Active 기준선)",
@@ -503,7 +503,7 @@
       {
         "order": 5,
         "filename": "05_platform_clustering.ipynb",
-        "perspective": "platform",
+        "perspective": "district",
         "description": "자치구 K-Means 클러스터링 (k=4) + 프로파일링 + 회귀 모델. 자치구 유형별 전략 기반 수립.",
         "key_analyses": [
           "자치구별 집계 통계 생성 (7개 지표)",
@@ -520,16 +520,16 @@
       {
         "order": 6,
         "filename": "06_platform_insights.ipynb",
-        "perspective": "platform",
-        "description": "플랫폼 운영 인사이트 종합 + 액션 아이템. 클러스터별 차별화 전략, 시장 건전성 지표, 정책 우선순위.",
+        "perspective": "district",
+        "description": "자치구 전략 인사이트 종합 + 액션 아이템. 클러스터별 차별화 전략, 시장 건전성 지표, 정책 우선순위.",
         "key_analyses": [
           "클러스터별 RevPAR 성과 비교 대시보드",
           "dormant_ratio 계산 및 자치구별 시장 건전성 지도",
-          "자치구별 슈퍼호스트 비율 vs RevPAR 상관 (H1 플랫폼 관점)",
+          "자치구별 슈퍼호스트 비율 vs RevPAR 상관 (H1 자치구 단위)",
           "신규 호스트 유치 타겟 자치구 추천 (공급-수요 갭)",
           "Dormant 전환 위험 자치구 조기경보 조건 정의",
-          "플랫폼 정책 우선순위 매트릭스 (RevPAR × Dormant비율)",
-          "최종 액션 아이템 체크리스트 (호스트 + 플랫폼)"
+          "자치구 정책 우선순위 매트릭스 (RevPAR × Dormant비율)",
+          "최종 액션 아이템 체크리스트 (호스트 + 자치구)"
         ],
         "estimated_cells": 20,
         "output_key_vars": ["dormant_ratio_by_district", "action_matrix", "policy_priority_df"]
@@ -1119,8 +1119,8 @@
       {
         "cell_num": 0,
         "type": "markdown",
-        "purpose": "노트북 제목 — 플랫폼 관점 EDA",
-        "content_hint": "# 플랫폼 관점 RevPAR EDA\n분석 단위: 자치구(25개). 가설 H6~H9 탐색. 전체 32,061건 포함 분석."
+        "purpose": "노트북 제목 — 자치구별 RevPAR EDA",
+        "content_hint": "# 자치구별 RevPAR EDA\n분석 단위: 자치구(25개). 가설 H6~H9 탐색. 전체 32,061건 포함 분석."
       },
       {
         "cell_num": 1,
@@ -1376,7 +1376,7 @@
         "cell_num": 16,
         "type": "code",
         "purpose": "클러스터별 dormant_ratio 비교",
-        "content_hint": "클러스터별 dormant_ratio 평균 바차트. 가격민감 외곽 클러스터의 dormant_ratio가 가장 높을 것 예상. H9 플랫폼 관점 검증.",
+        "content_hint": "클러스터별 dormant_ratio 평균 바차트. 가격민감 외곽 클러스터의 dormant_ratio가 가장 높을 것 예상. H9 자치구 단위 검증.",
         "key_variables": ["cluster_dormant_comparison", "fig_cluster_dormant"]
       },
       {
@@ -1494,7 +1494,7 @@
       {
         "cell_num": 12,
         "type": "code",
-        "purpose": "호스트 관점 vs 플랫폼 관점 인사이트 통합",
+        "purpose": "호스트 관점 + 자치구 단위 인사이트 통합",
         "content_hint": "SHAP top features(03 노트북) + 클러스터 전략 통합. 자치구별 호스트 권장 사항 매핑. 예: 마포구 = LightGBM 예측 기반 최적 사진수/평점 목표값 제시.",
         "key_variables": ["integrated_insights"]
       },
@@ -1529,7 +1529,7 @@
         "cell_num": 17,
         "type": "code",
         "purpose": "전체 프로젝트 결과 요약 출력",
-        "content_hint": "print('='*60). '서울 에어비앤비 RevPAR 분석 — 전체 결과 요약'. 호스트 관점 top 5 인사이트 + 플랫폼 관점 top 5 인사이트. 모델 성능 요약.",
+        "content_hint": "print('='*60). '서울 에어비앤비 RevPAR 분석 — 전체 결과 요약'. 호스트 관점 top 5 인사이트 + 자치구 단위 top 5 인사이트. 모델 성능 요약.",
         "key_variables": ["final_summary"]
       },
       {

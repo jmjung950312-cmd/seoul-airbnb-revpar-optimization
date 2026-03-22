@@ -26,3 +26,16 @@ Thumbs.db
 
 # Reports / figures (large PNGs)
 reports/
+
+# Archive (이전 버전 백업)
+_archive/
+
+# Node.js / Next.js
+node_modules/
+.next/
+
+# Large CSV (대용량 데이터 — dashboard/*/data/ 내 CSV는 별도 관리)
+# *.csv 는 전체 제외하지 않음 (일부 소규모 CSV는 추적 필요)
+
+# 모델 pkl 파일 — 이미 tracked된 경우 유지
+# *.pkl

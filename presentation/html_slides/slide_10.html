@@ -1,0 +1,342 @@
+<!DOCTYPE html><html><head><style>
+@font-face { font-family: 'Pretendard'; font-weight: 100; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Thin.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 200; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-ExtraLight.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 300; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Light.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 400; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 500; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Medium.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 600; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-SemiBold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 700; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Bold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 800; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-ExtraBold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 900; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Black.otf') format('opentype'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1920px; height: 1080px;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 색상 시스템 */
+:root {
+  --coral: #FF5A5F;
+  --coral-light: #FF787C;
+  --coral-dark: #E04347;
+  --teal: #00A699;
+  --teal-light: #00C9B7;
+  --charcoal: #484848;
+  --dark-bg: #1A1A2E;
+  --dark-bg-2: #16213E;
+  --light-bg: #FFFFFF;
+  --white: #FFFFFF;
+  --insight-bg: #FFF0F3;
+  --card-radius: 6px;
+  --underline-width: 192px;
+  --underline-height: 3px;
+  --orange: #FC642D;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-300: #DBDBDB;
+  --gray-400: #B0B0B0;
+  --gray-500: #767676;
+  --gray-600: #484848;
+}
+
+.slide {
+  width: 1920px; height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 다크 슬라이드 */
+.slide-dark {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  color: white;
+}
+
+/* 라이트 슬라이드 */
+.slide-light {
+  background: #FFFFFF;
+  color: var(--charcoal);
+}
+
+/* 카드 컴포넌트 */
+.card {
+  background: #F5F5F5;
+  border-radius: 6px;
+  box-shadow: none;
+  padding: 32px;
+}
+.card-coral {
+  background: var(--coral);
+  color: white;
+}
+.card-teal {
+  background: var(--teal);
+  color: white;
+}
+.card-dark {
+  background: #2B2B3D;
+  color: white;
+}
+
+/* 태그 */
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.tag-coral { background: rgba(255,90,95,0.15); color: var(--coral); }
+.tag-teal { background: rgba(0,166,153,0.15); color: var(--teal); }
+
+/* 큰 숫자 */
+.big-number {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--coral);
+}
+.big-number-white {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: white;
+}
+
+/* 페이지 번호 */
+.page-num {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+.page-num-light {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 장식 요소 — 비활성화 */
+.deco-circle {
+  display: none;
+}
+.deco-line {
+  width: 60px;
+  height: 4px;
+  background: var(--coral);
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+/* ── 신규 공통 클래스 ── */
+.breadcrumb {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.slide-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin: 6px 0 8px;
+}
+.title-underline {
+  width: var(--underline-width);
+  height: var(--underline-height);
+  background: var(--coral);
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+.insight-box {
+  background: var(--insight-bg);
+  border-left: 4px solid var(--coral);
+  border-radius: 0 6px 6px 0;
+  padding: 20px 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 15px;
+}
+.pill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.pill-coral { background: rgba(255,90,95,0.12); color: var(--coral); }
+.pill-teal { background: rgba(0,166,153,0.12); color: var(--teal); }
+.pill-gray { background: var(--gray-100); color: var(--gray-500); }
+
+/* 테이블 헤더 공통 */
+table th {
+  background: #484848;
+  color: white;
+}
+
+  .wrap { padding: 56px 100px 44px; height: 100%; display: flex; flex-direction: column; }
+  .subtitle-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+  .badge-coral { background: rgba(255,90,95,0.1); color: var(--coral); }
+  .badge-teal { background: rgba(0,166,153,0.1); color: var(--teal); }
+  .badge-gray { background: var(--gray-100); color: var(--gray-500); }
+
+  .section-label { font-size: 16px; font-weight: 700; color: var(--charcoal); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .section-label .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* 카드 그리드 */
+  .feat-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
+  .feat-card {
+    background: var(--gray-100); border-radius: 10px; padding: 36px 26px 32px;
+    border-left: 4px solid var(--coral);
+    min-height: 195px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .feat-card-teal { border-left-color: var(--teal); }
+  .feat-name {
+    display: inline-block; background: white; padding: 6px 16px; border-radius: 6px;
+    font-size: 15px; font-weight: 700; color: var(--coral); font-family: 'SF Mono', 'Fira Code', monospace;
+    letter-spacing: -0.3px; margin-bottom: 20px; border: 1px solid rgba(255,90,95,0.15);
+    align-self: flex-start;
+  }
+  .feat-name-teal { color: var(--teal); border-color: rgba(0,166,153,0.2); }
+  .feat-desc { font-size: 18px; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+  .feat-note { font-size: 14px; color: var(--gray-500); line-height: 1.5; }
+
+  /* 타겟 변환 카드 (특별) */
+  .target-card {
+    background: rgba(0,166,153,0.06); border-radius: 10px; padding: 36px 26px 32px;
+    border-left: 4px solid var(--teal);
+    min-height: 195px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .target-card code { color: var(--teal); border-color: rgba(0,166,153,0.2); }
+
+  /* 인사이트 박스 */
+  .insight-bar {
+    background: var(--insight-bg); border-left: 4px solid var(--coral);
+    border-radius: 0 10px 10px 0; padding: 28px 36px;
+  }
+  .insight-title { font-size: 17px; font-weight: 700; color: var(--charcoal); margin-bottom: 16px; }
+  .insight-points { display: flex; gap: 48px; }
+  .insight-point { font-size: 15px; color: var(--charcoal); line-height: 1.7; }
+  .insight-point strong { color: var(--coral); }
+
+  /* 하단 바 */
+  .bottom-bar { display: flex; gap: 24px; margin-top: 20px; }
+  .bottom-card {
+    flex: 1; border-radius: 10px; padding: 24px 28px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .bottom-card-teal { background: rgba(0,166,153,0.08); border-left: 4px solid var(--teal); }
+  .bottom-card-coral { background: rgba(255,90,95,0.06); border-left: 4px solid var(--coral); }
+  .bottom-num { font-size: 42px; font-weight: 900; line-height: 1; }
+  .bottom-label { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+  </style></head><body>
+  <div class="slide slide-light">
+    <div class="wrap">
+      <div class="breadcrumb">전처리</div>
+      <div class="slide-title">피처 엔지니어링 — 원본 데이터를 분석 가능한 형태로</div>
+      <div class="title-underline" style="width: 360px;"></div>
+
+      <div class="subtitle-row">
+        <span class="badge badge-coral">구간화 4개</span>
+        <span class="badge badge-teal">비율·지표 3개</span>
+        <span class="badge badge-gray">타겟 변환 1개</span>
+        <span style="font-size: 13px; color: var(--gray-500);">원본 42열 → 14개 파생변수 추가 생성</span>
+      </div>
+
+      <!-- 구간화 변수 -->
+      <div class="section-label">
+        <div class="dot" style="background: var(--coral);"></div>
+        구간화 — 연속형 변수를 의미 있는 구간으로 변환
+      </div>
+      <div class="feat-grid-4">
+        
+      <div class="feat-card">
+        <code class="feat-name">photos_tier</code>
+        <div class="feat-desc">사진 수 → 구간 분류</div>
+        <div class="feat-note">0~10 / 11~20 / 21~35 / 36+</div>
+      </div>
+      <div class="feat-card">
+        <code class="feat-name">bedrooms_group</code>
+        <div class="feat-desc">침실 수 → 구간 분류</div>
+        <div class="feat-note">0 / 1 / 2 / 3+</div>
+      </div>
+      <div class="feat-card">
+        <code class="feat-name">baths_group</code>
+        <div class="feat-desc">욕실 수 → 구간 분류</div>
+        <div class="feat-note">1 / 1.5 / 2 / 2.5+</div>
+      </div>
+      <div class="feat-card">
+        <code class="feat-name">guests_group</code>
+        <div class="feat-desc">수용 인원 → 구간 분류</div>
+        <div class="feat-note">1~2 / 3~4 / 5~6 / 7+</div>
+      </div>
+      </div>
+
+      <!-- 비율·지표 + 타겟 변환 -->
+      <div class="section-label">
+        <div class="dot" style="background: var(--teal);"></div>
+        비율·지표 — 기존 컬럼을 조합하여 새로운 의미 부여
+      </div>
+      <div class="feat-grid-4">
+        
+      <div class="feat-card feat-card-teal">
+        <code class="feat-name feat-name-teal">poi_dist_category</code>
+        <div class="feat-desc">POI 거리 카테고리화</div>
+        <div class="feat-note">도보권 / 근거리 / 원거리 등급</div>
+      </div>
+      <div class="feat-card feat-card-teal">
+        <code class="feat-name feat-name-teal">extra_guest_fee_policy</code>
+        <div class="feat-desc">추가요금 유무 이진화</div>
+        <div class="feat-note">추가인원 요금 있음/없음</div>
+      </div>
+      <div class="feat-card feat-card-teal">
+        <code class="feat-name feat-name-teal">revpar_trend</code>
+        <div class="feat-desc">최근 90일 vs 연평균</div>
+        <div class="feat-note">수익 방향성 (성장/하락)</div>
+      </div>
+        <div class="target-card">
+          <code class="feat-name feat-name-teal">log_ttm_revpar</code>
+          <div class="feat-desc">RevPAR → log1p 변환</div>
+          <div class="feat-note">skewness 3.76 → 정규분포화</div>
+        </div>
+      </div>
+
+      <!-- 인사이트 -->
+      <div class="insight-bar">
+        <div class="insight-title">왜 이런 변수를 만들었나?</div>
+        <div class="insight-points">
+          <div class="insight-point"><strong>→</strong> 사진 21장과 22장의 차이는 무의미 — 의미 있는 구간으로 묶어 패턴 탐지</div>
+          <div class="insight-point"><strong>→</strong> 기존 컬럼의 비율·조합으로 숨은 패턴을 드러냄</div>
+          <div class="insight-point"><strong>→</strong> RevPAR 분포가 극단적으로 치우쳐 log 변환으로 분석 안정성 확보</div>
+        </div>
+      </div>
+
+      <!-- 하단 바 -->
+      <div class="bottom-bar">
+        <div class="bottom-card bottom-card-teal">
+          <div class="bottom-num" style="color: var(--teal);">14</div>
+          <div class="bottom-label">파생변수 생성<br>원본 42열에서 추가 파생</div>
+        </div>
+        <div class="bottom-card bottom-card-coral">
+          <div class="bottom-num" style="color: var(--coral);">4+3+1</div>
+          <div class="bottom-label">구간화 · 비율 · 타겟<br>세 가지 유형으로 설계</div>
+        </div>
+        <div class="bottom-card" style="background: var(--gray-100); border-left: 4px solid var(--gray-400);">
+          <div class="bottom-num" style="color: var(--charcoal);">log1p</div>
+          <div class="bottom-label">타겟 변환<br>skewness 3.76 → 정규분포화</div>
+        </div>
+      </div>
+    </div>
+    <div class="page-num">10</div>
+  </div></body></html>

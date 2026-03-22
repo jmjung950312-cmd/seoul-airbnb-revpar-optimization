@@ -17,7 +17,7 @@
     "3_log_transform": {
       "status": "PASS",
       "evidence": "modeling_strategy.host_perspective.target = 'log_ttm_revpar'. target_note: 'log1p(ttm_revpar) 사용. skewness=3.76 → log1p 변환으로 잔차 정규화'. 02_host_preprocessing cell_num=5에서 'y = np.log1p(df_ao.ttm_revpar)' 명시. 03_host_modeling cell_num=11에서 'y_pred = np.expm1(y_pred_log). y_true = np.expm1(y_test)' 역변환 명시. evaluation_notes에도 'log1p 예측값을 expm1으로 역변환 후 원 스케일 MAE·RMSE 계산' 명시됨. 수치형 피처(min_nights, num_reviews)에도 log1p 변환 계획됨.",
-      "fix_guidance": "이상 없음. 다만 platform_perspective의 클러스터링에서 district_median_revpar(= Active+Operating RevPAR 중위값)을 클러스터링 피처로 사용 시 이 값도 log1p 변환 여부를 명시할 것 권장."
+      "fix_guidance": "이상 없음. 다만 자치구 단위 클러스터링에서 district_median_revpar(= Active+Operating RevPAR 중위값)을 클러스터링 피처로 사용 시 이 값도 log1p 변환 여부를 명시할 것 권장."
     },
     "4_eval_metrics": {
       "status": "PASS",
@@ -36,7 +36,7 @@
     },
     "7_cross_validation": {
       "status": "WARN",
-      "evidence": "KFold(n_splits=5, shuffle=True, random_state=42) 계획 명시됨 (02_host_preprocessing cell_num=11, 03_host_modeling). 03_host_modeling에서 Ridge, RF, LightGBM 모두 cross_val_score(cv=cv)로 5-Fold CV 수행 계획. 그러나 DummyRegressor(baseline) 모델 비교 계획이 어디에도 명시되어 있지 않음. 또한 플랫폼 관점에서는 LOO-CV(LeaveOneOut) 계획이 있음(n=25 소표본 적절). 단, 호스트 관점 모델 비교 시 순진한 기준선 부재로 '모델이 얼마나 개선됐는지' 수치화 불가.",
+      "evidence": "KFold(n_splits=5, shuffle=True, random_state=42) 계획 명시됨 (02_host_preprocessing cell_num=11, 03_host_modeling). 03_host_modeling에서 Ridge, RF, LightGBM 모두 cross_val_score(cv=cv)로 5-Fold CV 수행 계획. 그러나 DummyRegressor(baseline) 모델 비교 계획이 어디에도 명시되어 있지 않음. 또한 자치구 단위 모델링에서는 LOO-CV(LeaveOneOut) 계획이 있음(n=25 소표본 적절). 단, 호스트 관점 모델 비교 시 순진한 기준선 부재로 '모델이 얼마나 개선됐는지' 수치화 불가.",
       "fix_guidance": "03_host_modeling에 DummyRegressor(strategy='median')를 baseline으로 추가할 것:\nfrom sklearn.dummy import DummyRegressor\ndummy = DummyRegressor(strategy='median')\ndummy_cv = cross_val_score(dummy, X_train_prep, y_train, cv=cv, scoring='r2')\ncv_results 테이블에 Dummy 행 추가하여 모델 개선량 명시."
     },
     "8_domain_kpi_validity": {
@@ -155,7 +155,7 @@
       "review_rate",
       "poi_dist_category"
     ],
-    "platform_perspective": [
+    "district_modeling": [
       "district",
       "district_listing_count",
       "district_superhost_rate",
@@ -163,7 +163,7 @@
       "district_entire_home_rate",
       "ttm_pop"
     ],
-    "platform_perspective_conditional": [
+    "district_modeling_conditional": [
       "district_median_revpar (CV 폴드별 재계산 또는 사전 고정 집계 시 조건부 허용)"
     ],
     "features_removed_by_review": [

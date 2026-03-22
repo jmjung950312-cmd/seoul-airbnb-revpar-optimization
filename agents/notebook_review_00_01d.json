@@ -49,7 +49,7 @@
       "notebook": "00_quick_eda (부분적)",
       "key_finding": "00_quick_eda에서 자치구별 리스팅 수와 RevPAR를 독립 차트로만 제시. 마포구가 공급 1위이면서 RevPAR 1위(63365)로 H6에 반하는 패턴 존재. 그러나 상관관계 통계 검증 미실시.",
       "visualization_quality": "ok",
-      "gap": "공급집중도(HHI 또는 공급비중)와 RevPAR의 산포도 및 상관계수 분석 완전 누락. 플랫폼 노트북(05)으로 이관 예정이더라도 00에서 탐색 필요."
+      "gap": "공급집중도(HHI 또는 공급비중)와 RevPAR의 산포도 및 상관계수 분석 완전 누락. 자치구 분석 노트북(05)으로 이관 예정이더라도 00에서 탐색 필요."
     },
     "H7": {
       "covered": true,
@@ -63,7 +63,7 @@
       "notebook": "미검증",
       "key_finding": "검토 대상 5개 노트북 어디에도 자치구별 인구 데이터 vs RevPAR 관계 분석 없음.",
       "visualization_quality": "missing",
-      "gap": "H8은 플랫폼 관점 가설로 04/05 노트북에서 다뤄야 하나 현재 미검증. 인구 밀도와 RevPAR 양의 관계 검증 누락. 00_quick_eda에서 최소 탐색 권고."
+      "gap": "H8은 자치구 단위 가설로 04/05 노트북에서 다뤄야 하나 현재 미검증. 인구 밀도와 RevPAR 양의 관계 검증 누락. 00_quick_eda에서 최소 탐색 권고."
     },
     "H9": {
       "covered": "partial",

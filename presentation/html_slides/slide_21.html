@@ -1,0 +1,209 @@
+<!DOCTYPE html><html><head><style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1920px; height: 1080px;
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 색상 시스템 */
+:root {
+  --coral: #FF5A5F;
+  --coral-light: #FF787C;
+  --coral-dark: #E04347;
+  --teal: #00A699;
+  --teal-light: #00C9B7;
+  --charcoal: #484848;
+  --dark-bg: #1A1A2E;
+  --dark-bg-2: #16213E;
+  --light-bg: #F7F7F7;
+  --white: #FFFFFF;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-300: #DBDBDB;
+  --gray-400: #B0B0B0;
+  --gray-500: #767676;
+  --gray-600: #484848;
+}
+
+.slide {
+  width: 1920px; height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 다크 슬라이드 */
+.slide-dark {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  color: white;
+}
+
+/* 라이트 슬라이드 */
+.slide-light {
+  background: #F7F7F7;
+  color: var(--charcoal);
+}
+
+/* 카드 컴포넌트 */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 32px;
+  transition: transform 0.2s;
+}
+.card-coral {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+  color: white;
+}
+.card-teal {
+  background: linear-gradient(135deg, var(--teal) 0%, #008C82 100%);
+  color: white;
+}
+.card-dark {
+  background: linear-gradient(135deg, #2B2B3D 0%, #1A1A2E 100%);
+  color: white;
+}
+
+/* 태그 */
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.tag-coral { background: rgba(255,90,95,0.15); color: var(--coral); }
+.tag-teal { background: rgba(0,166,153,0.15); color: var(--teal); }
+
+/* 큰 숫자 */
+.big-number {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--coral);
+}
+.big-number-white {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: white;
+}
+
+/* 페이지 번호 */
+.page-num {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+.page-num-light {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 장식 요소 */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+.deco-line {
+  width: 60px;
+  height: 4px;
+  background: var(--coral);
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+  .wrap { padding: 80px 100px; height: 100%; display: flex; flex-direction: column; }
+  .top-label { font-size: 14px; color: var(--coral); font-weight: 700; letter-spacing: 2px; }
+  .top-title { font-size: 32px; font-weight: 900; margin: 8px 0 36px; }
+  .content { display: flex; gap: 40px; flex: 1; }
+  .left { flex: 1.2; }
+  .right { flex: 0.8; display: flex; flex-direction: column; gap: 20px; }
+  .example { background: var(--gray-100); border-radius: 12px; padding: 20px; font-size: 15px; line-height: 1.6; }
+  </style></head><body>
+  <div class="slide slide-light">
+    <div class="wrap">
+      <div class="top-label">모델링 B</div>
+      <div class="top-title">숙소 건강점수 — 5컴포넌트 × A~F 등급</div>
+      <div class="content">
+        <div class="left">
+          <div class="card" style="padding: 28px 32px;">
+            <div style="font-size: 14px; color: var(--gray-500); font-weight: 600; letter-spacing: 1px; margin-bottom: 12px;">건강점수 (0~100)</div>
+            
+    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-200);">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--coral);"></div>
+      <div style="flex: 1; font-size: 18px; font-weight: 600;">리뷰 신호</div>
+      <div style="font-size: 16px; font-weight: 700; color: var(--coral);">20%</div>
+      <div style="font-size: 14px; color: var(--gray-500); width: 240px;">리뷰수 + 평점 백분위</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-200);">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--teal);"></div>
+      <div style="flex: 1; font-size: 18px; font-weight: 600;">사진 품질</div>
+      <div style="font-size: 16px; font-weight: 700; color: var(--teal);">20%</div>
+      <div style="font-size: 14px; color: var(--gray-500); width: 240px;">23~35장 = 100점</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-200);">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #E67E22;"></div>
+      <div style="flex: 1; font-size: 18px; font-weight: 600;">예약 정책</div>
+      <div style="font-size: 16px; font-weight: 700; color: #E67E22;">20%</div>
+      <div style="font-size: 14px; color: var(--gray-500); width: 240px;">즉시예약·최소박·추가요금</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-200);">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #3498DB;"></div>
+      <div style="flex: 1; font-size: 18px; font-weight: 600;">위치</div>
+      <div style="font-size: 16px; font-weight: 700; color: #3498DB;">20%</div>
+      <div style="font-size: 14px; color: var(--gray-500); width: 240px;">POI 근접도 역백분위</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-200);">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #8E44AD;"></div>
+      <div style="flex: 1; font-size: 18px; font-weight: 600;">숙소 구성</div>
+      <div style="font-size: 16px; font-weight: 700; color: #8E44AD;">20%</div>
+      <div style="font-size: 14px; color: var(--gray-500); width: 240px;">침실·욕실 백분위</div>
+    </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 14px; color: var(--gray-500); font-weight: 600; letter-spacing: 1px; margin-bottom: 12px;">등급 매트릭스</div>
+            
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--teal); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">A</div>
+      <div style="font-size: 14px; color: var(--gray-500);">≥ 80</div>
+      <div style="font-size: 14px; font-weight: 600;">상위 20%</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #3498DB; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">B</div>
+      <div style="font-size: 14px; color: var(--gray-500);">≥ 60</div>
+      <div style="font-size: 14px; font-weight: 600;">양호</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #E67E22; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">C</div>
+      <div style="font-size: 14px; color: var(--gray-500);">≥ 40</div>
+      <div style="font-size: 14px; font-weight: 600;">보통</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--coral); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">D</div>
+      <div style="font-size: 14px; color: var(--gray-500);">≥ 20</div>
+      <div style="font-size: 14px; font-weight: 600;">취약</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #E74C3C; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">F</div>
+      <div style="font-size: 14px; color: var(--gray-500);">< 20</div>
+      <div style="font-size: 14px; font-weight: 600;">위험</div>
+    </div>
+          </div>
+          <div class="example">
+            <strong>예시:</strong> 마포구 원룸, 리뷰 12건, 평점 4.6<br>
+            → 건강점수 <strong style="color: #E67E22;">C (52점)</strong> — 사진·예약정책 취약
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-num">21</div>
+  </div></body></html>

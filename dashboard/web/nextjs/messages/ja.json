@@ -1,0 +1,218 @@
+{
+  "header": {
+    "title": "ソウル Airbnb 収益分析",
+    "languageAndRegion": "言語と地域",
+    "currency": "通貨",
+    "translation": "翻訳",
+    "translationDesc": "説明とレビューが自動翻訳されます。",
+    "recommendedLanguages": "おすすめ言語",
+    "allLanguages": "すべての言語",
+    "recommendedCurrencies": "おすすめ通貨",
+    "allCurrencies": "すべての通貨",
+    "save": "保存",
+    "close": "閉じる"
+  },
+  "sidebar": {
+    "performance": "パフォーマンス",
+    "inputSettings": "入力設定",
+    "basicInfo": "基本情報",
+    "propertySettings": "物件設定",
+    "opexInput": "運営費入力",
+    "operations": "運営状況",
+    "revenueSummary": "収益サマリー",
+    "pricingStrategy": "料金戦略",
+    "marketDiagnosis": "市場診断",
+    "nearbyPOI": "近くの観光地",
+    "healthScore": "物件スコア",
+    "listingDesc": "物件説明",
+    "startAnalysis": "分析開始"
+  },
+  "stats": {
+    "dailyRevPAR": "1日実収益",
+    "monthlyNetProfit": "月間予想純利益",
+    "bepRate": "損益分岐最低料金",
+    "weekdayOcc": "平日予約率",
+    "weekendOcc": "週末予約率",
+    "reviewScore": "レビュースコア",
+    "percentileRank": "上位パーセンタイル"
+  },
+  "filter": {
+    "all": "すべて",
+    "district": "地区",
+    "dateRange": "日付",
+    "roomType": "部屋タイプ",
+    "priceRange": "料金範囲",
+    "guestCount": "ゲスト数"
+  },
+  "wizard": {
+    "title": "分析情報入力",
+    "hostType": {
+      "question": "どのタイプのホストですか？",
+      "subtitle": "ホスト経験に合わせた分析プロセスを提供します。",
+      "new": {
+        "title": "新規ホスト",
+        "desc": "初めて物件を登録するか、まだ予約履歴がありません"
+      },
+      "existing": {
+        "title": "既存ホスト",
+        "desc": "すでにAirbnbを運営中で予約履歴があります"
+      }
+    },
+    "step1": {
+      "title": "基本情報",
+      "district": "区を選択",
+      "districtPlaceholder": "ソウルの区を選択してください",
+      "address": "詳細住所（任意）",
+      "addressPlaceholder": "例: 江南区テヘラン路123",
+      "roomType": "部屋タイプ",
+      "accommodates": "最大収容人数",
+      "bedrooms": "寝室数",
+      "bathrooms": "バスルーム数",
+      "amenities": "アメニティ"
+    },
+    "step2": {
+      "title": "物件設定",
+      "forNew": "目標設定",
+      "forExisting": "実際の予約状況",
+      "targetAdr": "目標1日料金",
+      "targetOccupancy": "目標予約率",
+      "photos": "物件写真数",
+      "reviewScore": "レビュー評価",
+      "responseRate": "応答率",
+      "instantBook": "即時予約",
+      "calendarTitle": "予約済みの日付をクリックしてください",
+      "bookedDays": "予約日数",
+      "occupancyRate": "今月の予約率",
+      "currentAdr": "現在の1日料金",
+      "reviewCount": "総レビュー数"
+    },
+    "step3": {
+      "title": "運営費入力",
+      "cleaningFee": "清掃費（1泊あたり）",
+      "platformFee": "プラットフォーム手数料（%）",
+      "utilityMonthly": "月間光熱費",
+      "mortgageMonthly": "月間ローン返済",
+      "managementFee": "管理費（月間）",
+      "otherOpEx": "その他運営費（月間）",
+      "cleaningFeeHint": "予約ごとの清掃費",
+      "platformFeeHint": "Airbnbサービス手数料（デフォルト3%）",
+      "utilityHint": "電気・ガス・水道などの月平均",
+      "mortgageHint": "住宅ローン月返済額（なければ0）",
+      "managementHint": "管理代行費など",
+      "otherHint": "その他の運営費",
+      "monthlyTotal": "月間固定費合計（清掃費除く）"
+    },
+    "step4": {
+      "title": "運営状況",
+      "minNights": "最低宿泊数",
+      "maxNights": "最大宿泊数",
+      "checkIn": "チェックイン時間",
+      "petFriendly": "ペット可",
+      "smokingAllowed": "喫煙可",
+      "partiesAllowed": "パーティー可",
+      "selfCheckIn": "セルフチェックイン",
+      "checkInFlexible": "自由チェックイン",
+      "selfCheckInHint": "ゲストが自律的にチェックインできます",
+      "petFriendlyHint": "ペット同伴のゲストを受け付けます",
+      "smokingHint": "喫煙エリアを提供します",
+      "partiesHint": "パーティーやイベントを許可します"
+    },
+    "next": "次へ",
+    "prev": "戻る",
+    "analyze": "分析開始",
+    "analyzing": "分析中..."
+  },
+  "calendar": {
+    "sun": "日",
+    "mon": "月",
+    "tue": "火",
+    "wed": "水",
+    "thu": "木",
+    "fri": "金",
+    "sat": "土",
+    "prevMonth": "前の月",
+    "nextMonth": "次の月",
+    "bookedDays": "予約済み",
+    "holiday": "祝日",
+    "today": "今日",
+    "selectDates": "日付指定",
+    "monthly": "月単位",
+    "flexible": "柔軟な日程",
+    "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+  },
+  "dashboard": {
+    "revenueSummary": {
+      "title": "収益サマリー",
+      "monthlyRevenue": "月間予想収入",
+      "monthlyNetProfit": "月間予想純利益",
+      "annualRevenue": "年間予想収入",
+      "revpar": "1日実収益",
+      "adr": "1日平均料金",
+      "occupancy": "予約率",
+      "comparisonTitle": "類似物件との比較",
+      "yourProperty": "あなたの物件",
+      "median": "中央値",
+      "top25": "上位25%",
+      "monthlyOccupancyTrend": "月別予約率推移（予測）",
+      "metric": "指標"
+    },
+    "pricingStrategy": {
+      "title": "料金戦略",
+      "weekdayPrice": "平日推奨料金",
+      "weekendPrice": "週末推奨料金",
+      "peakMultiplier": "繁忙期倍率",
+      "discountThreshold": "割引適用期間",
+      "seasonalAdjustment": "季節調整",
+      "simulationTitle": "料金シミュレーション"
+    },
+    "marketDiagnosis": {
+      "title": "市場診断",
+      "clusterInfo": "クラスター情報",
+      "districtStats": "区統計",
+      "competitionLevel": "競合レベル",
+      "demandLevel": "需要レベル",
+      "avgAdr": "エリア平均料金",
+      "avgOccupancy": "平均予約率"
+    },
+    "healthScore": {
+      "title": "物件スコア",
+      "grade": "等級",
+      "composite": "総合スコア",
+      "components": "項目別スコア",
+      "topActions": "改善アクション",
+      "photos": "写真品質",
+      "response": "応答率",
+      "review": "レビュースコア",
+      "pricing": "料金競争力",
+      "availability": "予約可用性"
+    },
+    "nearbyPOI": {
+      "title": "近くの観光地",
+      "distance": "距離",
+      "category": "カテゴリー"
+    },
+    "listingDesc": {
+      "title": "物件説明",
+      "generated": "AI生成説明",
+      "copy": "コピー",
+      "regenerate": "再生成"
+    }
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "close": "閉じる",
+    "night": "泊",
+    "month": "月",
+    "year": "年",
+    "person": "人",
+    "room": "室",
+    "bathroom": "",
+    "photo": "枚",
+    "instantBookHint": "ゲストがすぐに予約できます"
+  }
+}

@@ -2,7 +2,7 @@
   "version": "1.0",
   "domain": "hospitality",
   "domain_korean": "서울 에어비앤비",
-  "analysis_perspectives": ["host", "platform"],
+  "analysis_perspectives": ["host", "district"],
   "data_preprocessing_rules": {
     "note": "전처리 완료 — 추가 전처리 불필요",
     "exclude_columns": ["exng", "ttm_exng", "nearest_poi_image", "nearest_poi_image"],
@@ -29,7 +29,7 @@
       "random_seed": 42
     },
     "host_perspective_focus": ["room_type", "superhost", "rating_overall", "photos_count", "instant_book", "bedrooms_group", "min_nights", "extra_guest_fee_policy", "nearest_poi_dist_km"],
-    "platform_perspective_focus": ["district", "nearest_poi_type_name", "ttm_pop", "room_type", "operation_status"],
+    "district_analysis_focus": ["district", "nearest_poi_type_name", "ttm_pop", "room_type", "operation_status"],
     "primary_metric": "ttm_revpar",
     "secondary_metric": "l90d_revpar"
   },

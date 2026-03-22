@@ -1,0 +1,218 @@
+{
+  "header": {
+    "title": "首尔 Airbnb 收益分析",
+    "languageAndRegion": "语言和地区",
+    "currency": "货币",
+    "translation": "翻译",
+    "translationDesc": "描述和评论将自动翻译。",
+    "recommendedLanguages": "推荐语言",
+    "allLanguages": "所有语言",
+    "recommendedCurrencies": "推荐货币",
+    "allCurrencies": "所有货币",
+    "save": "保存",
+    "close": "关闭"
+  },
+  "sidebar": {
+    "performance": "绩效",
+    "inputSettings": "输入设置",
+    "basicInfo": "基本信息",
+    "propertySettings": "房源设置",
+    "opexInput": "运营成本",
+    "operations": "运营状况",
+    "revenueSummary": "收益摘要",
+    "pricingStrategy": "定价策略",
+    "marketDiagnosis": "市场诊断",
+    "nearbyPOI": "周边景点",
+    "healthScore": "房源评分",
+    "listingDesc": "房源描述",
+    "startAnalysis": "开始分析"
+  },
+  "stats": {
+    "dailyRevPAR": "每日实际收益",
+    "monthlyNetProfit": "月预计净利润",
+    "bepRate": "盈亏平衡最低价",
+    "weekdayOcc": "工作日入住率",
+    "weekendOcc": "周末入住率",
+    "reviewScore": "评分",
+    "percentileRank": "排名百分位"
+  },
+  "filter": {
+    "all": "全部",
+    "district": "地区",
+    "dateRange": "日期",
+    "roomType": "房型",
+    "priceRange": "价格范围",
+    "guestCount": "房客数"
+  },
+  "wizard": {
+    "title": "输入分析信息",
+    "hostType": {
+      "question": "您是哪种类型的房东？",
+      "subtitle": "根据您的托管经验提供个性化分析流程。",
+      "new": {
+        "title": "新房东",
+        "desc": "首次发布房源或尚无预订记录"
+      },
+      "existing": {
+        "title": "现有房东",
+        "desc": "已在 Airbnb 上运营并有预订记录"
+      }
+    },
+    "step1": {
+      "title": "基本信息",
+      "district": "选择区",
+      "districtPlaceholder": "请选择首尔行政区",
+      "address": "详细地址（可选）",
+      "addressPlaceholder": "例：江南区德黑兰路 123",
+      "roomType": "房源类型",
+      "accommodates": "最大入住人数",
+      "bedrooms": "卧室数量",
+      "bathrooms": "浴室数量",
+      "amenities": "设施"
+    },
+    "step2": {
+      "title": "房源设置",
+      "forNew": "目标设置",
+      "forExisting": "实际预订情况",
+      "targetAdr": "目标每日价格",
+      "targetOccupancy": "目标入住率",
+      "photos": "房源照片数量",
+      "reviewScore": "评分",
+      "responseRate": "响应率",
+      "instantBook": "即时预订",
+      "calendarTitle": "点击日期标记为已预订",
+      "bookedDays": "预订天数",
+      "occupancyRate": "本月入住率",
+      "currentAdr": "当前每日价格",
+      "reviewCount": "总评论数"
+    },
+    "step3": {
+      "title": "运营成本",
+      "cleaningFee": "清洁费（每晚）",
+      "platformFee": "平台服务费（%）",
+      "utilityMonthly": "月度公用事业费",
+      "mortgageMonthly": "月度贷款还款",
+      "managementFee": "管理费（月度）",
+      "otherOpEx": "其他运营费（月度）",
+      "cleaningFeeHint": "每次预订的清洁费用",
+      "platformFeeHint": "Airbnb服务费（默认3%）",
+      "utilityHint": "电、气、水等月均费用",
+      "mortgageHint": "月度房贷还款（无则填0）",
+      "managementHint": "物业管理费等",
+      "otherHint": "其他运营相关费用",
+      "monthlyTotal": "月固定成本合计（不含清洁费）"
+    },
+    "step4": {
+      "title": "运营状况",
+      "minNights": "最少入住天数",
+      "maxNights": "最多入住天数",
+      "checkIn": "入住时间段",
+      "petFriendly": "允许携带宠物",
+      "smokingAllowed": "允许吸烟",
+      "partiesAllowed": "允许举办派对",
+      "selfCheckIn": "自助入住",
+      "checkInFlexible": "灵活入住",
+      "selfCheckInHint": "房客可以自行办理入住",
+      "petFriendlyHint": "欢迎携带宠物的房客",
+      "smokingHint": "提供吸烟区",
+      "partiesHint": "允许举办派对或活动"
+    },
+    "next": "下一步",
+    "prev": "返回",
+    "analyze": "开始分析",
+    "analyzing": "分析中..."
+  },
+  "calendar": {
+    "sun": "日",
+    "mon": "一",
+    "tue": "二",
+    "wed": "三",
+    "thu": "四",
+    "fri": "五",
+    "sat": "六",
+    "prevMonth": "上个月",
+    "nextMonth": "下个月",
+    "bookedDays": "已预订",
+    "holiday": "节假日",
+    "today": "今天",
+    "selectDates": "指定日期",
+    "monthly": "按月",
+    "flexible": "灵活日期",
+    "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+  },
+  "dashboard": {
+    "revenueSummary": {
+      "title": "收益摘要",
+      "monthlyRevenue": "月预计收入",
+      "monthlyNetProfit": "月预计净利润",
+      "annualRevenue": "年预计收入",
+      "revpar": "每日实际收益",
+      "adr": "每日价格",
+      "occupancy": "入住率",
+      "comparisonTitle": "同类房源对比",
+      "yourProperty": "您的房源",
+      "median": "中位数",
+      "top25": "前25%",
+      "monthlyOccupancyTrend": "月度入住率趋势（预测）",
+      "metric": "指标"
+    },
+    "pricingStrategy": {
+      "title": "定价策略",
+      "weekdayPrice": "工作日建议价格",
+      "weekendPrice": "周末建议价格",
+      "peakMultiplier": "旺季倍率",
+      "discountThreshold": "折扣适用期间",
+      "seasonalAdjustment": "季节性调整",
+      "simulationTitle": "价格模拟"
+    },
+    "marketDiagnosis": {
+      "title": "市场诊断",
+      "clusterInfo": "集群信息",
+      "districtStats": "区统计",
+      "competitionLevel": "竞争水平",
+      "demandLevel": "需求水平",
+      "avgAdr": "区域平均价格",
+      "avgOccupancy": "平均入住率"
+    },
+    "healthScore": {
+      "title": "房源评分",
+      "grade": "等级",
+      "composite": "综合评分",
+      "components": "各项评分",
+      "topActions": "改进措施",
+      "photos": "照片质量",
+      "response": "响应率",
+      "review": "评分",
+      "pricing": "价格竞争力",
+      "availability": "预订可用性"
+    },
+    "nearbyPOI": {
+      "title": "周边景点",
+      "distance": "距离",
+      "category": "类别"
+    },
+    "listingDesc": {
+      "title": "房源描述",
+      "generated": "AI生成描述",
+      "copy": "复制",
+      "regenerate": "重新生成"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "retry": "重试",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "close": "关闭",
+    "night": "晚",
+    "month": "月",
+    "year": "年",
+    "person": "人",
+    "room": "间",
+    "bathroom": "",
+    "photo": "张",
+    "instantBookHint": "房客可以立即预订"
+  }
+}

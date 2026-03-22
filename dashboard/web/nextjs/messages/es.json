@@ -1,0 +1,218 @@
+{
+  "header": {
+    "title": "Análisis de Ingresos Airbnb Seúl",
+    "languageAndRegion": "Idioma y región",
+    "currency": "Moneda",
+    "translation": "Traducción",
+    "translationDesc": "Las descripciones y reseñas se traducen automáticamente.",
+    "recommendedLanguages": "Idiomas sugeridos",
+    "allLanguages": "Todos los idiomas",
+    "recommendedCurrencies": "Monedas sugeridas",
+    "allCurrencies": "Todas las monedas",
+    "save": "Guardar",
+    "close": "Cerrar"
+  },
+  "sidebar": {
+    "performance": "Rendimiento",
+    "inputSettings": "Configuración",
+    "basicInfo": "Info básica",
+    "propertySettings": "Configuración del alojamiento",
+    "opexInput": "Costos operativos",
+    "operations": "Operaciones",
+    "revenueSummary": "Resumen de ingresos",
+    "pricingStrategy": "Estrategia de precios",
+    "marketDiagnosis": "Diagnóstico de mercado",
+    "nearbyPOI": "Atracciones cercanas",
+    "healthScore": "Puntuación del alojamiento",
+    "listingDesc": "Descripción del alojamiento",
+    "startAnalysis": "Iniciar análisis"
+  },
+  "stats": {
+    "dailyRevPAR": "Ingresos diarios",
+    "monthlyNetProfit": "Beneficio neto mensual",
+    "bepRate": "Tarifa de punto de equilibrio",
+    "weekdayOcc": "Ocupación entre semana",
+    "weekendOcc": "Ocupación fin de semana",
+    "reviewScore": "Puntuación de reseñas",
+    "percentileRank": "Percentil"
+  },
+  "filter": {
+    "all": "Todo",
+    "district": "Distrito",
+    "dateRange": "Fechas",
+    "roomType": "Tipo de alojamiento",
+    "priceRange": "Rango de precio",
+    "guestCount": "Huéspedes"
+  },
+  "wizard": {
+    "title": "Ingresa tu información",
+    "hostType": {
+      "question": "¿Qué tipo de anfitrión eres?",
+      "subtitle": "Adaptamos el análisis a tu experiencia como anfitrión.",
+      "new": {
+        "title": "Nuevo anfitrión",
+        "desc": "Estoy publicando por primera vez o aún no tengo historial de reservas"
+      },
+      "existing": {
+        "title": "Anfitrión existente",
+        "desc": "Ya tengo alojamientos en Airbnb y tengo historial de reservas"
+      }
+    },
+    "step1": {
+      "title": "Información básica",
+      "district": "Seleccionar distrito",
+      "districtPlaceholder": "Selecciona un distrito de Seúl",
+      "address": "Dirección detallada (opcional)",
+      "addressPlaceholder": "Ej: 123 Teheran-ro, Gangnam-gu",
+      "roomType": "Tipo de habitación",
+      "accommodates": "Máximo de huéspedes",
+      "bedrooms": "Dormitorios",
+      "bathrooms": "Baños",
+      "amenities": "Comodidades"
+    },
+    "step2": {
+      "title": "Configuración del alojamiento",
+      "forNew": "Objetivos",
+      "forExisting": "Estado real de reservas",
+      "targetAdr": "Tarifa diaria objetivo",
+      "targetOccupancy": "Ocupación objetivo",
+      "photos": "Número de fotos",
+      "reviewScore": "Puntuación de reseñas",
+      "responseRate": "Tasa de respuesta",
+      "instantBook": "Reserva instantánea",
+      "calendarTitle": "Haz clic en las fechas para marcarlas como reservadas",
+      "bookedDays": "Días reservados",
+      "occupancyRate": "Ocupación este mes",
+      "currentAdr": "Tarifa diaria actual",
+      "reviewCount": "Total de reseñas"
+    },
+    "step3": {
+      "title": "Costos operativos",
+      "cleaningFee": "Tarifa de limpieza (por noche)",
+      "platformFee": "Comisión de la plataforma (%)",
+      "utilityMonthly": "Servicios mensuales",
+      "mortgageMonthly": "Hipoteca mensual",
+      "managementFee": "Cuota de gestión (mensual)",
+      "otherOpEx": "Otros costos (mensual)",
+      "cleaningFeeHint": "Costo de limpieza por reserva",
+      "platformFeeHint": "Comisión de servicio de Airbnb (predeterminado 3%)",
+      "utilityHint": "Promedio mensual de electricidad, gas, agua",
+      "mortgageHint": "Pago mensual de hipoteca (0 si no aplica)",
+      "managementHint": "Honorarios de gestión etc.",
+      "otherHint": "Otros gastos operativos",
+      "monthlyTotal": "Costos fijos mensuales (excl. limpieza)"
+    },
+    "step4": {
+      "title": "Operaciones",
+      "minNights": "Noches mínimas",
+      "maxNights": "Noches máximas",
+      "checkIn": "Hora de entrada",
+      "petFriendly": "Se admiten mascotas",
+      "smokingAllowed": "Se permite fumar",
+      "partiesAllowed": "Se permiten fiestas",
+      "selfCheckIn": "Entrada autónoma",
+      "checkInFlexible": "Flexible",
+      "selfCheckInHint": "Los huéspedes pueden registrarse de forma autónoma",
+      "petFriendlyHint": "Se aceptan huéspedes con mascotas",
+      "smokingHint": "Se proporciona zona de fumadores",
+      "partiesHint": "Se permiten fiestas y eventos"
+    },
+    "next": "Siguiente",
+    "prev": "Atrás",
+    "analyze": "Iniciar análisis",
+    "analyzing": "Analizando..."
+  },
+  "calendar": {
+    "sun": "Do",
+    "mon": "Lu",
+    "tue": "Ma",
+    "wed": "Mi",
+    "thu": "Ju",
+    "fri": "Vi",
+    "sat": "Sa",
+    "prevMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "bookedDays": "Reservado",
+    "holiday": "Festivo",
+    "today": "Hoy",
+    "selectDates": "Fechas exactas",
+    "monthly": "Por mes",
+    "flexible": "Flexible",
+    "months": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+  },
+  "dashboard": {
+    "revenueSummary": {
+      "title": "Resumen de ingresos",
+      "monthlyRevenue": "Ingresos mensuales estimados",
+      "monthlyNetProfit": "Beneficio neto mensual estimado",
+      "annualRevenue": "Ingresos anuales estimados",
+      "revpar": "Ingresos diarios",
+      "adr": "Tarifa diaria",
+      "occupancy": "Tasa de ocupación",
+      "comparisonTitle": "Comparación con alojamientos similares",
+      "yourProperty": "Tu alojamiento",
+      "median": "Mediana",
+      "top25": "Top 25%",
+      "monthlyOccupancyTrend": "Tendencia de ocupación mensual (previsión)",
+      "metric": "Indicador"
+    },
+    "pricingStrategy": {
+      "title": "Estrategia de precios",
+      "weekdayPrice": "Tarifa recomendada entre semana",
+      "weekendPrice": "Tarifa recomendada fin de semana",
+      "peakMultiplier": "Multiplicador de temporada alta",
+      "discountThreshold": "Ventana de descuento",
+      "seasonalAdjustment": "Ajustes estacionales",
+      "simulationTitle": "Simulación de precios"
+    },
+    "marketDiagnosis": {
+      "title": "Diagnóstico de mercado",
+      "clusterInfo": "Información del clúster",
+      "districtStats": "Estadísticas del distrito",
+      "competitionLevel": "Nivel de competencia",
+      "demandLevel": "Nivel de demanda",
+      "avgAdr": "Tarifa media del área",
+      "avgOccupancy": "Ocupación promedio"
+    },
+    "healthScore": {
+      "title": "Puntuación del alojamiento",
+      "grade": "Calificación",
+      "composite": "Puntuación general",
+      "components": "Puntuaciones por componente",
+      "topActions": "Acciones de mejora",
+      "photos": "Calidad de fotos",
+      "response": "Tasa de respuesta",
+      "review": "Puntuación de reseñas",
+      "pricing": "Competitividad de precios",
+      "availability": "Disponibilidad de reservas"
+    },
+    "nearbyPOI": {
+      "title": "Atracciones cercanas",
+      "distance": "Distancia",
+      "category": "Categoría"
+    },
+    "listingDesc": {
+      "title": "Descripción del alojamiento",
+      "generated": "Descripción generada por IA",
+      "copy": "Copiar",
+      "regenerate": "Regenerar"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Se produjo un error",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "night": "",
+    "month": "mes",
+    "year": "año",
+    "person": "",
+    "room": "",
+    "bathroom": "",
+    "photo": "",
+    "instantBookHint": "Los huéspedes pueden reservar de inmediato"
+  }
+}

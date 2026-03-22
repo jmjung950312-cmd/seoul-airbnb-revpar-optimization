@@ -1,0 +1,218 @@
+{
+  "header": {
+    "title": "Seoul Airbnb Revenue Analytics",
+    "languageAndRegion": "Language and region",
+    "currency": "Currency",
+    "translation": "Translation",
+    "translationDesc": "Descriptions and reviews are automatically translated.",
+    "recommendedLanguages": "Suggested languages",
+    "allLanguages": "All languages",
+    "recommendedCurrencies": "Suggested currencies",
+    "allCurrencies": "All currencies",
+    "save": "Save",
+    "close": "Close"
+  },
+  "sidebar": {
+    "performance": "Performance",
+    "inputSettings": "Input Settings",
+    "basicInfo": "Basic Info",
+    "propertySettings": "Property Settings",
+    "opexInput": "Operating Costs",
+    "operations": "Operations",
+    "revenueSummary": "Revenue Summary",
+    "pricingStrategy": "Pricing Strategy",
+    "marketDiagnosis": "Market Diagnosis",
+    "nearbyPOI": "Nearby Attractions",
+    "healthScore": "Listing Score",
+    "listingDesc": "Listing Description",
+    "startAnalysis": "Start Analysis"
+  },
+  "stats": {
+    "dailyRevPAR": "Daily Earnings",
+    "monthlyNetProfit": "Monthly Net Profit",
+    "bepRate": "Break-even Rate",
+    "weekdayOcc": "Weekday Occupancy",
+    "weekendOcc": "Weekend Occupancy",
+    "reviewScore": "Review Score",
+    "percentileRank": "Percentile Rank"
+  },
+  "filter": {
+    "all": "All",
+    "district": "District",
+    "dateRange": "Dates",
+    "roomType": "Room Type",
+    "priceRange": "Price Range",
+    "guestCount": "Guests"
+  },
+  "wizard": {
+    "title": "Enter Analysis Info",
+    "hostType": {
+      "question": "What type of host are you?",
+      "subtitle": "We'll tailor the analysis to your hosting experience.",
+      "new": {
+        "title": "New Host",
+        "desc": "I'm listing for the first time or don't have any booking history yet"
+      },
+      "existing": {
+        "title": "Existing Host",
+        "desc": "I'm already hosting on Airbnb and have booking history"
+      }
+    },
+    "step1": {
+      "title": "Basic Info",
+      "district": "Select District",
+      "districtPlaceholder": "Select a Seoul district",
+      "address": "Detailed Address (optional)",
+      "addressPlaceholder": "e.g. 123 Teheran-ro, Gangnam-gu",
+      "roomType": "Room Type",
+      "accommodates": "Max Guests",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "amenities": "Amenities"
+    },
+    "step2": {
+      "title": "Property Settings",
+      "forNew": "Target Settings",
+      "forExisting": "Actual Booking Status",
+      "targetAdr": "Target Daily Rate",
+      "targetOccupancy": "Target Occupancy",
+      "photos": "Number of Photos",
+      "reviewScore": "Review Rating",
+      "responseRate": "Response Rate",
+      "instantBook": "Instant Book",
+      "calendarTitle": "Click dates to mark as booked",
+      "bookedDays": "Booked Days",
+      "occupancyRate": "This Month's Occupancy",
+      "currentAdr": "Current Daily Rate",
+      "reviewCount": "Total Reviews"
+    },
+    "step3": {
+      "title": "Operating Costs",
+      "cleaningFee": "Cleaning Fee (per night)",
+      "platformFee": "Platform Fee (%)",
+      "utilityMonthly": "Monthly Utilities",
+      "mortgageMonthly": "Monthly Mortgage",
+      "managementFee": "Management Fee (monthly)",
+      "otherOpEx": "Other Costs (monthly)",
+      "cleaningFeeHint": "Cleaning cost per booking",
+      "platformFeeHint": "Airbnb service fee (default 3%)",
+      "utilityHint": "Monthly avg for electricity, gas, water",
+      "mortgageHint": "Monthly mortgage payment (0 if none)",
+      "managementHint": "Property management fees etc.",
+      "otherHint": "Other operating expenses",
+      "monthlyTotal": "Monthly fixed costs (excl. cleaning)"
+    },
+    "step4": {
+      "title": "Operations",
+      "minNights": "Minimum Nights",
+      "maxNights": "Maximum Nights",
+      "checkIn": "Check-in Window",
+      "petFriendly": "Pet Friendly",
+      "smokingAllowed": "Smoking Allowed",
+      "partiesAllowed": "Parties Allowed",
+      "selfCheckIn": "Self Check-in",
+      "checkInFlexible": "Flexible",
+      "selfCheckInHint": "Guests can check in on their own",
+      "petFriendlyHint": "Guests with pets are welcome",
+      "smokingHint": "A smoking area is provided",
+      "partiesHint": "Parties and events are allowed"
+    },
+    "next": "Next",
+    "prev": "Back",
+    "analyze": "Start Analysis",
+    "analyzing": "Analyzing..."
+  },
+  "calendar": {
+    "sun": "Su",
+    "mon": "Mo",
+    "tue": "Tu",
+    "wed": "We",
+    "thu": "Th",
+    "fri": "Fr",
+    "sat": "Sa",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "bookedDays": "Booked",
+    "holiday": "Holiday",
+    "today": "Today",
+    "selectDates": "Specific dates",
+    "monthly": "Monthly",
+    "flexible": "Flexible",
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  },
+  "dashboard": {
+    "revenueSummary": {
+      "title": "Revenue Summary",
+      "monthlyRevenue": "Est. Monthly Revenue",
+      "monthlyNetProfit": "Est. Monthly Net Profit",
+      "annualRevenue": "Est. Annual Revenue",
+      "revpar": "Daily Earnings",
+      "adr": "Daily Rate",
+      "occupancy": "Occupancy Rate",
+      "comparisonTitle": "Similar Listings Comparison",
+      "yourProperty": "Your Property",
+      "median": "Median",
+      "top25": "Top 25%",
+      "monthlyOccupancyTrend": "Monthly Occupancy Trend (Forecast)",
+      "metric": "Metric"
+    },
+    "pricingStrategy": {
+      "title": "Pricing Strategy",
+      "weekdayPrice": "Recommended Weekday Rate",
+      "weekendPrice": "Recommended Weekend Rate",
+      "peakMultiplier": "Peak Season Multiplier",
+      "discountThreshold": "Discount Window",
+      "seasonalAdjustment": "Seasonal Adjustments",
+      "simulationTitle": "Price Simulation"
+    },
+    "marketDiagnosis": {
+      "title": "Market Diagnosis",
+      "clusterInfo": "Cluster Info",
+      "districtStats": "District Statistics",
+      "competitionLevel": "Competition Level",
+      "demandLevel": "Demand Level",
+      "avgAdr": "Area Avg Rate",
+      "avgOccupancy": "Avg Occupancy"
+    },
+    "healthScore": {
+      "title": "Listing Score",
+      "grade": "Grade",
+      "composite": "Overall Score",
+      "components": "Component Scores",
+      "topActions": "Action Items",
+      "photos": "Photo Quality",
+      "response": "Response Rate",
+      "review": "Review Score",
+      "pricing": "Price Competitiveness",
+      "availability": "Booking Availability"
+    },
+    "nearbyPOI": {
+      "title": "Nearby Attractions",
+      "distance": "Distance",
+      "category": "Category"
+    },
+    "listingDesc": {
+      "title": "Listing Description",
+      "generated": "AI-Generated Description",
+      "copy": "Copy",
+      "regenerate": "Regenerate"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "night": "",
+    "month": "month",
+    "year": "year",
+    "person": "",
+    "room": "",
+    "bathroom": "",
+    "photo": "",
+    "instantBookHint": "Guests can book immediately"
+  }
+}

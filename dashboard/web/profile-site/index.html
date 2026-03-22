@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이정모 | Data Analyst</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans KR', 'sans-serif'],
+          },
+          colors: {
+            dark: '#0f172a',
+            accent: '#6366f1',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; }
+
+    /* Grid pattern for left panel */
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Animated data dots */
+    .data-dot {
+      position: absolute;
+      border-radius: 50%;
+      animation: pulse-dot 3s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* Skill bar animation */
+    .skill-bar-fill {
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Nav scroll effect */
+    .nav-scrolled {
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.9) !important;
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Project card hover */
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    /* Skill tag hover */
+    .skill-tag {
+      transition: all 0.2s ease;
+    }
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99,102,241,0.25);
+    }
+
+    /* Floating chart animation */
+    .chart-bar {
+      animation: grow-bar 2s ease forwards;
+      transform-origin: bottom;
+      transform: scaleY(0);
+    }
+    @keyframes grow-bar {
+      0% { transform: scaleY(0); }
+      100% { transform: scaleY(1); }
+    }
+
+    /* Animated counter */
+    .counter { display: inline-block; }
+
+    /* Smooth section reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-menu.open {
+      max-height: 300px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-dark rounded-lg flex items-center justify-center group-hover:bg-accent transition-colors duration-200">
+          <span class="text-white text-xs font-bold">JM</span>
+        </div>
+        <span class="font-semibold text-gray-900 hidden sm:block">이정모</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#hero" class="text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">홈</a>
+        <a href="#about" class="text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">소개</a>
+        <a href="#skills" class="text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">기술스택</a>
+        <a href="#projects" class="text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">프로젝트</a>
+        <a href="#contact" class="text-sm bg-dark text-white px-5 py-2 rounded-full hover:bg-accent transition-colors font-medium">연락하기</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="메뉴 열기">
+        <span class="w-6 h-0.5 bg-gray-900 block transition-all duration-200" id="ham-1"></span>
+        <span class="w-6 h-0.5 bg-gray-900 block transition-all duration-200" id="ham-2"></span>
+        <span class="w-6 h-0.5 bg-gray-900 block transition-all duration-200" id="ham-3"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100">
+      <div class="px-6 py-4 flex flex-col gap-4">
+        <a href="#hero" class="text-sm font-medium text-gray-700 hover:text-gray-900 mobile-link">홈</a>
+        <a href="#about" class="text-sm font-medium text-gray-700 hover:text-gray-900 mobile-link">소개</a>
+        <a href="#skills" class="text-sm font-medium text-gray-700 hover:text-gray-900 mobile-link">기술스택</a>
+        <a href="#projects" class="text-sm font-medium text-gray-700 hover:text-gray-900 mobile-link">프로젝트</a>
+        <a href="#contact" class="text-sm font-medium text-gray-700 hover:text-gray-900 mobile-link">연락하기</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="hero" class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- Left Panel -->
+    <div class="relative w-full lg:w-1/2 min-h-[50vh] lg:min-h-screen bg-[#0f172a] grid-pattern flex flex-col items-center justify-center overflow-hidden">
+
+      <!-- Decorative animated dots -->
+      <div class="data-dot w-2 h-2 bg-indigo-400" style="top:15%;left:20%;animation-delay:0s;"></div>
+      <div class="data-dot w-3 h-3 bg-purple-400" style="top:30%;left:75%;animation-delay:0.8s;"></div>
+      <div class="data-dot w-2 h-2 bg-cyan-400" style="top:60%;left:15%;animation-delay:1.2s;"></div>
+      <div class="data-dot w-2 h-2 bg-indigo-300" style="top:75%;left:65%;animation-delay:0.4s;"></div>
+      <div class="data-dot w-3 h-3 bg-violet-400" style="top:85%;left:30%;animation-delay:1.6s;"></div>
+
+      <!-- Connection lines SVG -->
+      <svg class="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20%" y1="15%" x2="75%" y2="30%" stroke="#6366f1" stroke-width="1" />
+        <line x1="75%" y1="30%" x2="65%" y2="75%" stroke="#6366f1" stroke-width="1" />
+        <line x1="65%" y1="75%" x2="30%" y2="85%" stroke="#6366f1" stroke-width="1" />
+        <line x1="30%" y1="85%" x2="15%" y2="60%" stroke="#6366f1" stroke-width="1" />
+        <line x1="15%" y1="60%" x2="20%" y2="15%" stroke="#6366f1" stroke-width="1" />
+      </svg>
+
+      <!-- Floating Chart Visualization -->
+      <div class="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-end gap-2 opacity-30">
+        <div class="chart-bar w-6 h-10 bg-indigo-400 rounded-t" style="animation-delay:0.2s;"></div>
+        <div class="chart-bar w-6 h-16 bg-indigo-500 rounded-t" style="animation-delay:0.4s;"></div>
+        <div class="chart-bar w-6 h-8 bg-purple-400 rounded-t" style="animation-delay:0.6s;"></div>
+        <div class="chart-bar w-6 h-20 bg-indigo-400 rounded-t" style="animation-delay:0.8s;"></div>
+        <div class="chart-bar w-6 h-12 bg-violet-400 rounded-t" style="animation-delay:1.0s;"></div>
+        <div class="chart-bar w-6 h-24 bg-indigo-600 rounded-t" style="animation-delay:1.2s;"></div>
+        <div class="chart-bar w-6 h-14 bg-purple-500 rounded-t" style="animation-delay:1.4s;"></div>
+      </div>
+
+      <!-- Main left content -->
+      <div class="relative z-10 text-center px-8 animate-float">
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-white/80 text-sm font-medium">데이터 분석가</span>
+        </div>
+
+        <h1 class="text-white text-6xl lg:text-7xl font-black tracking-tight leading-none mb-2">DATA</h1>
+        <h1 class="text-transparent text-6xl lg:text-7xl font-black tracking-tight leading-none mb-6"
+            style="background: linear-gradient(135deg, #6366f1, #a855f7, #06b6d4); -webkit-background-clip:text; background-clip:text;">
+          ANALYST
+        </h1>
+
+        <p class="text-white/50 text-sm font-mono tracking-widest">이정모 · LEE JUNGMO</p>
+      </div>
+
+      <!-- Radial glow -->
+      <div class="absolute inset-0 bg-gradient-radial pointer-events-none"
+           style="background: radial-gradient(ellipse at center, rgba(99,102,241,0.15) 0%, transparent 70%);"></div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 py-20 lg:py-0 bg-white">
+
+      <!-- Tag -->
+      <div class="inline-flex mb-6">
+        <span class="text-xs font-semibold tracking-widest text-indigo-600 uppercase bg-indigo-50 px-3 py-1.5 rounded-full">
+          Portfolio 2026
+        </span>
+      </div>
+
+      <!-- Headline -->
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight mb-6">
+        안녕하세요,<br />
+        <span class="text-gray-400">저는</span> 이정모<br />
+        <span class="text-gray-400">입니다.</span>
+      </h2>
+
+      <!-- Intro text -->
+      <p class="text-gray-500 text-base lg:text-lg leading-relaxed mb-8 max-w-md">
+        데이터에 대한 관심과 흥미로 직무 전환을 결심하고, 부트캠프를 수료한 뒤
+        Claude Code까지 학습하며 분석 역량을 꾸준히 쌓아가고 있습니다.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex items-center gap-4 mb-12">
+        <a href="#projects"
+           class="bg-[#0f172a] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-indigo-600 transition-colors duration-300 shadow-lg hover:shadow-indigo-200">
+          포트폴리오 보기
+        </a>
+        <a href="#contact"
+           class="flex items-center gap-2 text-gray-700 text-sm font-semibold hover:text-indigo-600 transition-colors group">
+          연락하기
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Skill pills row -->
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-tag flex items-center gap-1.5 bg-gray-900 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full cursor-default">
+          <span>🗄️</span> SQL
+        </span>
+        <span class="skill-tag flex items-center gap-1.5 bg-blue-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full cursor-default">
+          <span>🐍</span> Python
+        </span>
+        <span class="skill-tag flex items-center gap-1.5 bg-orange-500 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full cursor-default">
+          <span>📊</span> Tableau
+        </span>
+        <span class="skill-tag flex items-center gap-1.5 bg-violet-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full cursor-default">
+          <span>🤖</span> Claude Code
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== ABOUT SECTION ========== -->
+  <section id="about" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Left: Text -->
+        <div class="reveal">
+          <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">About Me</span>
+          <h3 class="text-4xl font-black text-gray-900 mt-3 mb-6 leading-tight">
+            데이터로 가치를<br />만드는 분석가
+          </h3>
+          <p class="text-gray-600 text-base leading-relaxed mb-6">
+            데이터의 관심과 흥미가 생겨 직무전환을 위해 부트캠프를 수료하고,
+            개인적으로 Claude Code 기술을 추가로 학습하여 분석 역량을 길렀습니다.
+          </p>
+          <p class="text-gray-600 text-base leading-relaxed mb-8">
+            숫자 뒤에 숨어 있는 인사이트를 발굴하고, 이를 명확한 시각화와
+            스토리텔링으로 전달하는 것을 즐깁니다. 지속적인 학습과 성장으로
+            데이터 기반 의사결정에 기여하고자 합니다.
+          </p>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="text-3xl font-black text-gray-900 counter-num" data-target="4">0</div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">기술 스택</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-black text-gray-900 counter-num" data-target="3">0</div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">프로젝트</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-black text-gray-900 counter-num" data-target="1">0</div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">부트캠프 수료</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Card -->
+        <div class="reveal">
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            <!-- Profile avatar placeholder -->
+            <div class="flex items-center gap-4 mb-8">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+                JM
+              </div>
+              <div>
+                <div class="font-bold text-gray-900 text-lg">이정모</div>
+                <div class="text-gray-500 text-sm">Data Analyst</div>
+                <div class="flex items-center gap-1.5 mt-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-xs text-emerald-600 font-medium">구직중</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Info rows -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-9 h-9 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-400">직업</div>
+                  <div class="text-sm font-semibold text-gray-900">데이터 분석가</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-9 h-9 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-400">이메일</div>
+                  <div class="text-sm font-semibold text-gray-900">jmjungtube@gmail.com</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-9 h-9 bg-gray-900 rounded-lg flex items-center justify-center text-white">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-400">GitHub</div>
+                  <div class="text-sm font-semibold text-gray-900">jmjung950312-cmd</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SKILLS SECTION ========== -->
+  <section id="skills" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Tech Stack</span>
+        <h3 class="text-4xl font-black text-gray-900 mt-3">기술 스택</h3>
+        <p class="text-gray-500 mt-3 max-w-md mx-auto">데이터 분석부터 시각화까지, 다양한 도구를 활용합니다.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- SQL -->
+        <div class="reveal skill-card group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all duration-300">
+          <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+            🗄️
+          </div>
+          <h4 class="font-bold text-gray-900 text-lg mb-1">SQL</h4>
+          <p class="text-gray-500 text-sm mb-4">데이터베이스 쿼리 및 데이터 추출</p>
+          <div class="bg-gray-100 rounded-full h-1.5">
+            <div class="skill-bar-fill bg-gray-900 h-1.5 rounded-full" data-width="85"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-400 mt-1.5">
+            <span>숙련도</span><span>85%</span>
+          </div>
+        </div>
+
+        <!-- Python -->
+        <div class="reveal skill-card group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300">
+          <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+            🐍
+          </div>
+          <h4 class="font-bold text-gray-900 text-lg mb-1">Python</h4>
+          <p class="text-gray-500 text-sm mb-4">데이터 분석, pandas, matplotlib</p>
+          <div class="bg-gray-100 rounded-full h-1.5">
+            <div class="skill-bar-fill bg-blue-600 h-1.5 rounded-full" data-width="80"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-400 mt-1.5">
+            <span>숙련도</span><span>80%</span>
+          </div>
+        </div>
+
+        <!-- Tableau -->
+        <div class="reveal skill-card group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-orange-200 transition-all duration-300">
+          <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+            📊
+          </div>
+          <h4 class="font-bold text-gray-900 text-lg mb-1">Tableau</h4>
+          <p class="text-gray-500 text-sm mb-4">대시보드 및 데이터 시각화</p>
+          <div class="bg-gray-100 rounded-full h-1.5">
+            <div class="skill-bar-fill bg-orange-500 h-1.5 rounded-full" data-width="75"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-400 mt-1.5">
+            <span>숙련도</span><span>75%</span>
+          </div>
+        </div>
+
+        <!-- Claude Code -->
+        <div class="reveal skill-card group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-violet-200 transition-all duration-300">
+          <div class="w-12 h-12 bg-violet-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+            🤖
+          </div>
+          <h4 class="font-bold text-gray-900 text-lg mb-1">Claude Code</h4>
+          <p class="text-gray-500 text-sm mb-4">AI 기반 분석 자동화</p>
+          <div class="bg-gray-100 rounded-full h-1.5">
+            <div class="skill-bar-fill bg-violet-600 h-1.5 rounded-full" data-width="70"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-400 mt-1.5">
+            <span>숙련도</span><span>70%</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== PROJECTS SECTION ========== -->
+  <section id="projects" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Portfolio</span>
+        <h3 class="text-4xl font-black text-gray-900 mt-3">프로젝트</h3>
+        <p class="text-gray-500 mt-3 max-w-md mx-auto">데이터 분석 역량을 쌓으며 진행한 주요 프로젝트들입니다.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Project 1 -->
+        <div class="project-card reveal bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+          <!-- Project visual header -->
+          <div class="h-44 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 grid-pattern opacity-20"></div>
+            <div class="relative z-10 text-center">
+              <div class="text-4xl mb-2">📈</div>
+              <div class="text-white/60 text-xs font-mono">SQL · Python</div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/10 to-transparent"></div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs bg-indigo-50 text-indigo-600 font-semibold px-2.5 py-1 rounded-full">데이터 분석</span>
+            </div>
+            <h4 class="font-bold text-gray-900 text-lg mb-2">고객 구매 패턴 분석</h4>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">
+              SQL과 Python을 활용하여 이커머스 고객의 구매 패턴을 분석하고 세그먼트별 인사이트를 도출한 프로젝트입니다.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">SQL</span>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">Python</span>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">pandas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card reveal bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+          <div class="h-44 bg-gradient-to-br from-orange-900 via-red-900 to-pink-900 relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 grid-pattern opacity-20"></div>
+            <div class="relative z-10 text-center">
+              <div class="text-4xl mb-2">📊</div>
+              <div class="text-white/60 text-xs font-mono">Tableau</div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs bg-orange-50 text-orange-600 font-semibold px-2.5 py-1 rounded-full">시각화</span>
+            </div>
+            <h4 class="font-bold text-gray-900 text-lg mb-2">매출 대시보드 제작</h4>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">
+              Tableau를 사용하여 월별·지역별 매출 현황을 한눈에 파악할 수 있는 인터랙티브 대시보드를 구현했습니다.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">Tableau</span>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">데이터 시각화</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card reveal bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+          <div class="h-44 bg-gradient-to-br from-violet-900 via-purple-900 to-blue-900 relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 grid-pattern opacity-20"></div>
+            <div class="relative z-10 text-center">
+              <div class="text-4xl mb-2">🤖</div>
+              <div class="text-white/60 text-xs font-mono">Claude Code · Python</div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs bg-violet-50 text-violet-600 font-semibold px-2.5 py-1 rounded-full">AI 활용</span>
+            </div>
+            <h4 class="font-bold text-gray-900 text-lg mb-2">AI 기반 데이터 분석 자동화</h4>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">
+              Claude Code를 활용하여 반복적인 데이터 전처리 및 분석 작업을 자동화하는 파이프라인을 구축했습니다.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">Claude Code</span>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">Python</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== CONTACT SECTION ========== -->
+  <section id="contact" class="py-24 bg-[#0f172a] relative overflow-hidden">
+
+    <!-- Background decoration -->
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 60%);"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+
+      <div class="reveal">
+        <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Contact</span>
+        <h3 class="text-4xl sm:text-5xl font-black text-white mt-3 mb-4 leading-tight">
+          함께 일해요!
+        </h3>
+        <p class="text-white/50 text-base sm:text-lg max-w-lg mx-auto mb-12">
+          데이터 분석 프로젝트나 협업 제안이 있으시면 언제든지 연락해 주세요.
+        </p>
+      </div>
+
+      <!-- Contact cards -->
+      <div class="reveal grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+
+        <!-- Email -->
+        <a href="mailto:jmjungtube@gmail.com"
+           class="group flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-6 py-5 hover:bg-white/10 hover:border-indigo-500/50 transition-all duration-300">
+          <div class="w-11 h-11 bg-indigo-500/20 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/40 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="text-left">
+            <div class="text-white/40 text-xs mb-0.5">Email</div>
+            <div class="text-white text-sm font-semibold">jmjungtube@gmail.com</div>
+          </div>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/jmjung950312-cmd" target="_blank" rel="noopener noreferrer"
+           class="group flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-6 py-5 hover:bg-white/10 hover:border-white/30 transition-all duration-300">
+          <div class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </div>
+          <div class="text-left">
+            <div class="text-white/40 text-xs mb-0.5">GitHub</div>
+            <div class="text-white text-sm font-semibold">jmjung950312-cmd</div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Bottom message -->
+      <p class="reveal text-white/30 text-xs mt-10 font-mono">
+        © 2026 이정모 · Data Analyst · Made with Claude Code
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ========== SCROLL TO TOP ========== -->
+  <button id="scroll-top"
+    class="fixed bottom-6 right-6 z-50 w-11 h-11 bg-gray-900 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-indigo-600"
+    aria-label="위로 이동">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
+
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // --- Navbar scroll effect ---
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // --- Mobile hamburger ---
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const ham1 = document.getElementById('ham-1');
+    const ham2 = document.getElementById('ham-2');
+    const ham3 = document.getElementById('ham-3');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      ham2.style.opacity = menuOpen ? '0' : '1';
+      ham1.style.transform = menuOpen ? 'translateY(8px) rotate(45deg)' : '';
+      ham3.style.transform = menuOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.remove('open');
+        ham2.style.opacity = '1';
+        ham1.style.transform = '';
+        ham3.style.transform = '';
+      });
+    });
+
+    // --- Scroll reveal ---
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // --- Skill bar animation ---
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            setTimeout(() => { bar.style.width = width + '%'; }, 200);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-card')?.forEach(el => skillObserver.observe(el));
+
+    // Also trigger on section
+    const skillSection = document.getElementById('skills');
+    if (skillSection) skillObserver.observe(skillSection);
+
+    // --- Counter animation ---
+    function animateCounter(el, target, duration = 1500) {
+      let start = 0;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        el.textContent = Math.floor(progress * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.counter-num').forEach(el => {
+            animateCounter(el, parseInt(el.getAttribute('data-target')));
+          });
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) counterObserver.observe(aboutSection);
+
+    // --- Chart bar animation ---
+    const chartObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.chart-bar').forEach(bar => {
+            bar.style.transform = 'scaleY(1)';
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) chartObserver.observe(heroSection);
+
+    // --- Scroll to top button ---
+    const scrollTopBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.pointerEvents = 'auto';
+      } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.pointerEvents = 'none';
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   "cells": [
     {
       "cell_type": "markdown",
-      "content": "# 서울 에어비앤비 RevPAR EDA 시각화\n\n**분석 목적:** 서울 에어비앤비 데이터를 바탕으로 호스트 관점(물건 특성별 RevPAR 분포)과 플랫폼 관점(자치구별 RevPAR 패턴)을 탐색적으로 시각화합니다.\n\n**데이터 개요:**\n- 총 32,061 rows × 42 cols\n- 핵심 지표: `ttm_revpar` (TTM RevPAR, 왜도=3.76), `l90d_revpar` (최근 90일 RevPAR, 왜도=3.86)\n- 주요 필터: `refined_status == 'Active'` AND `operation_status == 'Operating'` (Active+Operating)\n\n**시각화 구성:**\n1. RevPAR 분포 분석\n2. room_type별 RevPAR\n3. superhost 효과\n4. 사진수 vs RevPAR\n5. 평점 vs RevPAR\n6. 자치구별 RevPAR\n7. POI 거리 vs RevPAR\n8. 자치구별 점유율 vs 가격\n9. operation_status 분포"
+      "content": "# 서울 에어비앤비 RevPAR EDA 시각화\n\n**분석 목적:** 서울 에어비앤비 데이터를 바탕으로 호스트 관점(물건 특성별 RevPAR 분포)과 자치구 단위(자치구별 RevPAR 패턴)을 탐색적으로 시각화합니다.\n\n**데이터 개요:**\n- 총 32,061 rows × 42 cols\n- 핵심 지표: `ttm_revpar` (TTM RevPAR, 왜도=3.76), `l90d_revpar` (최근 90일 RevPAR, 왜도=3.86)\n- 주요 필터: `refined_status == 'Active'` AND `operation_status == 'Operating'` (Active+Operating)\n\n**시각화 구성:**\n1. RevPAR 분포 분석\n2. room_type별 RevPAR\n3. superhost 효과\n4. 사진수 vs RevPAR\n5. 평점 vs RevPAR\n6. 자치구별 RevPAR\n7. POI 거리 vs RevPAR\n8. 자치구별 점유율 vs 가격\n9. operation_status 분포"
     },
     {
       "cell_type": "code",
@@ -52,7 +52,7 @@
     },
     {
       "cell_type": "markdown",
-      "content": "## 6. 자치구별 RevPAR 순위 (상위 15개구)\n\n**분석 목적:** 서울 25개 자치구 중 TTM RevPAR 중위값 기준 상위 15개 구를 수평 막대 그래프로 표시합니다. 플랫폼 관점에서 고수익 지역과 저수익 지역의 명확한 지역적 패턴을 파악합니다.\n\n**해석 포인트:**\n- 중위값 기준 정렬: 이상치에 강건한 지역별 대표값 비교\n- 리스팅 수 표시: 수익성과 물량 공급의 관계\n- 강남구·중구·마포구 등 관광/비즈니스 특화 구의 RevPAR 우위 여부"
+      "content": "## 6. 자치구별 RevPAR 순위 (상위 15개구)\n\n**분석 목적:** 서울 25개 자치구 중 TTM RevPAR 중위값 기준 상위 15개 구를 수평 막대 그래프로 표시합니다. 자치구 단위에서 고수익 지역과 저수익 지역의 명확한 지역적 패턴을 파악합니다.\n\n**해석 포인트:**\n- 중위값 기준 정렬: 이상치에 강건한 지역별 대표값 비교\n- 리스팅 수 표시: 수익성과 물량 공급의 관계\n- 강남구·중구·마포구 등 관광/비즈니스 특화 구의 RevPAR 우위 여부"
     },
     {
       "cell_type": "code",
@@ -68,7 +68,7 @@
     },
     {
       "cell_type": "markdown",
-      "content": "## 8. 자치구별 점유율 vs 평균 요금 산점도\n\n**분석 목적:** 자치구별 `ttm_avg_rate`(평균 1박 요금)와 `ttm_occupancy`(점유율)의 관계를 산점도로 시각화합니다. 원 크기는 리스팅 수를 나타내며, 플랫폼 관점에서 수요-공급 포지셔닝을 파악합니다.\n\n**해석 포인트:**\n- 우상단: 고요금+고점유율 (가장 이상적인 구)\n- 우하단: 고요금+저점유율 (가격 경쟁력 약화 가능)\n- 좌상단: 저요금+고점유율 (가격 인상 여지 존재)\n- 원 크기: 해당 구의 리스팅 공급량"
+      "content": "## 8. 자치구별 점유율 vs 평균 요금 산점도\n\n**분석 목적:** 자치구별 `ttm_avg_rate`(평균 1박 요금)와 `ttm_occupancy`(점유율)의 관계를 산점도로 시각화합니다. 원 크기는 리스팅 수를 나타내며, 자치구 단위에서 수요-공급 포지셔닝을 파악합니다.\n\n**해석 포인트:**\n- 우상단: 고요금+고점유율 (가장 이상적인 구)\n- 우하단: 고요금+저점유율 (가격 경쟁력 약화 가능)\n- 좌상단: 저요금+고점유율 (가격 인상 여지 존재)\n- 원 크기: 해당 구의 리스팅 공급량"
     },
     {
       "cell_type": "code",
@@ -76,7 +76,7 @@
     },
     {
       "cell_type": "markdown",
-      "content": "## 9. 자치구별 운영 상태 분포\n\n**분석 목적:** 자치구별 `operation_status`(Operating 여부) 비율을 스택 막대 그래프로 시각화합니다. 플랫폼 관점에서 자치구별 실제 운영 물건의 비중을 파악하고, 비운영(Non-operating) 물건이 많은 지역의 특성을 탐색합니다.\n\n**해석 포인트:**\n- Operating 비율 높은 구: 활성 시장, 플랫폼 개입 효과 높음\n- Non-operating 비율 높은 구: 유령 리스팅 문제, 시장 왜곡 가능성\n- 자치구별 총 리스팅 수와 Operating 비율의 관계"
+      "content": "## 9. 자치구별 운영 상태 분포\n\n**분석 목적:** 자치구별 `operation_status`(Operating 여부) 비율을 스택 막대 그래프로 시각화합니다. 자치구 단위에서 자치구별 실제 운영 물건의 비중을 파악하고, 비운영(Non-operating) 물건이 많은 지역의 특성을 탐색합니다.\n\n**해석 포인트:**\n- Operating 비율 높은 구: 활성 시장, 플랫폼 개입 효과 높음\n- Non-operating 비율 높은 구: 유령 리스팅 문제, 시장 왜곡 가능성\n- 자치구별 총 리스팅 수와 Operating 비율의 관계"
     },
     {
       "cell_type": "code",
@@ -84,7 +84,7 @@
     },
     {
       "cell_type": "markdown",
-      "content": "## 종합 인사이트 요약\n\n**분석 결과 핵심 요약:**\n\n### 호스트 관점\n- **RevPAR 분포**: 왜도(skewness≈3.76)가 높아 소수 고성과 물건이 평균을 끌어올림. 중위값이 더 대표적인 지표\n- **room_type**: Entire home > Hotel room > Private room > Shared room 순서로 RevPAR 높음\n- **Superhost**: 슈퍼호스트 인증은 RevPAR 프리미엄과 유의미한 관계\n- **사진 수**: 특정 구간 이후 수익 체감 여부 확인 필요\n- **평점**: 4.5 이상 구간에서 RevPAR 우위, 천장 효과(ceiling effect) 존재\n\n### 플랫폼 관점\n- **지역 격차**: 자치구별 RevPAR 중위값 차이 존재, 관광·비즈니스 특화 구 우위\n- **POI 접근성**: 관광 인프라 근접 물건의 RevPAR 프리미엄 확인\n- **포지셔닝**: 구별로 고요금+고점유율 구간 진입 전략 차별화 필요\n- **운영 상태**: Non-operating 비율이 높은 구는 플랫폼 관리·활성화 우선순위"
+      "content": "## 종합 인사이트 요약\n\n**분석 결과 핵심 요약:**\n\n### 호스트 관점\n- **RevPAR 분포**: 왜도(skewness≈3.76)가 높아 소수 고성과 물건이 평균을 끌어올림. 중위값이 더 대표적인 지표\n- **room_type**: Entire home > Hotel room > Private room > Shared room 순서로 RevPAR 높음\n- **Superhost**: 슈퍼호스트 인증은 RevPAR 프리미엄과 유의미한 관계\n- **사진 수**: 특정 구간 이후 수익 체감 여부 확인 필요\n- **평점**: 4.5 이상 구간에서 RevPAR 우위, 천장 효과(ceiling effect) 존재\n\n### 자치구 단위\n- **지역 격차**: 자치구별 RevPAR 중위값 차이 존재, 관광·비즈니스 특화 구 우위\n- **POI 접근성**: 관광 인프라 근접 물건의 RevPAR 프리미엄 확인\n- **포지셔닝**: 구별로 고요금+고점유율 구간 진입 전략 차별화 필요\n- **운영 상태**: Non-operating 비율이 높은 구는 플랫폼 관리·활성화 우선순위"
     },
     {
       "cell_type": "code",

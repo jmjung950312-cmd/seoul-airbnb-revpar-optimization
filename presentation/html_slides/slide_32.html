@@ -1,0 +1,193 @@
+<!DOCTYPE html><html><head><style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1920px; height: 1080px;
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 색상 시스템 */
+:root {
+  --coral: #FF5A5F;
+  --coral-light: #FF787C;
+  --coral-dark: #E04347;
+  --teal: #00A699;
+  --teal-light: #00C9B7;
+  --charcoal: #484848;
+  --dark-bg: #1A1A2E;
+  --dark-bg-2: #16213E;
+  --light-bg: #F7F7F7;
+  --white: #FFFFFF;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-300: #DBDBDB;
+  --gray-400: #B0B0B0;
+  --gray-500: #767676;
+  --gray-600: #484848;
+}
+
+.slide {
+  width: 1920px; height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 다크 슬라이드 */
+.slide-dark {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  color: white;
+}
+
+/* 라이트 슬라이드 */
+.slide-light {
+  background: #F7F7F7;
+  color: var(--charcoal);
+}
+
+/* 카드 컴포넌트 */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 32px;
+  transition: transform 0.2s;
+}
+.card-coral {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+  color: white;
+}
+.card-teal {
+  background: linear-gradient(135deg, var(--teal) 0%, #008C82 100%);
+  color: white;
+}
+.card-dark {
+  background: linear-gradient(135deg, #2B2B3D 0%, #1A1A2E 100%);
+  color: white;
+}
+
+/* 태그 */
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.tag-coral { background: rgba(255,90,95,0.15); color: var(--coral); }
+.tag-teal { background: rgba(0,166,153,0.15); color: var(--teal); }
+
+/* 큰 숫자 */
+.big-number {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--coral);
+}
+.big-number-white {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: white;
+}
+
+/* 페이지 번호 */
+.page-num {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+.page-num-light {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 장식 요소 */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+.deco-line {
+  width: 60px;
+  height: 4px;
+  background: var(--coral);
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+  .wrap { padding: 70px 100px; height: 100%; display: flex; flex-direction: column; }
+  .top-label { font-size: 14px; color: var(--coral); font-weight: 700; letter-spacing: 2px; }
+  .top-title { font-size: 32px; font-weight: 900; margin: 8px 0 32px; }
+  .bottom-msg { margin-top: 28px; padding: 20px 32px; background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: white; border-radius: 16px; text-align: center; font-size: 18px; font-weight: 600; }
+  </style></head><body>
+  <div class="slide slide-light">
+    <div class="wrap">
+      <div class="top-label">종합</div>
+      <div class="top-title">호스트 액션 가이드 — 종합 실행 로드맵</div>
+      <div class="card" style="padding: 20px 28px; flex: 1;">
+        <div style="display: flex; padding: 10px 0; border-bottom: 2px solid var(--gray-300); gap: 16px;">
+          <div style="width: 40px; font-size: 13px; font-weight: 600; color: var(--gray-500); text-align: center;">#</div>
+          <div style="flex: 1.2; font-size: 13px; font-weight: 600; color: var(--gray-500);">액션</div>
+          <div style="flex: 1; font-size: 13px; font-weight: 600; color: var(--gray-500);">근거</div>
+          <div style="flex: 0.8; font-size: 13px; font-weight: 600; color: var(--gray-500);">기대 효과</div>
+          <div style="width: 60px; font-size: 13px; font-weight: 600; color: var(--gray-500); text-align: center;">난이도</div>
+        </div>
+        
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">🥇</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: var(--coral);">리뷰 요청 자동화</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">SHAP 1위 (0.51)</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">+5~10% / 10건</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">낮음</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">🥈</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: var(--teal);">슈퍼호스트 달성</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">H1 검증 (+83.1%)</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">+83.1% RevPAR</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">중간</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">🥉</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: #E67E22;">최소숙박 2~3박</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">H4 검증</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">RevPAR 최적점</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">낮음</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">4</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: #3498DB;">사진 21~35장</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">H3 검증 (r=0.30)</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">한계효용 최대</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">낮음</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">5</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: #8E44AD;">평점 4.85~4.95</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">Paradox 발견</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">최적 점유율</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">중간</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">6</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: #95A5A6;">추가요금 7인+ 제거</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">H5 검증</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">+55.9% 회복</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">낮음</span></div>
+    </div>
+    <div style="display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gray-200); gap: 16px;">
+      <div style="width: 40px; text-align: center; font-size: 20px;">7</div>
+      <div style="flex: 1.2; font-size: 16px; font-weight: 700; color: #95A5A6;">Entire Home 전환</div>
+      <div style="flex: 1; font-size: 14px; color: var(--gray-500);">H2 검증</div>
+      <div style="flex: 0.8; font-size: 14px; font-weight: 600;">2.7배 RevPAR</div>
+      <div style="width: 60px; text-align: center;"><span style="font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--gray-100);">높음</span></div>
+    </div>
+      </div>
+      <div class="bottom-msg">분석 → 모델 → 대시보드 → 자동화 → 액션. 데이터로 호스트의 수익을 설계하다.</div>
+    </div>
+    <div class="page-num">32</div>
+  </div></body></html>

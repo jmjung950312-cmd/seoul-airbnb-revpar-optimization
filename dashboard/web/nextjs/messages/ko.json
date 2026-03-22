@@ -1,0 +1,218 @@
+{
+  "header": {
+    "title": "서울 에어비앤비 수익 분석",
+    "languageAndRegion": "언어와 지역",
+    "currency": "통화",
+    "translation": "번역",
+    "translationDesc": "설명과 후기가 자동 번역됩니다.",
+    "recommendedLanguages": "추천 언어",
+    "allLanguages": "전체 언어",
+    "recommendedCurrencies": "추천 통화",
+    "allCurrencies": "전체 통화",
+    "save": "저장",
+    "close": "닫기"
+  },
+  "sidebar": {
+    "performance": "Performance",
+    "inputSettings": "입력 설정",
+    "basicInfo": "기본 정보",
+    "propertySettings": "숙소 설정",
+    "opexInput": "운영비 입력",
+    "operations": "운영 현황",
+    "revenueSummary": "수익 요약",
+    "pricingStrategy": "요금 전략",
+    "marketDiagnosis": "지역 진단",
+    "nearbyPOI": "주변 관광지",
+    "healthScore": "숙소 점수",
+    "listingDesc": "숙소 설명",
+    "startAnalysis": "분석 시작"
+  },
+  "stats": {
+    "dailyRevPAR": "하루 실수익",
+    "monthlyNetProfit": "월 예상 순이익",
+    "bepRate": "손익분기 최소 요금",
+    "weekdayOcc": "평일 예약률",
+    "weekendOcc": "주말 예약률",
+    "reviewScore": "리뷰 점수",
+    "percentileRank": "상위 퍼센타일"
+  },
+  "filter": {
+    "all": "전체",
+    "district": "지역",
+    "dateRange": "날짜",
+    "roomType": "숙소 종류",
+    "priceRange": "요금 범위",
+    "guestCount": "게스트 수"
+  },
+  "wizard": {
+    "title": "분석 정보 입력",
+    "hostType": {
+      "question": "나는 어떤 호스트인가요?",
+      "subtitle": "호스팅 경험에 따라 최적화된 분석 과정이 제공됩니다.",
+      "new": {
+        "title": "신규 호스트",
+        "desc": "처음으로 숙소를 등록하거나 아직 예약 이력이 없어요"
+      },
+      "existing": {
+        "title": "기존 호스트",
+        "desc": "이미 에어비앤비를 운영 중이고 예약 이력이 있어요"
+      }
+    },
+    "step1": {
+      "title": "기본 정보",
+      "district": "자치구 선택",
+      "districtPlaceholder": "서울 자치구를 선택하세요",
+      "address": "상세 주소 (선택)",
+      "addressPlaceholder": "예: 강남구 테헤란로 123",
+      "roomType": "숙소 유형",
+      "accommodates": "최대 수용 인원",
+      "bedrooms": "침실 수",
+      "bathrooms": "화장실 수",
+      "amenities": "편의시설"
+    },
+    "step2": {
+      "title": "숙소 설정",
+      "forNew": "목표 설정",
+      "forExisting": "실제 예약 현황",
+      "targetAdr": "목표 하루 요금",
+      "targetOccupancy": "목표 예약률",
+      "photos": "숙소 사진 수",
+      "reviewScore": "리뷰 평점",
+      "responseRate": "응답률",
+      "instantBook": "즉시 예약",
+      "calendarTitle": "예약된 날짜를 클릭해 표시하세요",
+      "bookedDays": "예약일 수",
+      "occupancyRate": "이번 달 예약률",
+      "currentAdr": "현재 하루 요금",
+      "reviewCount": "총 리뷰 수"
+    },
+    "step3": {
+      "title": "운영비 입력",
+      "cleaningFee": "청소비 (1박 기준)",
+      "platformFee": "플랫폼 수수료 (%)",
+      "utilityMonthly": "월 공과금",
+      "mortgageMonthly": "월 대출 상환",
+      "managementFee": "관리비 (월)",
+      "otherOpEx": "기타 운영비 (월)",
+      "cleaningFeeHint": "예약당 청소 비용",
+      "platformFeeHint": "에어비앤비 서비스 수수료 (기본 3%)",
+      "utilityHint": "전기, 가스, 수도 등 월 평균",
+      "mortgageHint": "부동산 대출 월 상환금 (없으면 0)",
+      "managementHint": "관리 대행사 비용 등",
+      "otherHint": "기타 운영 관련 비용",
+      "monthlyTotal": "월 고정비 합계 (청소비 제외)"
+    },
+    "step4": {
+      "title": "운영 현황",
+      "minNights": "최소 숙박일",
+      "maxNights": "최대 숙박일",
+      "checkIn": "체크인 가능 시간",
+      "petFriendly": "반려동물 허용",
+      "smokingAllowed": "흡연 허용",
+      "partiesAllowed": "파티 허용",
+      "selfCheckIn": "셀프 체크인",
+      "checkInFlexible": "자유 체크인",
+      "selfCheckInHint": "게스트가 자율적으로 체크인할 수 있습니다",
+      "petFriendlyHint": "반려동물을 동반한 게스트를 받습니다",
+      "smokingHint": "흡연 구역을 제공합니다",
+      "partiesHint": "파티나 이벤트를 허용합니다"
+    },
+    "next": "다음",
+    "prev": "이전",
+    "analyze": "분석 시작",
+    "analyzing": "분석 중..."
+  },
+  "calendar": {
+    "sun": "일",
+    "mon": "월",
+    "tue": "화",
+    "wed": "수",
+    "thu": "목",
+    "fri": "금",
+    "sat": "토",
+    "prevMonth": "이전 달",
+    "nextMonth": "다음 달",
+    "bookedDays": "예약일",
+    "holiday": "공휴일",
+    "today": "오늘",
+    "selectDates": "날짜 지정",
+    "monthly": "월 단위",
+    "flexible": "유연한 일정",
+    "months": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+  },
+  "dashboard": {
+    "revenueSummary": {
+      "title": "수익 요약",
+      "monthlyRevenue": "월 예상 수입",
+      "monthlyNetProfit": "월 예상 순이익",
+      "annualRevenue": "연 예상 수입",
+      "revpar": "하루 실수익",
+      "adr": "하루 평균 요금",
+      "occupancy": "예약률",
+      "comparisonTitle": "유사 숙소 비교",
+      "yourProperty": "내 숙소",
+      "median": "중앙값",
+      "top25": "상위 25%",
+      "monthlyOccupancyTrend": "월별 예약률 추이 (예측)",
+      "metric": "지표"
+    },
+    "pricingStrategy": {
+      "title": "요금 전략",
+      "weekdayPrice": "평일 권장 요금",
+      "weekendPrice": "주말 권장 요금",
+      "peakMultiplier": "성수기 배율",
+      "discountThreshold": "할인 적용 기간",
+      "seasonalAdjustment": "계절별 조정",
+      "simulationTitle": "요금 시뮬레이션"
+    },
+    "marketDiagnosis": {
+      "title": "지역 진단",
+      "clusterInfo": "클러스터 정보",
+      "districtStats": "자치구 통계",
+      "competitionLevel": "경쟁 수준",
+      "demandLevel": "수요 수준",
+      "avgAdr": "지역 평균 요금",
+      "avgOccupancy": "평균 예약률"
+    },
+    "healthScore": {
+      "title": "숙소 점수",
+      "grade": "등급",
+      "composite": "종합 점수",
+      "components": "항목별 점수",
+      "topActions": "개선 액션",
+      "photos": "사진 품질",
+      "response": "응답률",
+      "review": "리뷰 점수",
+      "pricing": "요금 경쟁력",
+      "availability": "예약 가용성"
+    },
+    "nearbyPOI": {
+      "title": "주변 관광지",
+      "distance": "거리",
+      "category": "카테고리"
+    },
+    "listingDesc": {
+      "title": "숙소 설명",
+      "generated": "AI 생성 설명",
+      "copy": "복사",
+      "regenerate": "다시 생성"
+    }
+  },
+  "common": {
+    "loading": "불러오는 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "save": "저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "close": "닫기",
+    "night": "박",
+    "month": "월",
+    "year": "년",
+    "person": "명",
+    "room": "실",
+    "bathroom": "개",
+    "photo": "장",
+    "instantBookHint": "게스트가 즉시 예약할 수 있습니다"
+  }
+}

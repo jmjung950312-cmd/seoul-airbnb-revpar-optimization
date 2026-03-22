@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Pretendard'; font-weight: 100; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Thin.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 200; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-ExtraLight.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 300; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Light.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 400; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 500; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Medium.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 600; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-SemiBold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 700; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Bold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 800; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-ExtraBold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 900; src: url('file:///Users/jungmo/Downloads/Pretendard-otf/Pretendard-Black.otf') format('opentype'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #FF385C;
+  --coral-light: rgba(255, 56, 92, 0.08);
+  --charcoal: #484848;
+  --gray-400: #B0B0B0;
+  --gray-500: #767676;
+  --gray-200: #E8E8E8;
+  --teal: #00A699;
+}
+
+body {
+  width: 1920px;
+  height: 1080px;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  background: #FFFFFF;
+  color: var(--charcoal);
+}
+
+.slide {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  padding: 72px 100px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 */
+.header {
+  margin-bottom: 48px;
+}
+.breadcrumb {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.slide-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin: 6px 0 8px;
+}
+.title-underline {
+  width: 192px;
+  height: 3px;
+  background: var(--coral);
+  border-radius: 2px;
+}
+
+/* 메인 2컬럼 */
+.main {
+  flex: 1;
+  display: flex;
+  gap: 64px;
+  align-items: stretch;
+}
+
+/* ── 왼쪽: 히어로 패널 ── */
+.hero-panel {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.hero-number {
+  font-size: 96px;
+  font-weight: 900;
+  color: var(--coral);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.hero-label {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-top: 8px;
+}
+.hero-sub {
+  font-size: 15px;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-top: 4px;
+}
+
+/* 보조 수치 카드 */
+.stat-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: #F7F7F7;
+  border-radius: 8px;
+}
+.stat-card-accent {
+  background: var(--coral-light);
+  border-left: 3px solid var(--coral);
+}
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--charcoal);
+  white-space: nowrap;
+}
+.stat-value-coral {
+  color: var(--coral);
+}
+.stat-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+/* 구분선 */
+.divider-v {
+  width: 1px;
+  background: var(--gray-200);
+  align-self: stretch;
+  margin: 20px 0;
+}
+
+/* ── 오른쪽: 차트 영역 ── */
+.chart-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-500);
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+/* 값 라벨 행 */
+.values-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+.values-row .cell {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.values-row .cell-coral {
+  color: var(--coral);
+}
+
+/* 바 영역 — 고정 높이 */
+.bars-area {
+  position: relative;
+  height: 400px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+/* 중위값 라인 */
+.median-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed var(--gray-400);
+  z-index: 2;
+  pointer-events: none;
+}
+.median-label {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bar-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.bar {
+  width: 68%;
+  border-radius: 4px 4px 0 0;
+}
+.bar-coral {
+  background: var(--coral);
+}
+.bar-gray {
+  background: #D9D9D9;
+}
+
+/* 카테고리 라벨 행 */
+.labels-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 12px;
+}
+.labels-row .cell {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+/* 범례 */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--gray-200);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+.legend-text {
+  font-size: 14px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+/* 페이지 번호 */
+.page-num {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+</style>
+</head>
+<body>
+<div class="slide">
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="breadcrumb">EDA · 가설검증</div>
+    <div class="slide-title">H1 — 슈퍼호스트 프리미엄 효과</div>
+    <div class="title-underline"></div>
+  </div>
+
+  <!-- 메인 -->
+  <div class="main">
+    <!-- 왼쪽: 히어로 -->
+    <div class="hero-panel">
+      <div>
+        <div class="hero-number">+83.1%</div>
+        <div class="hero-label">슈퍼호스트 RevPAR 프리미엄</div>
+        <div class="hero-sub">일반 호스트 중위값 ₩31,825 대비<br>슈퍼호스트 중위값 ₩61,205</div>
+      </div>
+
+      <div class="stat-cards">
+        <div class="stat-card stat-card-accent">
+          <div class="stat-value stat-value-coral">+148.2%</div>
+          <div class="stat-desc">슈퍼호스트 + 즉시예약<br>두 조건 결합 시 프리미엄</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">₩47,850</div>
+          <div class="stat-desc">Active+Operating<br>전체 중위값 (기준선)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 구분선 -->
+    <div class="divider-v"></div>
+
+    <!-- 오른쪽: 차트 -->
+    <div class="chart-panel">
+      <div class="chart-title">슈퍼호스트 × 예약방식별 RevPAR 중위값</div>
+
+      <!-- 값 라벨 -->
+      <div class="values-row">
+        <div class="cell cell-coral">₩63,708</div>
+        <div class="cell cell-coral">₩59,497</div>
+        <div class="cell">₩32,863</div>
+        <div class="cell">₩30,846</div>
+      </div>
+
+      <!-- 바 영역: 400px 고정, 중위값선 = 47850/63708 × 400 ≈ 300px -->
+      <div class="bars-area">
+        <div class="median-line" style="bottom: 300px;">
+          <div class="median-label">전체 중위값 ₩47,850</div>
+        </div>
+
+        <div class="bar-col"><div class="bar bar-coral" style="height: 400px;"></div></div>
+        <div class="bar-col"><div class="bar bar-coral" style="height: 374px;"></div></div>
+        <div class="bar-col"><div class="bar bar-gray" style="height: 206px;"></div></div>
+        <div class="bar-col"><div class="bar bar-gray" style="height: 194px;"></div></div>
+      </div>
+
+      <!-- 카테고리 라벨 -->
+      <div class="labels-row">
+        <div class="cell">슈퍼호스트<br>즉시예약</div>
+        <div class="cell">슈퍼호스트<br>수동승인</div>
+        <div class="cell">일반 호스트<br>즉시예약</div>
+        <div class="cell">일반 호스트<br>수동승인</div>
+      </div>
+
+      <!-- 범례 -->
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background: var(--coral);"></div>
+          <div class="legend-text">슈퍼호스트</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #D9D9D9;"></div>
+          <div class="legend-text">일반 호스트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">13</div>
+</div>
+</body>
+</html>

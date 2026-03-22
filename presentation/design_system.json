@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "project": "서울 에어비앤비 객실당 수익(RevPAR) 최적화",
+    "slide_size": {"width_inch": 13.333, "height_inch": 7.5},
+    "aspect_ratio": "16:9",
+    "total_slides": 30,
+    "font_primary": "Noto Sans KR",
+    "font_fallback": "AppleGothic"
+  },
+
+  "colors": {
+    "dominant": "#484848",
+    "supporting": "#767676",
+    "accent": "#FF5A5F",
+    "accent_light": "#FFF0F1",
+    "accent_secondary": "#00A699",
+    "accent_secondary_light": "#E0F7F5",
+    "card_bg": "#F5F5F5",
+    "insight_bg": "#FFF0F3",
+    "orange": "#FC642D",
+    "border": "#E8E8E8",
+    "white": "#FFFFFF",
+    "dark_bg": "#2B2B2B",
+    "success": "#00A699",
+    "warning": "#FC642D",
+    "danger": "#FF5A5F"
+  },
+
+  "color_usage": {
+    "rule": "60-30-10",
+    "background_60": ["#FFFFFF"],
+    "text_30": ["#484848", "#767676"],
+    "accent_10": ["#FF5A5F", "#00A699"]
+  },
+
+  "typography": {
+    "cover_title":    {"size_pt": 48, "bold": true,  "color": "#484848"},
+    "cover_title_accent": {"size_pt": 48, "bold": true, "color": "#FF5A5F"},
+    "cover_subtitle": {"size_pt": 17, "bold": false, "color": "#767676"},
+    "section_number": {"size_pt": 72, "bold": true,  "color": "#FF5A5F"},
+    "section_title":  {"size_pt": 44, "bold": true,  "color": "#FFFFFF"},
+    "section_sub":    {"size_pt": 18, "bold": false, "color": "#FFFFFF", "opacity": 0.7},
+    "slide_title":    {"size_pt": 28, "bold": true,  "color": "#484848"},
+    "body":           {"size_pt": 14, "bold": false, "color": "#484848"},
+    "kpi_number":     {"size_pt": 48, "bold": true,  "color": "#FF5A5F"},
+    "kpi_label":      {"size_pt": 14, "bold": false, "color": "#767676"},
+    "insight_box":    {"size_pt": 15, "bold": false, "color": "#484848"},
+    "caption":        {"size_pt": 10, "bold": false, "color": "#767676"},
+    "slide_number":   {"size_pt": 11, "bold": false, "color": "#767676"},
+    "table_header":   {"size_pt": 13, "bold": true,  "color": "#FFFFFF", "bg": "#484848"},
+    "table_body":     {"size_pt": 12, "bold": false, "color": "#484848"}
+  },
+
+  "layout": {
+    "margin_left_inch": 0.8,
+    "margin_right_inch": 0.8,
+    "margin_top_inch": 0.6,
+    "margin_bottom_inch": 0.5,
+    "content_width_inch": 11.733,
+    "title_y_inch": 0.6,
+    "title_height_inch": 0.8,
+    "content_start_y_inch": 1.6,
+    "content_height_inch": 5.4,
+    "column_gap_inch": 0.4,
+    "accent_underline": {
+      "color": "#FF5A5F",
+      "height_pt": 3,
+      "width_inch": 2.0,
+      "offset_below_title_inch": 0.05
+    }
+  },
+
+  "slide_types": {
+    "cover": {
+      "bg": "#FFFFFF",
+      "alignment": "center",
+      "accent_line": {"position": "bottom_center", "width_inch": 2.0, "height_pt": 2, "color": "#FF5A5F"}
+    },
+    "divider": {
+      "layout": "split_40_60",
+      "left_bg": "#FF5A5F",
+      "right_bg": "#FFFFFF",
+      "title_color": "#FFFFFF"
+    },
+    "content": {
+      "bg": "#FFFFFF",
+      "title_underline": true,
+      "slide_number": true
+    },
+    "chart": {
+      "bg": "#FFFFFF",
+      "title_size_pt": 24,
+      "chart_area_percent": 75,
+      "slide_number": true
+    },
+    "kpi_card": {
+      "bg": "#FFFFFF",
+      "left_bar": {"width_pt": 4, "color": "#FF5A5F"},
+      "number_size_pt": 48,
+      "slide_number": true
+    }
+  },
+
+  "chart_style": {
+    "default_bar": "#D1D5DB",
+    "highlight_bar": "#FF5A5F",
+    "compare_a": "#FF5A5F",
+    "compare_b": "#00A699",
+    "figsize": [12, 7],
+    "dpi": 150,
+    "font_family": "Noto Sans KR",
+    "unicode_minus": false,
+    "spine_remove": ["top", "right"],
+    "annotation_max": 2,
+    "grid_alpha": 0.3
+  },
+
+  "components": {
+    "card": {
+      "bg": "#F5F5F5",
+      "border_radius_pt": 6,
+      "padding_inch": 0.2,
+      "shadow": false
+    },
+    "accent_box": {
+      "left_bar_width_pt": 4,
+      "left_bar_color": "#FF5A5F",
+      "bg": "#FFF0F3",
+      "padding_inch": 0.15
+    },
+    "tag": {
+      "bg": "#FF5A5F",
+      "text_color": "#FFFFFF",
+      "font_size_pt": 10,
+      "padding_pt": 4,
+      "border_radius_pt": 4
+    },
+    "check_badge": {
+      "confirmed": {"symbol": "✅", "color": "#00A699"},
+      "partial":   {"symbol": "△",  "color": "#FC642D"}
+    }
+  }
+}

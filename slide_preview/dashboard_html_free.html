@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    /* Host Preview Email 테마: 시스템 폰트, #F7F7F7 배경, 600px 컨테이너 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #F7F7F7;
+    width: 720px;
+    padding: 16px;
+    color: #484848;
+  }
+  .email-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  /* 헤더 — 이메일 원본과 동일: #FF385C 배경 */
+  .header {
+    background: #FF385C;
+    color: white;
+    padding: 28px 28px 20px;
+    border-radius: 12px 12px 0 0;
+  }
+  .header .tag {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-bottom: 4px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .header .sub {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-top: 12px;
+  }
+
+  /* 시장 위치 카드 — 이메일 원본 동일 */
+  .market-section {
+    padding: 20px 24px;
+    background: #F7F7F7;
+    border-bottom: 1px solid #EBEBEB;
+  }
+  .market-section h3 {
+    margin: 0 0 14px;
+    color: #484848;
+    font-size: 14px;
+  }
+  .market-row {
+    display: flex;
+    gap: 12px;
+  }
+  .market-card {
+    flex: 1;
+    min-width: 140px;
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .market-card .icon { font-size: 22px; margin-bottom: 6px; }
+  .market-card .title { font-size: 11px; color: #767676; margin-bottom: 4px; }
+  .market-card .value { font-size: 16px; color: #484848; margin-bottom: 2px; }
+  .market-card .value b { color: #FF385C; }
+  .market-card .sub { font-size: 11px; color: #767676; }
+
+  /* 수익 진단 — 이메일 원본과 동일 구조 */
+  .diagnosis-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid #EBEBEB;
+  }
+  .diagnosis-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .diagnosis-header h3 {
+    margin: 0;
+    color: #484848;
+    font-size: 14px;
+  }
+  .level-badge {
+    background: #FF385C;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .diag-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .diag-table thead tr { background: #F7F7F7; }
+  .diag-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 12px;
+    color: #767676;
+    font-weight: 600;
+  }
+  .diag-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #484848;
+    border-top: 1px solid #EBEBEB;
+  }
+  .diag-table td.warn { color: #FC642D; font-weight: 500; }
+
+  /* 블러 티저 — 이메일 원본과 동일 */
+  .teaser-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid #EBEBEB;
+  }
+  .teaser-section h3 {
+    color: #484848;
+    font-size: 14px;
+    margin: 0 0 4px;
+  }
+  .teaser-section .desc {
+    font-size: 12px;
+    color: #767676;
+    margin: 0 0 14px;
+  }
+  .teaser-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #EBEBEB;
+  }
+  .teaser-item .icon { font-size: 18px; flex-shrink: 0; }
+  .teaser-item .text {
+    font-size: 13px;
+    color: #484848;
+    filter: blur(4px);
+    user-select: none;
+  }
+  .teaser-item .lock {
+    margin-left: auto;
+    font-size: 11px;
+    color: #FF385C;
+    white-space: nowrap;
+  }
+
+  /* CTA — 이메일 원본과 동일 */
+  .cta-section {
+    padding: 24px;
+    text-align: center;
+    background: #FFFFFF;
+    border-radius: 0 0 12px 12px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #FF385C;
+    color: white;
+    padding: 14px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+  }
+  .cta-sub {
+    margin: 14px 0 0;
+    font-size: 11px;
+    color: #767676;
+  }
+</style>
+</head>
+<body>
+
+<div class="email-container">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <p class="tag">📍 마포구 · entire home</p>
+    <h1>내 숙소, 서울에서<br>어디쯤 있을까요?</h1>
+    <p class="sub">지금 바로 수익 진단 결과를 확인해 보세요.</p>
+  </div>
+
+  <!-- 시장 위치 카드 -->
+  <div class="market-section">
+    <h3>내 숙소 시장 위치</h3>
+    <div class="market-row">
+      <div class="market-card">
+        <div class="icon">🏙️</div>
+        <div class="title">서울 전체에서</div>
+        <div class="value">상위 <b>99.1%</b></div>
+        <div class="sub">1,919번째 백분위</div>
+      </div>
+      <div class="market-card">
+        <div class="icon">📍</div>
+        <div class="title">마포구 안에서</div>
+        <div class="value"><b>237번째</b> 수익</div>
+        <div class="sub">총 142개 숙소 중</div>
+      </div>
+      <div class="market-card">
+        <div class="icon">🏷️</div>
+        <div class="title">시장 유형</div>
+        <div class="value"><b>가성비 신흥형</b></div>
+        <div class="sub">에어비앤비 분류 기준</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 수익 진단 결과 -->
+  <div class="diagnosis-section">
+    <div class="diagnosis-header">
+      <h3>수익 진단 결과</h3>
+      <span class="level-badge">🚨 즉시 점검이 필요해요</span>
+    </div>
+    <table class="diag-table">
+      <thead>
+        <tr>
+          <th style="width:40%">진단 항목</th>
+          <th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>구 대비 수익 수준</td>
+          <td class="warn">⚠️ 마포구 평균보다 수익이 크게 낮은 편이에요</td>
+        </tr>
+        <tr>
+          <td>최근 3개월 추이</td>
+          <td class="warn">⚠️ 최근 3개월 수익이 연간 평균보다 21.8% 하락했어요</td>
+        </tr>
+        <tr>
+          <td>숙소 유형·위치 대비</td>
+          <td class="warn">⚠️ 숙소 유형과 위치를 고려해도 수익이 낮은 편이에요</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 블러 티저 -->
+  <div class="teaser-section">
+    <h3>🔓 전체 대시보드에서 확인할 수 있어요</h3>
+    <p class="desc">아래 항목들은 대시보드에서 개인 맞춤형으로 제공됩니다.</p>
+    <div class="teaser-item">
+      <span class="icon">💰</span>
+      <span class="text">내 가격을 X% 올리면 수익이 어떻게 바뀔까요?</span>
+      <span class="lock">🔒 잠김</span>
+    </div>
+    <div class="teaser-item">
+      <span class="icon">⭐</span>
+      <span class="text">슈퍼호스트가 되면 수익이 얼마나 늘어날까요?</span>
+      <span class="lock">🔒 잠김</span>
+    </div>
+    <div class="teaser-item">
+      <span class="icon">📸</span>
+      <span class="text">사진을 몇 장까지 올려야 가장 효과적일까요?</span>
+      <span class="lock">🔒 잠김</span>
+    </div>
+    <div class="teaser-item" style="border-bottom:none">
+      <span class="icon">🌙</span>
+      <span class="text">최소 숙박일을 몇 박으로 설정해야 할까요?</span>
+      <span class="lock">🔒 잠김</span>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a href="#" class="cta-btn">지금 무료로 전체 분석 보기 →</a>
+    <p class="cta-sub">이 이메일은 서울 에어비앤비 RevPAR 분석 시스템이 자동 생성했습니다.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

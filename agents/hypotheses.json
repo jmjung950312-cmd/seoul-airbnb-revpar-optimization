@@ -79,7 +79,7 @@
     },
     {
       "id": "H6",
-      "perspective": "platform",
+      "perspective": "district",
       "priority": "high",
       "title": "자치구별 RevPAR 분포와 공급 집중도의 역관계",
       "statement": "리스팅 수가 가장 많은 자치구(마포구 6,699개 등)는 공급 과잉으로 RevPAR 중위값이 낮고, 리스팅 수가 적은 자치구는 상대적으로 높은 RevPAR 중위값을 기록하여 공급-RevPAR 간 역관계가 나타난다.",
@@ -93,7 +93,7 @@
     },
     {
       "id": "H7",
-      "perspective": "platform",
+      "perspective": "district",
       "priority": "high",
       "title": "POI 유형별 근접성과 RevPAR의 관계 — 관광지 vs 교통 허브 효과",
       "statement": "nearest_poi_type_name이 관광명소(tourist_attraction) 또는 문화시설인 숙소는 교통 허브(지하철역 등) 인근 숙소 대비 높은 ttm_revpar를 기록하며, 동일 POI 유형 내에서도 nearest_poi_dist_km가 0.1km 미만인 숙소가 RevPAR 프리미엄을 보인다.",
@@ -107,7 +107,7 @@
     },
     {
       "id": "H8",
-      "perspective": "platform",
+      "perspective": "district",
       "priority": "medium",
       "title": "자치구 인구 규모와 RevPAR의 관계 — 주거 수요 vs 관광 수요",
       "statement": "ttm_pop(자치구 인구)이 높은 자치구는 주거 임대 대체 수요가 강하여 RevPAR가 낮고, 인구가 중간~낮은 수준이지만 관광 인프라가 집중된 자치구(종로구, 중구 등)가 상대적으로 높은 RevPAR를 기록한다.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "H9",
-      "perspective": "platform",
+      "perspective": "district",
       "priority": "medium",
       "title": "refined_status별 RevPAR 격차와 자치구 내 Dormant 비율의 시장 건전성 지표",
       "statement": "자치구별 Dormant 비율(dormant_ratio)이 높을수록 해당 자치구 내 Active 숙소의 ttm_revpar 중위값이 낮으며, 이는 수요 부재가 공급 전체를 약화시키는 시장 구조적 문제를 시사한다.",
@@ -137,9 +137,9 @@
   ],
   "total_hypotheses": 9,
   "host_count": 5,
-  "platform_count": 4,
+  "district_count": 4,
   "verification_priority_order": ["H1", "H2", "H6", "H3", "H7", "H4", "H8", "H5", "H9"],
-  "cross_perspective_note": "H6(공급 집중)과 H1(슈퍼호스트 프리미엄)은 자치구 공급량을 통제 변수로 결합하면 호스트-플랫폼 관점의 교차 분석이 가능하다. H9의 dormant_ratio는 H6의 공급 집중도를 보완하는 시장 건전성 지표로 함께 해석해야 한다.",
+  "cross_perspective_note": "H6(공급 집중)과 H1(슈퍼호스트 프리미엄)은 자치구 공급량을 통제 변수로 결합하면 호스트·자치구 관점의 교차 분석이 가능하다. H9의 dormant_ratio는 H6의 공급 집중도를 보완하는 시장 건전성 지표로 함께 해석해야 한다.",
   "data_filter_recommendations": {
     "primary_filter": "operation_status='Operating' AND refined_status='Active' (14,399개 중 Operating 교집합)",
     "note": "RevPAR=0인 Dormant 숙소를 포함한 전체 분석은 H6, H9에서 명시적으로 활용하며, 나머지 가설은 Active+Operating 필터 적용",
