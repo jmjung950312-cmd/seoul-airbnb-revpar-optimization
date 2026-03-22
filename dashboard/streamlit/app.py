@@ -577,10 +577,12 @@ CLUSTER_INFO = {
 }
 
 # ── 데이터 로드 ───────────────────────────────────────────────────────────────
+_APP_DIR = Path(__file__).parent
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/raw/seoul_airbnb_cleaned.csv")
-    cluster_df = pd.read_csv("data/processed/district_clustered.csv")
+    df = pd.read_csv(_APP_DIR / "data/raw/seoul_airbnb_cleaned.csv")
+    cluster_df = pd.read_csv(_APP_DIR / "data/processed/district_clustered.csv")
     df = df.merge(
         cluster_df[["district", "cluster", "cluster_name"]],
         on="district", how="left",
@@ -590,7 +592,7 @@ def load_data():
 @st.cache_data
 def build_poi_db():
     """데이터셋에서 유니크 POI 목록 추출"""
-    df = pd.read_csv("data/raw/seoul_airbnb_cleaned.csv")
+    df = pd.read_csv(_APP_DIR / "data/raw/seoul_airbnb_cleaned.csv")
     cols = ["nearest_poi_name", "nearest_poi_addr", "nearest_poi_type_name",
             "nearest_poi_lat", "nearest_poi_lng"]
     poi_df = df[cols].dropna(subset=["nearest_poi_name", "nearest_poi_lat", "nearest_poi_lng"])
