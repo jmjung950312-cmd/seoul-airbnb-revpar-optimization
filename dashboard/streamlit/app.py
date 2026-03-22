@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 import sys
 import requests
+from streamlit_js_eval import get_geolocation
 
 # ── 페이지 설정 ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -739,11 +740,25 @@ def get_ip_geolocation():
             continue
     return None, None, None
 
+def get_browser_geolocation():
+    """브라우저 GPS 기반 위치 — (lat, lng) 반환, 실패 시 (None, None)"""
+    try:
+        loc = get_geolocation()
+        if loc and "coords" in loc:
+            return loc["coords"]["latitude"], loc["coords"]["longitude"]
+    except Exception:
+        pass
+    return None, None
+
 def handle_current_location():
-    """현재 위치 사용 — IP 기반 위치 → 역지오코딩 → 세션 업데이트"""
-    lat, lng, ip_display = get_ip_geolocation()
+    """현재 위치 사용 — 브라우저 GPS 우선, IP 폴백 → 역지오코딩 → 세션 업데이트"""
+    # 1순위: 브라우저 GPS (사용자 실제 위치)
+    lat, lng = get_browser_geolocation()
+    # 2순위: IP 기반 (로컬 환경에서만 유효, Cloud에서는 서버 위치)
     if lat is None:
-        return False, "위치 정보를 가져올 수 없습니다."
+        lat, lng, _ = get_ip_geolocation()
+    if lat is None:
+        return False, "위치 정보를 가져올 수 없습니다. 브라우저 위치 권한을 허용해주세요."
     # 역지오코딩으로 정확한 한국어 주소 얻기
     rev_addr = reverse_geocode(lat, lng)
     if rev_addr:
