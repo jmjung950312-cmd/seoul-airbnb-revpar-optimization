@@ -24,14 +24,12 @@ st.set_page_config(
 def set_korean_font():
     import os
     system = platform.system()
-    # Noto Sans KR을 최우선으로 시도
-    candidates = ["Noto Sans KR"]
     if system == "Darwin":
-        candidates += ["AppleGothic", "Apple SD Gothic Neo", "Arial Unicode MS"]
+        candidates = ["AppleGothic", "Apple SD Gothic Neo"]
     elif system == "Windows":
-        candidates += ["Malgun Gothic", "NanumGothic", "Gulim"]
+        candidates = ["Malgun Gothic", "NanumGothic"]
     else:
-        # Linux (Streamlit Cloud 등) — fonts-nanum 패키지 경로 직접 등록
+        # Linux (Streamlit Cloud) — fonts-nanum 패키지에서 직접 등록
         nanum_paths = [
             "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
             "/usr/share/fonts/nanum/NanumGothic.ttf",
@@ -39,8 +37,12 @@ def set_korean_font():
         for p in nanum_paths:
             if os.path.exists(p):
                 fm.fontManager.addfont(p)
-                break
-        candidates += ["NanumGothic", "NanumBarunGothic", "UnDotum", "DejaVu Sans"]
+                font_prop = fm.FontProperties(fname=p)
+                font_name = font_prop.get_name()
+                plt.rcParams["font.family"] = font_name
+                plt.rcParams["axes.unicode_minus"] = False
+                return font_name
+        candidates = ["NanumGothic", "NanumBarunGothic", "UnDotum", "DejaVu Sans"]
     available = [f.name for f in fm.fontManager.ttflist]
     for font in candidates:
         if font in available:
@@ -606,6 +608,11 @@ active_df = df[
 ].copy()
 poi_db = build_poi_db()
 
+# ── 브라우저 GPS 위치 수집 (비동기 — 스크립트 레벨에서 호출해야 결과 수신 가능) ──
+_browser_loc = get_geolocation()
+if _browser_loc:
+    st.session_state["_browser_geo"] = _browser_loc
+
 # ── ML 모델 로드 (INTEGRATION_GUIDE.md 캐싱 패턴) ─────────────────────────────
 _PKG_DIR = Path(__file__).parent / "revpar_model_package"
 if str(_PKG_DIR) not in sys.path:
@@ -740,22 +747,15 @@ def get_ip_geolocation():
             continue
     return None, None, None
 
-def get_browser_geolocation():
-    """브라우저 GPS 기반 위치 — (lat, lng) 반환, 실패 시 (None, None)"""
-    try:
-        loc = get_geolocation()
-        if loc and "coords" in loc:
-            return loc["coords"]["latitude"], loc["coords"]["longitude"]
-    except Exception:
-        pass
-    return None, None
-
 def handle_current_location():
-    """현재 위치 사용 — 브라우저 GPS 우선, IP 폴백 → 역지오코딩 → 세션 업데이트"""
-    # 1순위: 브라우저 GPS (사용자 실제 위치)
-    lat, lng = get_browser_geolocation()
-    # 2순위: IP 기반 (로컬 환경에서만 유효, Cloud에서는 서버 위치)
-    if lat is None:
+    """현재 위치 사용 — 세션에 저장된 브라우저 GPS 우선, IP 폴백"""
+    # 1순위: 브라우저 GPS (스크립트 레벨에서 수집된 결과)
+    loc = st.session_state.get("_browser_geo")
+    if loc and loc.get("coords"):
+        lat = loc["coords"]["latitude"]
+        lng = loc["coords"]["longitude"]
+    else:
+        # 2순위: IP 기반 (로컬에서만 유효)
         lat, lng, _ = get_ip_geolocation()
     if lat is None:
         return False, "위치 정보를 가져올 수 없습니다. 브라우저 위치 권한을 허용해주세요."
