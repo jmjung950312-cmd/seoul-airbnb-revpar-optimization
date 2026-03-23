@@ -749,6 +749,7 @@ def get_ip_geolocation():
 
 def handle_current_location():
     """현재 위치 사용 — 세션에 저장된 브라우저 GPS 우선, IP 폴백"""
+    ip_display = None
     # 1순위: 브라우저 GPS (스크립트 레벨에서 수집된 결과)
     loc = st.session_state.get("_browser_geo")
     if loc and loc.get("coords"):
@@ -756,7 +757,7 @@ def handle_current_location():
         lng = loc["coords"]["longitude"]
     else:
         # 2순위: IP 기반 (로컬에서만 유효)
-        lat, lng, _ = get_ip_geolocation()
+        lat, lng, ip_display = get_ip_geolocation()
     if lat is None:
         return False, "위치 정보를 가져올 수 없습니다. 브라우저 위치 권한을 허용해주세요."
     # 역지오코딩으로 정확한 한국어 주소 얻기
@@ -772,16 +773,17 @@ def handle_current_location():
             st.session_state.district = det
         return True, rev_addr
     else:
-        # 역지오코딩 실패 — IP 정보라도 사용
-        st.session_state.my_address = ip_display.strip()
+        # 역지오코딩 실패 — 좌표 문자열이라도 사용
+        fallback = ip_display.strip() if ip_display else f"{lat:.4f}, {lng:.4f}"
+        st.session_state.my_address = fallback
         st.session_state.my_lat = lat
         st.session_state.my_lng = lng
-        st.session_state.my_location_name = ip_display.strip()
+        st.session_state.my_location_name = fallback
         st.session_state.location_confirmed = True
-        det = extract_district_from_text(ip_display)
+        det = extract_district_from_text(fallback)
         if det:
             st.session_state.district = det
-        return True, ip_display
+        return True, fallback
 
 def find_nearby_pois(lat, lng, max_km=2.0):
     """반경 max_km 내 POI 목록 반환 (거리 순 정렬)"""
