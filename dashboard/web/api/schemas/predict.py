@@ -36,6 +36,9 @@ class PredictRequest(BaseModel):
     nearest_poi_dist_km: Optional[float] = Field(None, ge=0.0)
     nearest_poi_type_name: Optional[str] = None
 
+    # 추가 게스트 요금 정책
+    extra_guest_fee: bool = Field(False, description="추가 게스트 요금 부과 여부")
+
     # 슈퍼호스트 여부
     superhost: bool = False
 

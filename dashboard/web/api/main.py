@@ -27,13 +27,19 @@ app = FastAPI(
 )
 
 # CORS: Next.js 개발 서버 + Vercel 허용
+import os
+_CORS_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
+# 프로덕션 도메인을 환경변수로 추가 (예: ALLOWED_ORIGIN=https://my-app.vercel.app)
+if _prod_origin := os.getenv("ALLOWED_ORIGIN"):
+    _CORS_ORIGINS.append(_prod_origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "https://*.vercel.app",
-    ],
+    allow_origins=_CORS_ORIGINS,
+    allow_origin_regex=r"https://[a-z0-9-]+\.vercel\.app$",  # Vercel 서브도메인만 허용
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
@@ -43,6 +49,15 @@ app.add_middleware(
 app.include_router(analyze.router, tags=["통합 분석"])
 app.include_router(predict.router, tags=["개별 예측"])
 app.include_router(geocode.router, tags=["지오코드"])
+
+
+# ── ValueError → 422 변환 (잘못된 자치구 등) ──
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
+@app.exception_handler(ValueError)
+async def value_error_handler(request: Request, exc: ValueError):
+    return JSONResponse(status_code=422, content={"detail": str(exc)})
 
 
 @app.get("/health")

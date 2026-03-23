@@ -11,7 +11,7 @@
 ### 서울 에어비앤비 호스트 수익 최적화 분석 | Python, LightGBM, Streamlit
 
 - 서울 25개 자치구 32,061개 에어비앤비 리스팅 데이터 분석, EDA부터 ML 모델링, 대시보드 배포까지 End-to-End 수행
-- LightGBM 2-Stage 앙상블(ADR + 예약률) + Isotonic Regression 보정으로 RevPAR 예측 R² 0.85 달성
+- LightGBM 2-Stage 앙상블(ADR + 예약률) + Isotonic Regression 보정으로 RevPAR 예측 Test R² 0.64 달성
 - K-Means 클러스터링 4개 시장 유형 분류 및 자치구별 차별화 전략 도출
 - Streamlit 기반 5단계 위자드 대시보드 개발 및 라이브 배포 (6개 분석 탭)
 
@@ -23,9 +23,9 @@
 
 | 지표 | 수치 | 설명 |
 |------|------|------|
-| RevPAR 예측 R² | **0.85** | LightGBM 2-모델 앙상블 + Isotonic Regression 보정 |
+| RevPAR 예측 Test R² | **0.64** | LightGBM 2-모델 앙상블 + Isotonic Regression 보정 + 피처 엔지니어링 강화 |
 | 슈퍼호스트 프리미엄 | **+83.1%** | 슈퍼호스트의 RevPAR이 일반 호스트 대비 83.1% 높음을 데이터에서 관찰 |
-| 예측 피처 | **23개** | ADR 13개 + 예약률 10개 피처 엔지니어링 |
+| 예측 피처 | **24개** (원핫 후 32개) | 기본 20개 + 파생 4개 (bed_bath_product, rating_x_log_reviews, district_dormant_ratio, is_min_nights_optimal) |
 | 데이터 누수 방지 | **OOF** | price_gap을 Out-of-Fold 방식으로 생성하여 데이터 누수 차단 |
 
 ### 데이터 분석
@@ -43,7 +43,7 @@
 
 | 항목 | 내용 |
 |------|------|
-| Streamlit 대시보드 | 5단계 위자드 + 6개 분석 탭 ([라이브](https://seoul-airbnb-dashboard.streamlit.app/)) |
+| Streamlit 대시보드 | 5단계 위자드 + 6개 분석 탭 ([라이브](https://revmax-for-hosts.streamlit.app/)) |
 | Web 대시보드 | Next.js + FastAPI 기반 (개발 중) |
 | 분석 노트북 | 7개 노트북 (EDA → 전처리 → 모델링 → 클러스터링 → 인사이트) |
 | Multi-Agent | 7개 에이전트 파이프라인 (도메인 → 가설 → EDA → 피처 → 모델링 → 검증) |
@@ -86,4 +86,4 @@ Model A의 ADR 예측값과 호스트 실제 ADR의 차이(price_gap)를 Model B
 
 ## 사용 기술
 
-`Python` `LightGBM` `scikit-learn` `SHAP` `Pandas` `NumPy` `Matplotlib` `Streamlit` `Next.js` `FastAPI` `GeoPandas` `Shapely` `Nominatim API`
+`Python` `LightGBM` `scikit-learn` `SHAP` `Pandas` `NumPy` `Matplotlib` `Streamlit` `Next.js` `FastAPI` `Nominatim API`

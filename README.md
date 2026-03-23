@@ -20,6 +20,7 @@
 | `agents/` | Multi-Agent 분석 파이프라인 설정 (JSON) |
 | `dashboard/streamlit/` | Streamlit 대시보드 — 5단계 위자드 (배포 중) |
 | `dashboard/web/` | Next.js + FastAPI 웹 대시보드 (개발 중) |
+| `shared/` | 프로젝트 전역 공유 모듈 (constants.py, predict_utils.py) |
 | `presentation/` | PPT 빌드 스크립트 및 슬라이드 |
 | `_archive/` | 이전 버전 백업 |
 
@@ -37,7 +38,7 @@
 
 ## 핵심 성과
 
-- **RevPAR 예측 모델 R² 0.85** — LightGBM 2-Stage (ADR + Occupancy) + Isotonic Regression 보정
+- **RevPAR 예측 모델 Test R² 0.64** — LightGBM 2-Stage (ADR + Occupancy) + Isotonic Regression 보정 + 피처 엔지니어링 강화
 - **4개 시장 클러스터별 차별화 전략 도출** — 핫플 수익형, 프리미엄 비즈니스, 로컬 주거형, 가성비 신흥형
 - **슈퍼호스트 RevPAR +83.1% 관찰** — Active+Operating 기준, 일반 호스트 대비 (₩61,205 vs ₩31,825)
 - **호스트 헬스 스코어 5개 컴포넌트 설계** — 리뷰, 사진, 예약정책, 위치, 숙소구성
@@ -50,7 +51,7 @@
 | 분석 | Python, Pandas, NumPy, Matplotlib |
 | ML | LightGBM, scikit-learn (Isotonic Regression, K-Means), SHAP |
 | 대시보드 | Streamlit, Next.js, FastAPI |
-| 지리 데이터 | GeoPandas, Shapely, Nominatim API |
+| 지리 데이터 | Nominatim API, Haversine (NumPy 벡터화) |
 | 데이터 | 32,061행 x 42열 (Inside Airbnb 기반) |
 
 ## 분석 파이프라인
@@ -70,7 +71,7 @@ EDA → 피처 엔지니어링 → 2-Stage ML (ADR + Occupancy) → 클러스터
 ```python
 RevPAR = ADR x Occupancy Rate
 revpar_trend = (l90d_revpar - ttm_revpar/4) / (ttm_revpar/4 + 1e-6)
-target = np.log1p(ttm_revpar)  # 모델 타겟 (skewness=3.76 보정)
+target = np.log1p(ttm_revpar)  # 모델 타겟 (skewness=3.17 보정, AO 기준)
 ```
 
 ## 주요 도메인 인사이트

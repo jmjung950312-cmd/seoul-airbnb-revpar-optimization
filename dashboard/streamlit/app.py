@@ -590,23 +590,18 @@ def load_data():
         cluster_df[["district", "cluster", "cluster_name"]],
         on="district", how="left",
     )
-    return df, cluster_df
-
-@st.cache_data
-def build_poi_db():
-    """데이터셋에서 유니크 POI 목록 추출"""
-    df = pd.read_csv(_APP_DIR / "data/raw/seoul_airbnb_cleaned.csv")
-    cols = ["nearest_poi_name", "nearest_poi_addr", "nearest_poi_type_name",
-            "nearest_poi_lat", "nearest_poi_lng"]
-    poi_df = df[cols].dropna(subset=["nearest_poi_name", "nearest_poi_lat", "nearest_poi_lng"])
+    # active_df도 캐시에 포함 — rerun마다 재계산 방지
+    active_df = df[
+        (df["refined_status"] == "Active") & (df["operation_status"] == "Operating")
+    ].copy()
+    # POI DB도 동일 CSV에서 추출 — CSV 이중 로딩 제거
+    poi_cols = ["nearest_poi_name", "nearest_poi_addr", "nearest_poi_type_name",
+                "nearest_poi_lat", "nearest_poi_lng"]
+    poi_df = df[poi_cols].dropna(subset=["nearest_poi_name", "nearest_poi_lat", "nearest_poi_lng"])
     poi_df = poi_df.drop_duplicates(subset=["nearest_poi_name"]).reset_index(drop=True)
-    return poi_df
+    return df, cluster_df, active_df, poi_df
 
-df, cluster_df = load_data()
-active_df = df[
-    (df["refined_status"] == "Active") & (df["operation_status"] == "Operating")
-].copy()
-poi_db = build_poi_db()
+df, cluster_df, active_df, poi_db = load_data()
 
 # ── 브라우저 GPS 위치 수집 (비동기 — 스크립트 레벨에서 호출해야 결과 수신 가능) ──
 _browser_loc = get_geolocation()
@@ -786,19 +781,35 @@ def handle_current_location():
         return True, fallback
 
 def find_nearby_pois(lat, lng, max_km=2.0):
-    """반경 max_km 내 POI 목록 반환 (거리 순 정렬)"""
+    """반경 max_km 내 POI 목록 반환 (거리 순 정렬) — NumPy 벡터화 버전"""
+    R = 6371.0
+    lat1 = np.radians(lat)
+    lon1 = np.radians(lng)
+    lat2 = np.radians(poi_db["nearest_poi_lat"].values)
+    lon2 = np.radians(poi_db["nearest_poi_lng"].values)
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = np.sin(dlat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2) ** 2
+    dists = R * 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+
+    mask = dists <= max_km
+    if not mask.any():
+        return []
+
+    subset = poi_db[mask].copy()
+    subset_dists = dists[mask]
+    subset["_dist_km"] = subset_dists
+    subset = subset.sort_values("_dist_km")
+
     results = []
-    for _, row in poi_db.iterrows():
-        dist = haversine_km(lat, lng, row["nearest_poi_lat"], row["nearest_poi_lng"])
-        if dist <= max_km:
-            results.append({
-                "name": row["nearest_poi_name"],
-                "type": row["nearest_poi_type_name"] if pd.notna(row["nearest_poi_type_name"]) else "기타",
-                "dist_km": dist,
-                "dist_m": int(dist * 1000),
-                "addr": row["nearest_poi_addr"] if pd.notna(row.get("nearest_poi_addr")) else "",
-            })
-    results.sort(key=lambda x: x["dist_km"])
+    for _, row in subset.iterrows():
+        results.append({
+            "name": row["nearest_poi_name"],
+            "type": row["nearest_poi_type_name"] if pd.notna(row["nearest_poi_type_name"]) else "기타",
+            "dist_km": row["_dist_km"],
+            "dist_m": int(row["_dist_km"] * 1000),
+            "addr": row["nearest_poi_addr"] if pd.notna(row.get("nearest_poi_addr")) else "",
+        })
     return results
 
 # ── session_state 초기화 ──────────────────────────────────────────────────────
@@ -2258,10 +2269,17 @@ def step5():
 
             pct_range = np.linspace(-50, 100, 40)
             price_range = my_adr * (1 + pct_range / 100)
-            sim_profits = []
-            for _p in price_range:
-                _r = predict_revpar({**_listing, "ttm_avg_rate": _p}, opex_per_month=total_opex, **ml_artifacts)
-                sim_profits.append(_r["net_profit"])
+
+            # 시뮬레이션 커브를 session_state에 캐싱 — 슬라이더 변경 시 재계산 방지
+            _sim_cache_key = f"{hash(frozenset(_listing.items()))}_{my_adr}_{total_opex}"
+            if st.session_state.get("_sim_cache_key") != _sim_cache_key:
+                _sim_profits_cache = []
+                for _p in price_range:
+                    _r = predict_revpar({**_listing, "ttm_avg_rate": _p}, opex_per_month=total_opex, **ml_artifacts)
+                    _sim_profits_cache.append(_r["net_profit"])
+                st.session_state["_sim_cache_key"] = _sim_cache_key
+                st.session_state["_sim_profits_cache"] = _sim_profits_cache
+            sim_profits = st.session_state["_sim_profits_cache"]
 
             cs1, cs2 = st.columns(2)
             with cs1:

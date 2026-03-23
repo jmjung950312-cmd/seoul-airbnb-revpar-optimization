@@ -72,32 +72,8 @@ REPORT_PATH = _BASE / 'reports' / 'host_preview_demo.json'
 DUPLICATE_HISTORY_PATH = _BASE / 'logs' / 'host_preview_history.json'
 
 # ──────────────────────────────────────────────
-# 25개 자치구 영문→한글 매핑 (risk_detection/config.py 복제)
+# 25개 자치구 영문→한글 매핑 (shared/constants.py 단일 소스)
 # ──────────────────────────────────────────────
-DISTRICT_KO = {
-  'Gangnam-gu':      '강남구',
-  'Gangdong-gu':     '강동구',
-  'Gangbuk-gu':      '강북구',
-  'Gangseo-gu':      '강서구',
-  'Gwanak-gu':       '관악구',
-  'Gwangjin-gu':     '광진구',
-  'Guro-gu':         '구로구',
-  'Geumcheon-gu':    '금천구',
-  'Nowon-gu':        '노원구',
-  'Dobong-gu':       '도봉구',
-  'Dongdaemun-gu':   '동대문구',
-  'Dongjak-gu':      '동작구',
-  'Mapo-gu':         '마포구',
-  'Seodaemun-gu':    '서대문구',
-  'Seocho-gu':       '서초구',
-  'Seongdong-gu':    '성동구',
-  'Seongbuk-gu':     '성북구',
-  'Songpa-gu':       '송파구',
-  'Yangcheon-gu':    '양천구',
-  'Yeongdeungpo-gu': '영등포구',
-  'Yongsan-gu':      '용산구',
-  'Eunpyeong-gu':    '은평구',
-  'Jongno-gu':       '종로구',
-  'Jung-gu':         '중구',
-  'Jungnang-gu':     '중랑구',
-}
+import sys as _sys
+_sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
+from shared.constants import DISTRICT_KO  # noqa: E402

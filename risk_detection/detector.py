@@ -123,17 +123,12 @@ def apply_rules(df: pd.DataFrame) -> pd.DataFrame:
 
   df['rule_count'] = df[rule_cols].sum(axis=1)
 
-  # 발동된 규칙명을 쉼표 구분 문자열로 기록
-  def _triggered_rules(row):
-    triggered = [name for col, name in zip(rule_cols, rule_names) if row[col]]
-    return ', '.join(triggered) if triggered else ''
-
-  df['rules_triggered'] = df[rule_cols].apply(
-    lambda row: ', '.join(
-      name for col, name in zip(rule_cols, rule_names) if row[col]
-    ),
-    axis=1
-  )
+  # 발동된 규칙명을 쉼표 구분 문자열로 기록 (벡터화)
+  rule_flags = df[rule_cols].values.astype(bool)
+  rule_name_arr = np.array(rule_names)
+  df['rules_triggered'] = [
+      ', '.join(rule_name_arr[flags]) for flags in rule_flags
+  ]
 
   return df
 

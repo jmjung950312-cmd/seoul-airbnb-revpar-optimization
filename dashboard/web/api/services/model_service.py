@@ -5,53 +5,17 @@ from functools import lru_cache
 import numpy as np
 import pandas as pd
 
-# predict_utils는 상위 디렉토리에서 import
+# predict_utils + shared 패키지 경로 설정
 import sys
+_PROJECT_ROOT = str(Path(__file__).resolve().parents[4])
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from predict_utils import load_models, predict_revpar, compute_health_score  # noqa: E402
+from shared.constants import DISTRICT_NAME_MAP, ROOM_TYPE_MAP  # noqa: E402
+from shared.predict_utils import get_poi_dist_category  # noqa: E402
 
 DATA_DIR = Path(__file__).parent.parent / "data"
-
-# ── 자치구 이름 매핑 (Next.js 형식 → district_lookup.csv 형식) ─────────────────
-DISTRICT_NAME_MAP: dict[str, str] = {
-    "Gangnam":      "Gangnam-gu",
-    "Gangdong":     "Gangdong-gu",
-    "Gangbuk":      "Gangbuk-gu",
-    "Gangseo":      "Gangseo-gu",
-    "Gwanak":       "Gwanak-gu",
-    "Gwangjin":     "Gwangjin-gu",
-    "Guro":         "Guro-gu",
-    "Geumcheon":    "Geumcheon-gu",
-    "Nowon":        "Nowon-gu",
-    "Dobong":       "Dobong-gu",
-    "Dongdaemun":   "Dongdaemun-gu",
-    "Dongjak":      "Dongjak-gu",
-    "Mapo":         "Mapo-gu",
-    "Seodaemun":    "Seodaemun-gu",
-    "Seocho":       "Seocho-gu",
-    "Seongdong":    "Seongdong-gu",
-    "Seongbuk":     "Seongbuk-gu",
-    "Songpa":       "Songpa-gu",
-    "Yangcheon":    "Yangcheon-gu",
-    "Yeongdeungpo": "Yeongdeungpo-gu",
-    "Yongsan":      "Yongsan-gu",
-    "Eunpyeong":    "Eunpyeong-gu",
-    "Jongno":       "Jongno-gu",
-    "Jung":         "Jung-gu",
-    "Jungnang":     "Jungnang-gu",
-}
-
-# ── room_type 매핑 (Next.js UI 값 → predict_utils 값) ─────────────────────────
-ROOM_TYPE_MAP: dict[str, str] = {
-    "Entire home/apt": "entire_home",
-    "Private room":    "private_room",
-    "Shared room":     "shared_room",
-    "Hotel room":      "hotel_room",
-    "entire_home":     "entire_home",
-    "private_room":    "private_room",
-    "shared_room":     "shared_room",
-    "hotel_room":      "hotel_room",
-}
 
 # ── 사진 티어 헬퍼 ────────────────────────────────────────────────────────────
 def get_photos_tier(photos_count: int) -> str:
@@ -59,13 +23,6 @@ def get_photos_tier(photos_count: int) -> str:
     elif photos_count < 23:  return "중하"
     elif photos_count <= 35: return "중상"
     else:                    return "상"
-
-# ── POI 거리 카테고리 ─────────────────────────────────────────────────────────
-def get_poi_dist_category(dist_km: float) -> str:
-    if dist_km < 0.2:   return "초근접"
-    elif dist_km < 0.5: return "근접"
-    elif dist_km < 1.0: return "보통"
-    else:               return "원거리"
 
 
 # ── 싱글턴: 모델 & 데이터 캐싱 ───────────────────────────────────────────────
@@ -84,15 +41,16 @@ def get_cluster_listings() -> pd.DataFrame:
 
 # ── 자치구 → lookup row ───────────────────────────────────────────────────────
 def get_district_row(district_short: str) -> pd.Series:
-    """'Gangnam' → district_lookup['Gangnam-gu'] 행 반환"""
-    district_full = DISTRICT_NAME_MAP.get(district_short, district_short)
+    """'Gangnam' → district_lookup['Gangnam-gu'] 행 반환. 잘못된 입력 시 ValueError."""
+    district_full = DISTRICT_NAME_MAP.get(district_short)
+    if not district_full:
+        raise ValueError(
+            f"알 수 없는 자치구: '{district_short}'. "
+            f"허용 값: {list(DISTRICT_NAME_MAP.keys())}"
+        )
     lookup = get_district_lookup()
     if district_full not in lookup.index:
-        # 가장 유사한 키로 폴백
-        district_full = next(
-            (k for k in lookup.index if district_short.lower() in k.lower()),
-            lookup.index[0],
-        )
+        raise ValueError(f"district_lookup.csv에 '{district_full}'이 없습니다.")
     return lookup.loc[district_full]
 
 
@@ -137,7 +95,7 @@ def run_predict(req) -> dict:
         "rating_overall":          req.review_scores_rating,
         "photos_count":            req.photos,
         "num_reviews":             req.review_count,
-        "extra_guest_fee_policy":  "0",
+        "extra_guest_fee_policy":  "1" if getattr(req, 'extra_guest_fee', False) else "0",
         "is_active_operating":     1,
 
         # POI
@@ -205,7 +163,7 @@ def run_health_score(req) -> dict:
         "my_photos":     req.photos,
         "my_instant":    req.instant_bookable,
         "my_min_nights": req.min_nights,
-        "my_extra_fee":  False,
+        "my_extra_fee":  getattr(req, 'extra_guest_fee', False),
         "my_poi_dist":   poi_dist,
         "my_bedrooms":   req.bedrooms,
         "my_baths":      req.bathrooms,
@@ -251,8 +209,14 @@ def run_benchmark(district: str, room_type: str) -> dict:
     ao_df = get_cluster_listings()
     cluster_df = ao_df[ao_df["cluster"] == cluster_id].copy()
 
+    # room_type 필터 적용 (최소 표본 10개 이상일 때만)
+    if "room_type" in cluster_df.columns:
+        filtered = cluster_df[cluster_df["room_type"] == room_type_norm]
+        if len(filtered) >= 10:
+            cluster_df = filtered
+
     # ADR 추정값 (ttm_revpar 활용)
-    if "ttm_revpar" in cluster_df.columns and len(cluster_df) > 10:
+    if "ttm_revpar" in cluster_df.columns and len(cluster_df) >= 10:
         revpars = cluster_df["ttm_revpar"].dropna()
         # 예약률 중앙값 추정 (~0.65)
         occ_est = 0.65

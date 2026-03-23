@@ -61,7 +61,7 @@ data/processed/
 **분석 필터**:
 - 전체 32,061개 분석 + Active+Operating(`refined_status=='Active'` & `operation_status=='Operating'`) 14,399개 서브셋 별도 분석
 
-**제외 컬럼**: `exng`, `ttm_exng` (상수), `nearest_poi_image` (23.9% 결측)
+**제외 컬럼**: `exng`, `ttm_exng` (상수), `nearest_poi_image` (23.9% 결측), `review_rate` (HIGH 등급 누수)
 
 ### KPI Definitions
 
@@ -75,7 +75,7 @@ revpar_trend = (l90d_revpar - ttm_revpar/4) / (ttm_revpar/4 + 1e-6)
 log_ttm_revpar = np.log1p(ttm_revpar)
 is_active_operating = (refined_status=='Active') & (operation_status=='Operating')
 
-# 모델 타겟 (log1p 변환 사용 — skewness=3.76)
+# 모델 타겟 (log1p 변환 사용 — skewness=3.17, Active+Operating 기준)
 target = np.log1p(ttm_revpar)
 # 역변환
 y_pred_original = np.expm1(y_pred_log)
@@ -95,8 +95,11 @@ y_pred_original = np.expm1(y_pred_log)
 | `l90d_revpar`, `l90d_occupancy`, `l90d_avg_rate`, `l90d_revenue` | 제외 | 타겟 관련 기간별 파생 |
 | `revpar_percentile`, `log_ttm_revpar` | 제외 | 타겟 직접 변환 |
 
-**모델 입력 피처**:
-`room_type`, `superhost`, `instant_book`, `bedrooms_group`, `baths_group`, `guests_group`, `min_nights`, `extra_guest_fee_policy`, `rating_overall`, `photos_count`, `num_reviews`, `nearest_poi_dist_km`, `nearest_poi_type_name`, `photos_tier`, `poi_dist_category`
+**모델 입력 피처 (20개 기본 + 4개 파생 = 24개, 원핫 인코딩 후 32개)**:
+`room_type`, `superhost`, `instant_book`, `bedrooms_group`, `baths_group`, `guests_group`, `min_nights`, `extra_guest_fee_policy`, `rating_overall`, `photos_count`, `num_reviews`, `nearest_poi_dist_km`, `nearest_poi_type_name`, `district_listing_count`, `district_superhost_rate`, `district_operating_rate`, `district_entire_home_rate`, `ttm_pop`, `photos_tier`, `poi_dist_category`
+
+**파생 피처 (신규)**:
+`bed_bath_product` (침실×욕실, corr=0.50), `rating_x_log_reviews` (평점×리뷰로그, corr=0.39), `district_dormant_ratio` (자치구 비활성 비율, corr=-0.15), `is_min_nights_optimal` (2~3박 최적 구간)
 
 ### Modeling Standards
 
@@ -169,3 +172,14 @@ dist_*      # 자치구(district) 집계 통계
 | `feature_engineering.json` | 피처 엔지니어링 명세 |
 | `synthesis_and_modeling.json` | 종합 모델링 계획 |
 | `model_review.json` | 모델 리뷰 결과 (CONDITIONAL APPROVED) |
+
+## Shared Modules
+
+`shared/` 폴더에 프로젝트 전역 공유 모듈이 있음 (단일 진실 원천):
+
+| 파일 | 내용 |
+|------|------|
+| `shared/constants.py` | DISTRICT_KO, DISTRICT_NAME_MAP, ROOM_TYPE_MAP, 모델링 상수 |
+| `shared/predict_utils.py` | load_models, predict_revpar, compute_health_score, get_poi_dist_category |
+
+`host_preview/`, `risk_detection/`, `dashboard/` 모든 모듈은 `shared/`에서 상수를 import합니다.

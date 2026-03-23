@@ -44,5 +44,7 @@ async def analyze(req: PredictRequest):
             nearby_pois=pois,
             listing_description=description,
         )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e

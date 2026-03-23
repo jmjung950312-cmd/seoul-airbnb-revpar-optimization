@@ -17,6 +17,8 @@ async def predict(req: PredictRequest):
     try:
         result = run_predict(req)
         return PredictResponse(**result)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
 
@@ -27,6 +29,8 @@ async def health_score(req: PredictRequest):
     try:
         result = run_health_score(req)
         return HealthScoreResponse(**result)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
 
@@ -37,5 +41,7 @@ async def benchmark(req: BenchmarkRequest):
     try:
         result = run_benchmark(req.district, req.room_type)
         return BenchmarkResponse(**result)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e

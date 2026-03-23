@@ -94,10 +94,15 @@ def run_preview_scan(csv_path=None) -> dict:
   tracker.purge_old(days=30)
 
   # full_df 중 CRITICAL/WARNING 리스팅에 대해 중복 판별
-  flagged = full_df[full_df['status'].isin(['CRITICAL', 'WARNING'])].copy() if 'status' in full_df.columns else full_df.copy()
+  # analyzer.py는 'anomaly_level' 컬럼을 생성 (기존 'status'는 존재하지 않음)
+  _level_col = 'anomaly_level' if 'anomaly_level' in full_df.columns else None
+  if _level_col:
+    flagged = full_df[full_df[_level_col].isin(['CRITICAL', 'WARNING'])].copy()
+  else:
+    flagged = full_df.copy()
   if not flagged.empty and 'listing_idx' in flagged.columns:
-    # status 필드를 rules로 활용 (예: ['CRITICAL'])
-    flagged['rules_triggered'] = flagged['status'].apply(lambda s: str(s))
+    if _level_col:
+      flagged['rules_triggered'] = flagged[_level_col].astype(str)
     new_flagged, skipped = tracker.filter_new(flagged, cooldown_days=7)
     if skipped > 0:
       print(f'  → 중복 스킵: {skipped}건 (7일 내 동일 상태)')
