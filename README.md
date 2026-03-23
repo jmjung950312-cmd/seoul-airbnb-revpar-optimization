@@ -2,7 +2,7 @@
 
 > 32,061개 리스팅 데이터 기반 RevPAR 최적화 | 2-Stage ML Pipeline | Streamlit 대시보드
 
-[라이브 대시보드](https://seoul-airbnb-dashboard.streamlit.app/)
+[라이브 대시보드](https://revmax-for-hosts.streamlit.app/)
 
 ## 프로젝트 개요
 
